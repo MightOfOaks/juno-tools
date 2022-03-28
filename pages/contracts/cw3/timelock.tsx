@@ -25,24 +25,24 @@ const CW3Timelock = () => {
   const encode = (str: string): string =>
     Buffer.from(str, 'binary').toString('base64')
 
-    const instantiate = async (initMsg: Record<string, unknown>) => {
-      try {
-        if (!contract) {
-          return toast.error('Smart contract connection failed.')
-        }
-        console.log(initMsg)
-        const response = await contract.instantiate(
-          627,
-          initMsg,
-          'Timelock Test',
-          wallet.address,
-        )
-  
-        console.log(response)
-      } catch (error: any) {
-        toast.error(error.message, { style: { maxWidth: 'none' } })
+  const instantiate = async (initMsg: Record<string, unknown>) => {
+    try {
+      if (!contract) {
+        return toast.error('Smart contract connection failed.')
       }
+      console.log(initMsg)
+      const response = await contract.instantiate(
+        627,
+        initMsg,
+        'Timelock Test',
+        wallet.address
+      )
+
+      console.log(response)
+    } catch (error: any) {
+      toast.error(error.message, { style: { maxWidth: 'none' } })
     }
+  }
 
   const query = async () => {
     try {
@@ -158,7 +158,9 @@ const CW3Timelock = () => {
           <InstantiateTimelock function={instantiate} />
         </div>
       ) : (
-        <ManageTimeLock />
+        <div className="w-full">
+          <ManageTimeLock />
+        </div>
       )}
     </div>
   )
