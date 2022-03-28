@@ -25,6 +25,16 @@ const CustomInput = (props: {
     toast.success('copied to clipboard')
   }
 
+  const removeClicked = (item: string) => {
+    let tempArray: React.SetStateAction<never[]>= [];
+    for (let i = 0; i < items.length; i++) {
+      if (items[i] !== item) {
+        tempArray.push(items[i]);
+      }
+    }
+    setItems(tempArray);
+  }
+
   return (
     <div className="px-3">
       <div className="flex flex-row">
@@ -61,7 +71,7 @@ const CustomInput = (props: {
                     '...' +
                     item.slice(item.length - 5, item.length)}
                 </button>
-                <div className="ml-5" onClick={addClicked}>
+                <div className="ml-5" onClick={() => {removeClicked(item)}}>
                   <button type="button" className="hover:text-juno pl-2">
                     x
                   </button>

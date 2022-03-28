@@ -29,7 +29,7 @@ const ManageTimelock = () => {
         const admins = await client?.getAdmins()
         const proposers = await client?.getProposers()
         const minDelay = await client?.getMinDelay()
-        
+
         const res = await client?.getOperations()
         console.log(operations)
 

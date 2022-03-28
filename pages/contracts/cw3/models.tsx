@@ -2,7 +2,7 @@ export class Timelock {
   constructor(
     public admins: string[],
     public proposers: string[],
-    public min_time_delay: number,
+    public min_time_delay: number
   ) {}
 }
 
