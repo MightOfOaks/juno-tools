@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { toast } from 'react-hot-toast'
 
-const CustomInput = (props: { placeholder: string | undefined; function: () => void }
-) => {
+const CustomInput = (props: {
+  placeholder: string | undefined
+  function: () => void
+}) => {
   const [input, setInput] = useState('')
   const [items, setItems] = useState([])
 
@@ -19,8 +21,8 @@ const CustomInput = (props: { placeholder: string | undefined; function: () => v
   }
 
   const copy = async (text: string) => {
-    await navigator.clipboard.writeText(text);
-    toast.success("copied to clipboard");
+    await navigator.clipboard.writeText(text)
+    toast.success('copied to clipboard')
   }
 
   return (
@@ -50,12 +52,19 @@ const CustomInput = (props: { placeholder: string | undefined; function: () => v
           return (
             <div key={item}>
               <div className="grid grid-cols-2 p-2 rounded bg-black bg-opacity-10 w-1/3">
-                <button type="button" onClick={() => copy(item)} className="text-sm">{item.slice(0,5) + "..." + item.slice(item.length -5, item.length)}</button>
-                <div
-                  className="ml-5"
-                  onClick={addClicked}
+                <button
+                  type="button"
+                  onClick={() => copy(item)}
+                  className="text-sm"
                 >
-                  <button type="button" className="hover:text-juno pl-2">x</button>
+                  {item.slice(0, 5) +
+                    '...' +
+                    item.slice(item.length - 5, item.length)}
+                </button>
+                <div className="ml-5" onClick={addClicked}>
+                  <button type="button" className="hover:text-juno pl-2">
+                    x
+                  </button>
                 </div>
               </div>
             </div>
