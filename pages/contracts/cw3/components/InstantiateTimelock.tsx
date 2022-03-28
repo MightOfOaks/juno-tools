@@ -58,18 +58,18 @@ const InstantiateTimelock = (props: {
   }
   return (
     <div>
-      <div className="relative px-10 py-5 flex-col">
+      <div className="relative px-10 flex-col">
         <div className="mb-10 flex flex-row w-max">
           <div className="flex-col basis-1/4">
             <label
               htmlFor="small-input"
-              className="mb-1 mx-5 block text-sm font-medium text-gray-900 dark:text-gray-300"
+              className="mb-1 mx-3 block text-sm font-medium text-gray-900 dark:text-gray-300"
             >
               Minimum Delay
             </label>
             <input
               type="text"
-              className="py-1 px-1 mx-5 rounded text-black"
+              className="py-1 px-1 mx-3 rounded text-black text-gray-900 dark:text-gray-300"
               placeholder="Minimum Delay"
             />
           </div>
@@ -84,10 +84,12 @@ const InstantiateTimelock = (props: {
             <option value="seconds">seconds</option>
           </select>
           <div className="px-6 mt-5 basis-1/4">
-            <button className="p-2 bg-juno rounded-lg hover:bg-opacity-10">Instantiate</button>
+            <button className="p-2 bg-juno rounded-lg hover:bg-opacity-10">
+              Instantiate
+            </button>
           </div>
         </div>
-        <hr />
+        <hr className="mx-3" />
         <div className="grid grid-cols-2 gap-4 mt-10">
           <CustomInput function={resetFlags} placeholder="Admins" />
           <CustomInput function={resetFlags} placeholder="Proposers" />

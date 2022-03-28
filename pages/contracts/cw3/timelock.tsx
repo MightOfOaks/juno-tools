@@ -129,7 +129,7 @@ const CW3Timelock = () => {
         A smart contract that relays execute function calls on other smart
         contracts with a predetermined minimum time delay.
       </div>
-      <div className="py-3 px-5 container mt-5">
+      <div className="py-3 px-6 container mt-5">
         <div className="mb-3 px-10">
           <label
             htmlFor="Section"

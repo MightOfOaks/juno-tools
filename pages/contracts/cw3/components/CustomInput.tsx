@@ -16,8 +16,12 @@ const CustomInput = (props: {
   }
 
   const addClicked = () => {
-    // @ts-ignore
-    setItems([...items, input])
+
+    if (items.includes(input.toString() as never)) {
+      toast.error("address already exists");
+    } else {
+      setItems([...items, input] as never)
+    }
   }
 
   const copy = async (text: string) => {
@@ -26,13 +30,13 @@ const CustomInput = (props: {
   }
 
   const removeClicked = (item: string) => {
-    let tempArray: React.SetStateAction<never[]>= [];
+    let tempArray: React.SetStateAction<never[]> = []
     for (let i = 0; i < items.length; i++) {
       if (items[i] !== item) {
-        tempArray.push(items[i]);
+        tempArray.push(items[i])
       }
     }
-    setItems(tempArray);
+    setItems(tempArray)
   }
 
   return (
@@ -71,7 +75,12 @@ const CustomInput = (props: {
                     '...' +
                     item.slice(item.length - 5, item.length)}
                 </button>
-                <div className="ml-5" onClick={() => {removeClicked(item)}}>
+                <div
+                  className="ml-5"
+                  onClick={() => {
+                    removeClicked(item)
+                  }}
+                >
                   <button type="button" className="hover:text-juno pl-2">
                     x
                   </button>
