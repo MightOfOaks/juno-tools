@@ -25,35 +25,24 @@ const CW3Timelock = () => {
   const encode = (str: string): string =>
     Buffer.from(str, 'binary').toString('base64')
 
-  const instantiate = async () => {
-    try {
-      if (!contract) {
-        return toast.error('Smart contract connection failed.')
+    const instantiate = async (initMsg: Record<string, unknown>) => {
+      try {
+        if (!contract) {
+          return toast.error('Smart contract connection failed.')
+        }
+        console.log(initMsg)
+        const response = await contract.instantiate(
+          627,
+          initMsg,
+          'Timelock Test',
+          wallet.address,
+        )
+  
+        console.log(response)
+      } catch (error: any) {
+        toast.error(error.message, { style: { maxWidth: 'none' } })
       }
-      const response = await contract.instantiate(
-        626,
-        {
-          admins: [
-            'juno1smz9wdg5v7wywquyy7zn7ujvu54kuumwzw5ss8',
-            'juno1dc5yv2w2plccmxxh6szden8kqkshqjgkeqkg74',
-            'juno169rrmm8vkdhaalaq7pgpl2xy7qx338h0pmpm8t',
-          ],
-          proposers: [
-            'juno1smz9wdg5v7wywquyy7zn7ujvu54kuumwzw5ss8',
-            'juno1dc5yv2w2plccmxxh6szden8kqkshqjgkeqkg74',
-            'juno169rrmm8vkdhaalaq7pgpl2xy7qx338h0pmpm8t',
-          ],
-          min_delay: '10000000000',
-        },
-        'Timelock Test',
-        wallet.address
-      )
-
-      console.log(response)
-    } catch (error: any) {
-      toast.error(error.message, { style: { maxWidth: 'none' } })
     }
-  }
 
   const query = async () => {
     try {

@@ -1,68 +1,83 @@
-import React, { useState } from 'react'
+import React, { useEffect,useState } from 'react'
+
 
 const InstantiateTimelock = (props: {
   function: (
-    arg0: number,
-    arg1: Record<string, unknown>,
-    arg2: string,
-    arg3?: string | undefined
+    arg0: Record<string, unknown>,
   ) => void
 }) => {
-  const [codeId, setCodeId] = useState(626)
   const [initMsg, setInitMsg] = useState<Record<string, unknown>>({})
-  const [label, setLabel] = useState('')
-  const [admin, setAdmin] = useState('')
+  const [admins, setAdmins] = useState('')
+  const [proposers, setProposers] = useState('')
+  const [executors, setExecutors] = useState('')
+  const [minDelay, setMinDelay] = useState(0)
   const [flag, setFlag] = useState(false)
 
   const resetFlags = () => {
     setFlag(false)
   }
 
-  const handleDelayChange = (event: {
+  const handleChangeAdmins = (event: {
     target: { value: React.SetStateAction<string> }
   }) => {
-    setLabel(event.target.value)
+    setAdmins(event.target.value)
   }
 
-  const initiate = () => {
-    if (!(codeId && initMsg && label)) {
+  const handleChangeProposers = (event: {
+    target: { value: React.SetStateAction<string> }
+  }) => {
+    setProposers(event.target.value)
+  }
+
+  const handleChangeExecutors = (event: {
+    target: { value: React.SetStateAction<string> }
+  }) => {
+    setExecutors(event.target.value)
+  }
+
+  const handleChangeMinDelay = (event: {
+    target: { value: React.SetStateAction<string> }
+  }) => {
+    setMinDelay(Number(event.target.value))
+  }
+
+
+  useEffect(() => {
+    setInitMsg({
+      admins:[admins],
+      proposers:[proposers],
+      min_delay: Number(minDelay).toString(),
+      executors:[executors],
+    });
+}, [admins,proposers,minDelay,executors]);
+
+
+  const instantiate = () => {
+    if (!(initMsg)) {
       setFlag(true)
       setTimeout(resetFlags, 3000)
     } else {
-      props.function(codeId, initMsg, label, admin)
+      props.function(initMsg)
     }
   }
   return (
-    <div>
-      <div className="relative px-10 py-5">
-        <input
-          type="text"
-          id="contract-id"
-          className=" flex-1 rounded appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent mt-3"
-          placeholder="Admins"
-        />
-        <input
-          type="text"
-          id="contract-id"
-          className=" flex-1 rounded appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent mt-3"
-          placeholder="Proposers"
-        />
-        <input
-          type="text"
-          id="contract-id"
-          className=" flex-1 rounded appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent mt-3"
-          placeholder="Executors"
-        />
-        <input
-          type="text"
-          id="contract-id"
-          className=" flex-1 rounded appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent mt-3"
-          placeholder="Minimum Delay in nanosecs"
-        />
+    
+      <div>
+       
+        <div className=" relative px-10 py-5">
+          
+           <input type="text" id="admins" onChange={handleChangeAdmins} className=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-black placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent mt-3" placeholder="Admins"/>
+           <input type="text" id="proposers" onChange={handleChangeProposers} className=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-black placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent mt-3" placeholder="Proposers"/>
+           <input type="text" id="executors" onChange={handleChangeExecutors} className=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-black placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent mt-3" placeholder="Executors"/>
+           <input type="text" id="min_delay" onChange={handleChangeMinDelay} className=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-black placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent mt-3" placeholder="Minimum Delay in nanosecs"/>
 
-        <button className="p-3 bg-juno rounded-lg mt-3">Instantiate</button>
-      </div>
-
+          
+           <button onClick={instantiate} className="p-3 bg-juno rounded-lg mt-3">
+              Instantiate
+           </button>
+        </div>
+       
+      
       <br />
       {flag && <div></div>}
     </div>
