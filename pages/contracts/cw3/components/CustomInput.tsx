@@ -56,7 +56,11 @@ const CustomInput = (props: {
             placeholder={props.placeholder}
           />
         </div>
-        <button type="button" className=" basis-1/12 mt-2 ml-1" onClick={addClicked}>
+        <button
+          type="button"
+          className=" basis-1/12 mt-2 ml-1"
+          onClick={addClicked}
+        >
           <span className="hover:text-juno p-2 border-2 rounded-full">+</span>
         </button>
       </div>

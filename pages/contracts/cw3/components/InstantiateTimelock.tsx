@@ -83,8 +83,8 @@ const InstantiateTimelock = (props: {
             <option value="minutes">minutes</option>
             <option value="seconds">seconds</option>
           </select>
-          <div className="px-6 mt-6 basis-1/4">
-            <button className="p-2 bg-juno rounded-lg hover:bg-opacity-10">
+          <div className="px-6 mt-5 basis-1/4">
+            <button className="p-2 border-2 rounded-lg hover:text-juno">
               Instantiate
             </button>
           </div>
