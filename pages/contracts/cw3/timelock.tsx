@@ -136,13 +136,13 @@ const CW3Timelock = () => {
             className="block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
           ></label>
           <span className="text-gray-400 font-medium">Create</span>
-          <div className="rounded-full border-solid border-2 border-white-600 relative inline-block w-10 ml-2 mr-2 align-middle select-none">
+          <div className="bg-juno rounded-full border-solid border-2 border-white-600 relative inline-block w-10 ml-2 mr-2 align-middle select-none">
             <input
               onClick={togglePage}
               type="checkbox"
               name="toggle"
               id="sectionToggle"
-              className="bg-[#CA6F6D] outline-none focus:outline-none right-4 checked:right-0 duration-200 ease-in absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
+              className="outline-none focus:outline-none right-4 checked:right-0 duration-200 ease-in absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
             />
             <label
               htmlFor="Section"
