@@ -5,11 +5,11 @@ import { Operation, Timelock } from '../models'
 import { useWallet } from 'contexts/wallet'
 import { useContracts } from 'contexts/contracts'
 
-const ManageTimeLock = () => {
+const ManageTimelock = () => {
 
   const theme = useTheme()
   const [contractAddress, setContractAddress] = useState(
-    'juno1w7nempd8cl96cj8s9ulpzkn49yyafgctt7e6vtj03x9ejmr8dtnqkcy0vw'
+    'juno1cspathx3ex9hud98vt6qpsujj9gnefkjphzm4f83shue5q5u8suq7me0lc'
   )
   // 'juno1ptxjpktyrus6g8xn9yd98ewzahyhhvc56ddg6c8ln2hk6qhlesxqy43240'
 
@@ -28,11 +28,13 @@ const ManageTimeLock = () => {
       if (client) {
         setClientFound(true)
         const admins = await client?.getAdmins()
+        const proposers = await client?.getProposers()
         const minDelay = await client?.getMinDelay()
+        
         const res = await client?.getOperations()
         console.log(operations)
 
-        setTimelock(new Timelock(admins, [], minDelay))
+        setTimelock(new Timelock(admins, proposers, minDelay))
         setOperations(res.operationList)
       }
     } catch (error: any) {
@@ -67,13 +69,13 @@ const ManageTimeLock = () => {
   return (
     <div>
       <div className="px-10 py-5">
-        <label className="block mb-2 text-lg font-bold text-gray-900 dark:text-gray-300 text-center">
+        <label className="block mb-2 text-lg font-bold text-gray-900 dark:text-gray-300 text-left">
           Timelock Contract Address
         </label>
         <div className="flex">
           <input
             type="text"
-            className="w-3/4 mr-10 bg-gray-50 border border-gray-300 text-black text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="w-3/4 mr-10 bg-gray-50 border border-gray-300 text-black text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder={contractAddress || 'Please enter contract address'}
             value={contractAddress}
             onChange={(e) => setContractAddress(e.target.value)}
@@ -89,7 +91,11 @@ const ManageTimeLock = () => {
           <div className="w-full ml-20 font-bold my-3 text-center items-center text-xl">
             {timelock.admins.length + ' admins'}
             {timelock.admins.map((item, index) => (
-              <div key={index}>{'admin' + (index + 1) + ': ' + item}</div>
+              <div key={index}>{'admin ' + (index + 1) + ': ' + item}</div>
+            ))}
+            {timelock.proposers.length + ' proposers'}
+            {timelock.proposers.map((item, index) => (
+              <div key={index}>{'proposer ' + (index + 1) + ': ' + item}</div>
             ))}
             {'min delay: ' + timelock.min_time_delay} <br />
           </div>
@@ -97,7 +103,7 @@ const ManageTimeLock = () => {
             <div>
               <button
                 type="button"
-                className=" mr-10 h-20 w-28 bg-juno border border-gray-300 shadow-sm flex items-center justify-center w-full rounded-xl px-4 py-2 text-lg font-medium text-gray-50 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500"
+                className=" mr-10 h-20 w-28 bg-juno border border-gray-300 shadow-sm flex items-center justify-center rounded-xl px-4 py-2 text-lg font-medium text-gray-50 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500"
                 id="options-menu"
                 onClick={() => setExecuteDrop(!executeDrop)}
               >
@@ -123,7 +129,7 @@ const ManageTimeLock = () => {
                 >
                   <a
                     href="#"
-                    className="block block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
+                    className="block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
                     role="menuitem"
                   >
                     <span className="flex flex-col">
@@ -132,7 +138,7 @@ const ManageTimeLock = () => {
                   </a>
                   <a
                     href="#"
-                    className="block block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
+                    className="block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
                     role="menuitem"
                   >
                     <span className="flex flex-col">
@@ -141,7 +147,7 @@ const ManageTimeLock = () => {
                   </a>
                   <a
                     href="#"
-                    className="block block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
+                    className="block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
                     role="menuitem"
                   >
                     <span className="flex flex-col">
@@ -150,7 +156,7 @@ const ManageTimeLock = () => {
                   </a>
                   <a
                     href="#"
-                    className="block block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
+                    className="block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
                     role="menuitem"
                   >
                     <span className="flex flex-col">
@@ -159,7 +165,7 @@ const ManageTimeLock = () => {
                   </a>
                   <a
                     href="#"
-                    className="block block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
+                    className="block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
                     role="menuitem"
                   >
                     <span className="flex flex-col">
@@ -168,7 +174,7 @@ const ManageTimeLock = () => {
                   </a>
                   <a
                     href="#"
-                    className="block block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
+                    className="block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
                     role="menuitem"
                   >
                     <span className="flex flex-col">
@@ -177,7 +183,7 @@ const ManageTimeLock = () => {
                   </a>
                   <a
                     href="#"
-                    className="block block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
+                    className="block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
                     role="menuitem"
                   >
                     <span className="flex flex-col">
@@ -213,4 +219,4 @@ const ManageTimeLock = () => {
   )
 }
 
-export default ManageTimeLock
+export default ManageTimelock

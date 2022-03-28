@@ -4,7 +4,7 @@ import { useWallet } from 'contexts/wallet'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import InstantiateTimelock from './components/InstantiateTimelock'
-import ManageTimeLock from './components/ManageTimeLock'
+import ManageTimeLock from './components/ManageTimelock'
 
 //import {
 //   MAINNET_CW1_SUBKEYS_CODE_ID,
