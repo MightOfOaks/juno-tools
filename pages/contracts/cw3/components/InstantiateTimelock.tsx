@@ -1,4 +1,5 @@
 import React, { useEffect,useState } from 'react'
+import CustomInput from './CustomInput'
 
 
 const InstantiateTimelock = (props: {
@@ -62,7 +63,7 @@ const InstantiateTimelock = (props: {
   }
   return (
 
-    <div>
+      <div>
       <div className='relative px-10 py-5 flex-col'>
         <div className='mb-10 flex flex-row w-max'>
           <div className="flex-col basis-1/4">
@@ -72,7 +73,7 @@ const InstantiateTimelock = (props: {
             >
               Min Delay (ns)
             </label>
-            <input type='text' className='py-1 mx-5 rounded text-black' value={label} />
+            <input type='text' className='py-1 mx-5 rounded text-black' />
           </div>
           <select name='time' id='time' className='h-10 mt-5 basis-1/4 rounded text-black px-1 float-right'>
             <option value='days'>days</option>
@@ -93,16 +94,10 @@ const InstantiateTimelock = (props: {
           </div>
         </div>
       </div>
-
-           <button onClick={instantiate} className="p-3 bg-juno rounded-lg mt-3">
-              Instantiate
-           </button>
-        </div>
-       
+      </div>
       
-      <br />
-      {flag && <div></div>}
-    </div>
+      
+     
   )
 }
 
