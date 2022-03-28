@@ -89,7 +89,7 @@ export const CW3Timelock = (
 
     const getExecutors = async (operation_id: string): Promise<any> => {
       const res = await client.queryContractSmart(contractAddress, {
-        get_operations: { operation_id },
+        get_executors: { operation_id },
       })
 
       return res
