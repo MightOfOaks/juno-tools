@@ -61,17 +61,39 @@ const InstantiateTimelock = (props: {
     }
   }
   return (
-    
-      <div>
-       
-        <div className=" relative px-10 py-5">
-          
-           <input type="text" id="admins" onChange={handleChangeAdmins} className=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-black placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent mt-3" placeholder="Admins"/>
-           <input type="text" id="proposers" onChange={handleChangeProposers} className=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-black placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent mt-3" placeholder="Proposers"/>
-           <input type="text" id="executors" onChange={handleChangeExecutors} className=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-black placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent mt-3" placeholder="Executors"/>
-           <input type="text" id="min_delay" onChange={handleChangeMinDelay} className=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-black placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent mt-3" placeholder="Minimum Delay in nanosecs"/>
 
-          
+    <div>
+      <div className='relative px-10 py-5 flex-col'>
+        <div className='mb-10 flex flex-row w-max'>
+          <div className="flex-col basis-1/4">
+            <label
+              htmlFor='small-input'
+              className='mb-1 mx-5 block text-sm font-medium text-gray-900 dark:text-gray-300'
+            >
+              Min Delay (ns)
+            </label>
+            <input type='text' className='py-1 mx-5 rounded text-black' value={label} />
+          </div>
+          <select name='time' id='time' className='h-10 mt-5 basis-1/4 rounded text-black px-1 float-right'>
+            <option value='days'>days</option>
+            <option value='hours'>hours</option>
+            <option value='minutes'>minutes</option>
+            <option value='seconds'>seconds</option>
+          </select>
+          <div className='px-6 mt-5 basis-1/4'>
+            <button className='p-2 bg-juno rounded-lg'>Instantiate</button>
+          </div>
+        </div>
+        <hr />
+        <div className="mt-10">
+          <div className='flex flex-row'>
+            <CustomInput placeholder='Admins' />
+            <CustomInput placeholder='Proposers' />
+            <CustomInput placeholder='Executers' />
+          </div>
+        </div>
+      </div>
+
            <button onClick={instantiate} className="p-3 bg-juno rounded-lg mt-3">
               Instantiate
            </button>

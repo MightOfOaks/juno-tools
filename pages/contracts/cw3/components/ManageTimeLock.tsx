@@ -6,6 +6,7 @@ import { useWallet } from 'contexts/wallet'
 import { useContracts } from 'contexts/contracts'
 
 const ManageTimeLock = () => {
+
   const theme = useTheme()
   const [contractAddress, setContractAddress] = useState(
     'juno1w7nempd8cl96cj8s9ulpzkn49yyafgctt7e6vtj03x9ejmr8dtnqkcy0vw'
