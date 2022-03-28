@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
-const CustomInput = (props: { placeholder: string | undefined }) => {
+const CustomInput = (props: { placeholder: string | undefined; function: () => void }
+) => {
   const [input, setInput] = useState('')
   const [items, setItems] = useState([])
 

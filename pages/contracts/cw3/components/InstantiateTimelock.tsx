@@ -71,7 +71,7 @@ const InstantiateTimelock = (props: {
               htmlFor='small-input'
               className='mb-1 mx-5 block text-sm font-medium text-gray-900 dark:text-gray-300'
             >
-              Min Delay (ns)
+              Minimum Delay
             </label>
             <input type='text' className='py-1 mx-5 rounded text-black' />
           </div>
@@ -88,16 +88,13 @@ const InstantiateTimelock = (props: {
         <hr />
         <div className="mt-10">
           <div className='flex flex-row'>
-            <CustomInput placeholder='Admins' />
-            <CustomInput placeholder='Proposers' />
-            <CustomInput placeholder='Executers' />
+            <CustomInput function={resetFlags} placeholder='Admins' />
+            <CustomInput function={resetFlags} placeholder='Proposers' />
+            <CustomInput function={resetFlags} placeholder='Executers' />
           </div>
         </div>
       </div>
       </div>
-      
-      
-     
   )
 }
 
