@@ -4,7 +4,7 @@ import { useWallet } from 'contexts/wallet'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import InstantiateTimelock from './components/InstantiateTimelock'
-import ManageTimeLock from './components/ManageTimeLock'
+import ManageTimelock from './components/ManageTimeLock'
 
 //import {
 //   MAINNET_CW1_SUBKEYS_CODE_ID,
@@ -154,12 +154,12 @@ const CW3Timelock = () => {
       </div>
       <br />
       {!isManagePage ? (
-        <div className="p-3 container items-start float-left w-1/2">
+        <div className="p-3 container items-start float-left">
           <InstantiateTimelock function={instantiate} />
         </div>
       ) : (
         <div className="w-full">
-          <ManageTimeLock />
+          <ManageTimelock />
         </div>
       )}
     </div>

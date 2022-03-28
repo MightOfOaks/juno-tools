@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CustomInput from './CustomInput'
 
 
@@ -45,12 +45,12 @@ const InstantiateTimelock = (props: {
 
   useEffect(() => {
     setInitMsg({
-      admins:[admins],
-      proposers:[proposers],
+      admins: [admins],
+      proposers: [proposers],
       min_delay: Number(minDelay).toString(),
-      executors:[executors],
-    });
-}, [admins,proposers,minDelay,executors]);
+      executors: [executors],
+    })
+  }, [admins, proposers, minDelay, executors])
 
 
   const instantiate = () => {
@@ -63,17 +63,17 @@ const InstantiateTimelock = (props: {
   }
   return (
 
-      <div>
+    <div>
       <div className='relative px-10 py-5 flex-col'>
         <div className='mb-10 flex flex-row w-max'>
-          <div className="flex-col basis-1/4">
+          <div className='flex-col basis-1/4'>
             <label
               htmlFor='small-input'
               className='mb-1 mx-5 block text-sm font-medium text-gray-900 dark:text-gray-300'
             >
               Minimum Delay
             </label>
-            <input type='text' className='py-1 mx-5 rounded text-black' />
+            <input type='text' className='py-1 px-1 mx-5 rounded text-black' placeholder="Minimum Delay"/>
           </div>
           <select name='time' id='time' className='h-10 mt-5 basis-1/4 rounded text-black px-1 float-right'>
             <option value='days'>days</option>
@@ -86,15 +86,12 @@ const InstantiateTimelock = (props: {
           </div>
         </div>
         <hr />
-        <div className="mt-10">
-          <div className='flex flex-row'>
+        <div className='grid grid-cols-2 gap-4 mt-10'>
             <CustomInput function={resetFlags} placeholder='Admins' />
             <CustomInput function={resetFlags} placeholder='Proposers' />
-            <CustomInput function={resetFlags} placeholder='Executers' />
-          </div>
         </div>
       </div>
-      </div>
+    </div>
   )
 }
 

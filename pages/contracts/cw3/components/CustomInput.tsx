@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { toast } from 'react-hot-toast'
 
 const CustomInput = (props: { placeholder: string | undefined; function: () => void }
 ) => {
@@ -17,42 +18,46 @@ const CustomInput = (props: { placeholder: string | undefined; function: () => v
     setItems([...items, input])
   }
 
+  const copy = async (text: string) => {
+    await navigator.clipboard.writeText(text);
+    toast.success("copied to clipboard");
+  }
+
   return (
     <div className="px-3">
       <div className="flex flex-row">
         <div className="mb-6">
           <label
             htmlFor="small-input"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            className="block mb-2 text-md font-medium text-gray-900 dark:text-gray-300"
           >
             {props.placeholder}
           </label>
           <input
             type="text"
-            className="rounded py-1 text-black"
+            className="rounded py-1 px-1 text-black"
             value={input}
             onChange={handleChange}
+            placeholder={props.placeholder}
           />
         </div>
         <button type="button" className=" basis-1/12" onClick={addClicked}>
           <span className="hover:text-juno px-2">+</span>
         </button>
       </div>
-      <div className="flex flex-col">
-        {items.map((item) => {
+      <div className="grid grid-rows-1">
+        {items.map((item: string) => {
           return (
             <div key={item}>
-              <div className="flex flex-row p-2">
-                <div className="basis-3/4">{item}</div>
-                <button
-                  type="button"
-                  className=" basis-1/4"
+              <div className="grid grid-cols-2 p-2 rounded bg-black bg-opacity-10 w-1/3">
+                <button type="button" onClick={() => copy(item)} className="text-sm">{item.slice(0,5) + "..." + item.slice(item.length -5, item.length)}</button>
+                <div
+                  className="ml-5"
                   onClick={addClicked}
                 >
-                  <span className="hover:text-juno px-2">-</span>
-                </button>
+                  <button type="button" className="hover:text-juno pl-2">x</button>
+                </div>
               </div>
-              <hr />
             </div>
           )
         })}
