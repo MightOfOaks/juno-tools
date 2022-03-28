@@ -16,9 +16,8 @@ const CustomInput = (props: {
   }
 
   const addClicked = () => {
-
     if (items.includes(input.toString() as never)) {
-      toast.error("address already exists");
+      toast.error('address already exists')
     } else {
       setItems([...items, input] as never)
     }
@@ -42,7 +41,7 @@ const CustomInput = (props: {
   return (
     <div className="px-3">
       <div className="flex flex-row">
-        <div className="mb-6">
+        <div className="mb-6 w-full">
           <label
             htmlFor="small-input"
             className="block mb-2 text-md font-medium text-gray-900 dark:text-gray-300"
@@ -51,14 +50,14 @@ const CustomInput = (props: {
           </label>
           <input
             type="text"
-            className="rounded py-1 px-1 text-black"
+            className="rounded py-2 px-1 text-black w-full"
             value={input}
             onChange={handleChange}
             placeholder={props.placeholder}
           />
         </div>
-        <button type="button" className=" basis-1/12" onClick={addClicked}>
-          <span className="hover:text-juno px-2">+</span>
+        <button type="button" className=" basis-1/12 mt-2 ml-1" onClick={addClicked}>
+          <span className="hover:text-juno p-2 border-2 rounded-full">+</span>
         </button>
       </div>
       <div className="grid grid-rows-1">

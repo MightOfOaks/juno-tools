@@ -69,21 +69,21 @@ const InstantiateTimelock = (props: {
             </label>
             <input
               type="text"
-              className="py-1 px-1 mx-3 rounded text-black text-gray-900 dark:text-gray-300"
+              className="py-2 px-1 mx-3 rounded text-black text-gray-900 dark:text-gray-300"
               placeholder="Minimum Delay"
             />
           </div>
           <select
             name="time"
             id="time"
-            className="h-10 mt-5 basis-1/4 rounded text-black px-1 float-right"
+            className="h-10 mt-6 basis-1/4 rounded text-black px-1 float-right"
           >
             <option value="days">days</option>
             <option value="hours">hours</option>
             <option value="minutes">minutes</option>
             <option value="seconds">seconds</option>
           </select>
-          <div className="px-6 mt-5 basis-1/4">
+          <div className="px-6 mt-6 basis-1/4">
             <button className="p-2 bg-juno rounded-lg hover:bg-opacity-10">
               Instantiate
             </button>

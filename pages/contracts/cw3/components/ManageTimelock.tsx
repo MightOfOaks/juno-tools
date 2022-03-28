@@ -6,7 +6,6 @@ import { useWallet } from 'contexts/wallet'
 import { useContracts } from 'contexts/contracts'
 
 const ManageTimelock = () => {
-
   const theme = useTheme()
   const [contractAddress, setContractAddress] = useState(
     'juno1cspathx3ex9hud98vt6qpsujj9gnefkjphzm4f83shue5q5u8suq7me0lc'
@@ -30,7 +29,7 @@ const ManageTimelock = () => {
         const admins = await client?.getAdmins()
         const proposers = await client?.getProposers()
         const minDelay = await client?.getMinDelay()
-        
+
         const res = await client?.getOperations()
         console.log(operations)
 
@@ -100,25 +99,44 @@ const ManageTimelock = () => {
             ))}
             {'min delay: ' + timelock.min_time_delay} <br />
           </div>)} */}
-           {(timelock.admins.length > 0 || timelock.proposers.length > 0)&&
-           (<div className= "flex">
-            <ul className="ml-10 mr-3 w-full text-sm font-medium text-gray-900 bg-dark-gray border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                <li className="w-full font-bold px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">Administrators</li>
+          {(timelock.admins.length > 0 || timelock.proposers.length > 0) && (
+            <div className="flex">
+              <ul className="ml-10 mr-3 w-full text-sm font-medium text-gray-900 bg-dark-gray border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                <li className="w-full font-bold px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                  Administrators
+                </li>
                 {timelock.admins.map((item, index) => (
-                <li key={index} className="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600">{(index + 1) + ') ' + item}</li>
+                  <li
+                    key={index}
+                    className="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600"
+                  >
+                    {index + 1 + ') ' + item}
+                  </li>
                 ))}
-            </ul>
-            <ul className="ml-2 mr-2 w-full text-sm font-medium text-gray-900 bg-dark-gray border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                <li className="w-full font-bold px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">Proposers</li>
+              </ul>
+              <ul className="ml-2 mr-2 w-full text-sm font-medium text-gray-900 bg-dark-gray border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                <li className="w-full font-bold px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                  Proposers
+                </li>
                 {timelock.proposers.map((item, index) => (
-                <li key={index} className="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600">{(index + 1) + ') ' + item}</li>
+                  <li
+                    key={index}
+                    className="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600"
+                  >
+                    {index + 1 + ') ' + item}
+                  </li>
                 ))}
-            </ul>
-            <ul className="ml-2 mr-10 w-1/3 h-1/3 text-sm font-medium text-gray-900 bg-dark-gray border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                <li className="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">Minimum Delay</li>
-                <li className="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">{timelock.min_time_delay} ns</li>
-            </ul>
-          </div>)}
+              </ul>
+              <ul className="ml-2 mr-10 w-1/3 h-1/3 text-sm font-medium text-gray-900 bg-dark-gray border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                <li className="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                  Minimum Delay
+                </li>
+                <li className="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                  {timelock.min_time_delay} ns
+                </li>
+              </ul>
+            </div>
+          )}
 
           <div className="ml-10 mt-5 relative inline-block text-left">
             <div>
