@@ -9,7 +9,7 @@ export class Timelock {
 export class Operation {
   constructor(
     public id: number,
-    public status: 'pending' | 'executed' | 'failed',
+    public status: 'pending' | 'executed' | 'failed' | '',
     public proposer: string,
     public executors: string[],
     public execution_time: string,

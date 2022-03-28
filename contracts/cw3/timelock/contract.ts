@@ -116,20 +116,24 @@ export const CW3Timelock = (
       executionTime: string,
       executors?: string[]
     ): Promise<string> => {
-      const res = await client.execute(
-        senderAddress,
-        contractAddress,
-        {
-          schedule: {
-            target_address: targetAddress,
-            data: encode(JSON.stringify(data)),
-            execution_time: executionTime,
-            executors: executors,
+      try {
+        const res = await client.execute(
+          senderAddress,
+          contractAddress,
+          {
+            schedule: {
+              target_address: targetAddress,
+              data: encode(JSON.stringify(data)),
+              execution_time: executionTime,
+              executors: executors,
+            },
           },
-        },
-        'auto'
-      )
-      return res.transactionHash
+          'auto'
+        )
+        return res.transactionHash
+      } catch (err: any) {
+        return err
+      }
     }
 
     const cancel = async (
