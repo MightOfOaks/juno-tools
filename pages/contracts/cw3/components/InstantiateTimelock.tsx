@@ -70,6 +70,8 @@ const InstantiateTimelock = (props: {
       setTimeout(resetFlags, 3000)
     } else if(isNaN(minDelay) || Number(minDelay) < 1) {
       toast.error('You need to specify a valid minimum delay.', {style: { maxWidth: "none" },})
+    } else if(proposers.length === 0) {
+      toast.error('You need to specify at least one proposer to instantiate a Timelock contract.', {style: { maxWidth: "none" },}) 
     } else {
       props.function(initMsg)
     }
