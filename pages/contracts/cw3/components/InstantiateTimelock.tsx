@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import toast from 'react-hot-toast'
+import toast, { resolveValue } from 'react-hot-toast'
 import CustomInput from './CustomInput'
 
-const InstantiateTimelock = (props: {
-  function: (arg0: Record<string, unknown>) => void
+const InstantiateTimelock = (props: {initFlag: boolean; initResponse: any; function: (arg0: Record<string, unknown>) => void
 }) => {
   const [initMsg, setInitMsg] = useState<Record<string, unknown>>({})
   const [admins, setAdmins] = useState<string[]>([])
@@ -83,7 +82,7 @@ const InstantiateTimelock = (props: {
           <div className="flex-col basis-1/4">
             <label
               htmlFor="small-input"
-              className="mb-1 mx-3 block text-sm font-medium text-gray-900 dark:text-gray-300"
+              className="mb-1 mx-3 block text-sm font-bold text-gray-900 dark:text-gray-300"
             >
               Minimum Delay
             </label>
@@ -99,18 +98,52 @@ const InstantiateTimelock = (props: {
             defaultValue="seconds"
             name="time"
             id="time"
-            className="h-10 mt-6 basis-1/4 rounded text-black px-1 float-right"
+            className="h-10 mt-6 basis-1/8 rounded text-black px-1 float-left"
           >
             <option value="days">days</option>
             <option value="hours">hours</option>
             <option value="minutes">minutes</option>
             <option value="seconds">seconds</option>
           </select>
-          <div className="px-6 mt-5 basis-1/4">
+          <div className="px-3 mt-5 basis-1/4">
             <button onClick={instantiate} className="p-2 border-2 rounded-lg hover:text-juno">
               Instantiate
             </button>
           </div>
+          
+          {props.initFlag && 
+          (<div className="h-12 ml-20 mr-2 basis-1/3 float-right">
+            <label
+              htmlFor="small-input"
+              className="mx-1 block text-sm underline underline-offset-1 font-bold text-gray-900 dark:text-gray-300"
+            >
+              Timelock Contract Address 
+            </label>
+            <label
+              htmlFor="small-input"
+              className="hover:text-juno mx-1 block text-sm font-bold text-gray-900 dark:text-gray-300"
+              onClick={async () => {await navigator.clipboard.writeText(props.initResponse.contractAddress)
+                       toast.success('Copied to clipboard')}}
+            >
+              {props.initResponse.contractAddress}
+            </label>
+            
+            <label
+              htmlFor="small-input"
+              className="mt-2 mx-1 block text-sm font-bold underline underline-offset-1 text-gray-900 dark:text-gray-300"
+            >
+                TxHash
+            </label>
+
+            <label
+              htmlFor="small-input"
+              className="hover:text-juno mx-1 block text-sm font-medium text-gray-900 dark:text-gray-300"
+              onClick={async () => {await navigator.clipboard.writeText(props.initResponse.transactionHash)
+                toast.success('Copied to clipboard')}}
+            >  
+               {props.initResponse.transactionHash}
+            </label>
+          </div>)}
         </div>
         <hr className="mx-3" />
         <div className="grid grid-cols-2 gap-4 mt-10">

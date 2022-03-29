@@ -18,7 +18,11 @@ const CW3Timelock = () => {
   const contract = useContracts().cw3Timelock
   const cw20contract = useContracts().cw20Base
 
-  const [txResponse, setTxResponse] = useState<any>()
+  const [initResponse, setInitResponse] = useState<any>()
+  const [initResponseFlag, setInitResponseFlag] = useState(false)
+  
+
+
   const CONTRACT_ADDRESS =
     'juno1ptxjpktyrus6g8xn9yd98ewzahyhhvc56ddg6c8ln2hk6qhlesxqy43240'
 
@@ -26,6 +30,7 @@ const CW3Timelock = () => {
     Buffer.from(str, 'binary').toString('base64')
 
   const instantiate = async (initMsg: Record<string, unknown>) => {
+    setInitResponseFlag(false)
     try {
       if (!contract) {
         return toast.error('Smart contract connection failed.')
@@ -41,7 +46,8 @@ const CW3Timelock = () => {
         'Timelock Test',
         wallet.address
       )
-
+      setInitResponse(response);
+      setInitResponseFlag(true);
       console.log(response)
     } catch (error: any) {
       toast.error(error.message, { style: { maxWidth: 'none' } })
@@ -159,7 +165,7 @@ const CW3Timelock = () => {
       <br />
       {!isManagePage ? (
         <div className="p-3 container items-start float-left">
-          <InstantiateTimelock function={instantiate} />
+          <InstantiateTimelock initFlag={initResponseFlag} initResponse={initResponse} function={instantiate} />
         </div>
       ) : (
         <div className="w-full">

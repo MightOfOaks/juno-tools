@@ -33,7 +33,7 @@ const CustomInput = (props: {
 
   const copy = async (text: string) => {
     await navigator.clipboard.writeText(text)
-    toast.success('copied to clipboard')
+    toast.success('Copied to clipboard')
   }
 
   const removeClicked = (item: string) => {
