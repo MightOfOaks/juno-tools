@@ -17,8 +17,11 @@ const CustomInput = (props: {
   const addClicked = () => {
     let tempArray: React.SetStateAction<never[]> = []
     if (items.includes(input.toString() as never)) {
-      toast.error('The address already exists.')
-    } else {
+      toast.error('The address already exists.', {style: { maxWidth: "none" },})
+    } else if (input.length === 0) {
+      toast.error('The address cannot be empty.', {style: { maxWidth: "none" },})
+    }
+    else {
       tempArray = [...items, input] as never
       setItems(tempArray)
     }

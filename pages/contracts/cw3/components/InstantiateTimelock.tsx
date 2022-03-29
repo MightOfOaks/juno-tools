@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 import CustomInput from './CustomInput'
 
 const InstantiateTimelock = (props: {
@@ -7,7 +8,7 @@ const InstantiateTimelock = (props: {
   const [initMsg, setInitMsg] = useState<Record<string, unknown>>({})
   const [admins, setAdmins] = useState<string[]>([])
   const [proposers, setProposers] = useState<string[]>([])
-  const [minDelay, setMinDelay] = useState(1)
+  const [minDelay, setMinDelay] = useState(0)
   const [minDelayUnit, setMinDelayUnit] = useState("seconds")
   const [flag, setFlag] = useState(false)
 
@@ -67,6 +68,8 @@ const InstantiateTimelock = (props: {
     if (!initMsg) {
       setFlag(true)
       setTimeout(resetFlags, 3000)
+    } else if(isNaN(minDelay) || Number(minDelay) < 1) {
+      toast.error('You need to specify a valid minimum delay.', {style: { maxWidth: "none" },})
     } else {
       props.function(initMsg)
     }
