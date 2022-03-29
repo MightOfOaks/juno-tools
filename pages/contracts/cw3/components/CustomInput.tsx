@@ -12,7 +12,6 @@ const CustomInput = (props: {
     target: { value: React.SetStateAction<string> }
   }) => {
     setInput(event.target.value)
-    console.log(input)
   }
 
   const addClicked = () => {

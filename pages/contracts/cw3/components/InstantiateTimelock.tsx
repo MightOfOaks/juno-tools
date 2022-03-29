@@ -7,7 +7,7 @@ const InstantiateTimelock = (props: {
   const [initMsg, setInitMsg] = useState<Record<string, unknown>>({})
   const [admins, setAdmins] = useState<string[]>([])
   const [proposers, setProposers] = useState<string[]>([])
-  const [minDelay, setMinDelay] = useState(0)
+  const [minDelay, setMinDelay] = useState(1)
   const [minDelayUnit, setMinDelayUnit] = useState("seconds")
   const [flag, setFlag] = useState(false)
 
@@ -18,13 +18,11 @@ const InstantiateTimelock = (props: {
   const handleChangeAdmins = (arg0: string[]
   ) => {
     setAdmins(arg0);
-    console.log("Admins: " + admins)
   }
   
   const handleChangeProposers = (arg0: string[]
     ) => {
       setProposers(arg0);
-      console.log("Proposers: " + proposers)
     }
   
   const handleChangeMinDelay = (event: {
@@ -39,13 +37,28 @@ const InstantiateTimelock = (props: {
     setMinDelayUnit(event.target.value)
   }
 
-  
+  const getMinDelayInNanoSeconds = (arg: number): String => {
+      if(minDelayUnit === "seconds") {
+        return String(arg * 1000000000)
+      }
+      if(minDelayUnit === "minutes") {
+        return String(arg * 60000000000)
+      }
+      if(minDelayUnit === "hours") {
+        return String(arg * 3600000000000)
+      }
+      if(minDelayUnit === "days") {
+        return String(arg * 86400000000000)
+      }else{
+        return String(arg)
+      }
+  }
 
   useEffect(() => {
     setInitMsg({
-      admins: [admins],
-      proposers: [proposers],
-      min_delay: Number(minDelay).toString(),
+      admins: admins,
+      proposers: proposers,
+      min_delay: getMinDelayInNanoSeconds(minDelay).toString(),
       
     })
   }, [admins, proposers, minDelay, minDelayUnit])
@@ -71,11 +84,14 @@ const InstantiateTimelock = (props: {
             </label>
             <input
               type="text"
+              onChange={handleChangeMinDelay}
               className="py-2 px-1 mx-3 rounded text-black text-gray-900 dark:text-gray-300"
               placeholder="Minimum Delay"
             />
           </div>
           <select
+            onChange={handleChangeMinDelayUnit}
+            defaultValue="seconds"
             name="time"
             id="time"
             className="h-10 mt-6 basis-1/4 rounded text-black px-1 float-right"

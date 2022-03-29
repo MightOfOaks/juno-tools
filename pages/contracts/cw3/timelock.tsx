@@ -31,14 +31,14 @@ const CW3Timelock = () => {
         return toast.error('Smart contract connection failed.')
       }
       console.log(initMsg)
-      // const response = await contract.instantiate(
-      //   627,
-      //   initMsg,
-      //   'Timelock Test',
-      //   wallet.address
-      // )
+      const response = await contract.instantiate(
+        648,
+        initMsg,
+        'Timelock Test',
+        wallet.address
+      )
 
-      // console.log(response)
+      console.log(response)
     } catch (error: any) {
       toast.error(error.message, { style: { maxWidth: 'none' } })
     }
