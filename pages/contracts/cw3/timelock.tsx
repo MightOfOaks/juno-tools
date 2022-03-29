@@ -20,7 +20,7 @@ const CW3Timelock = () => {
 
   const [initResponse, setInitResponse] = useState<any>()
   const [initResponseFlag, setInitResponseFlag] = useState(false)
-  
+  const [initSpinnerFlag, setInitSpinnerFlag] = useState(false)
 
 
   const CONTRACT_ADDRESS =
@@ -40,17 +40,21 @@ const CW3Timelock = () => {
       }
      
       console.log(initMsg)
+      setInitSpinnerFlag(true)
       const response = await contract.instantiate(
         648,
         initMsg,
         'Timelock Test',
         wallet.address
       )
+      setInitSpinnerFlag(false)
       setInitResponse(response);
+      toast.success("Timelock contract instantiation successful.", {style: { maxWidth: "none" },})
       setInitResponseFlag(true);
       console.log(response)
     } catch (error: any) {
       toast.error(error.message, { style: { maxWidth: 'none' } })
+      setInitSpinnerFlag(false);
     }
   }
 
@@ -165,7 +169,7 @@ const CW3Timelock = () => {
       <br />
       {!isManagePage ? (
         <div className="p-3 container items-start float-left">
-          <InstantiateTimelock initFlag={initResponseFlag} initResponse={initResponse} function={instantiate} />
+          <InstantiateTimelock spinnerFlag={initSpinnerFlag} initFlag={initResponseFlag} initResponse={initResponse} function={instantiate} />
         </div>
       ) : (
         <div className="w-full">
