@@ -30,6 +30,10 @@ const CW3Timelock = () => {
       if (!contract) {
         return toast.error('Smart contract connection failed.')
       }
+      if(!wallet.initialized) {
+        return toast.error("Oops! Need to connect your Keplr Wallet first.", {style: { maxWidth: "none" },})
+      }
+     
       console.log(initMsg)
       const response = await contract.instantiate(
         648,

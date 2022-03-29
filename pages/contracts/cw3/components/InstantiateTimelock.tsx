@@ -21,9 +21,9 @@ const InstantiateTimelock = (props: {
   }
   
   const handleChangeProposers = (arg0: string[]
-    ) => {
-      setProposers(arg0);
-    }
+  ) => {
+    setProposers(arg0);
+  }
   
   const handleChangeMinDelay = (event: {
     target: { value: React.SetStateAction<string> }
