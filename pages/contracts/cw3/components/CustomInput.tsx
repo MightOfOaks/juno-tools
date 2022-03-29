@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 
 const CustomInput = (props: {
   placeholder: string | undefined
-  function: () => void
+  function: (arg0: string[]) => void
 }) => {
   const [input, setInput] = useState('')
   const [items, setItems] = useState([])
@@ -16,10 +16,12 @@ const CustomInput = (props: {
   }
 
   const addClicked = () => {
+    let tempArray: React.SetStateAction<never[]> = []
     if (items.includes(input.toString() as never)) {
-      toast.error('address already exists')
+      toast.error('The address already exists.')
     } else {
-      setItems([...items, input] as never)
+      tempArray = [...items, input] as never
+      setItems(tempArray)
     }
   }
 
@@ -37,6 +39,11 @@ const CustomInput = (props: {
     }
     setItems(tempArray)
   }
+
+  useEffect(() => {
+    props.function(items)
+      
+  }, [items])
 
   return (
     <div className="px-3">

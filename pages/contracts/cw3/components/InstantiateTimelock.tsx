@@ -5,48 +5,50 @@ const InstantiateTimelock = (props: {
   function: (arg0: Record<string, unknown>) => void
 }) => {
   const [initMsg, setInitMsg] = useState<Record<string, unknown>>({})
-  const [admins, setAdmins] = useState('')
-  const [proposers, setProposers] = useState('')
-  const [executors, setExecutors] = useState('')
+  const [admins, setAdmins] = useState<string[]>([])
+  const [proposers, setProposers] = useState<string[]>([])
   const [minDelay, setMinDelay] = useState(0)
+  const [minDelayUnit, setMinDelayUnit] = useState("seconds")
   const [flag, setFlag] = useState(false)
 
   const resetFlags = () => {
     setFlag(false)
   }
-
-  const handleChangeAdmins = (event: {
-    target: { value: React.SetStateAction<string> }
-  }) => {
-    setAdmins(event.target.value)
+  
+  const handleChangeAdmins = (arg0: string[]
+  ) => {
+    setAdmins(arg0);
+    console.log("Admins: " + admins)
   }
-
-  const handleChangeProposers = (event: {
-    target: { value: React.SetStateAction<string> }
-  }) => {
-    setProposers(event.target.value)
-  }
-
-  const handleChangeExecutors = (event: {
-    target: { value: React.SetStateAction<string> }
-  }) => {
-    setExecutors(event.target.value)
-  }
-
+  
+  const handleChangeProposers = (arg0: string[]
+    ) => {
+      setProposers(arg0);
+      console.log("Proposers: " + proposers)
+    }
+  
   const handleChangeMinDelay = (event: {
     target: { value: React.SetStateAction<string> }
   }) => {
     setMinDelay(Number(event.target.value))
   }
 
+  const handleChangeMinDelayUnit = (event: {
+    target: { value: React.SetStateAction<string> }
+  }) => {
+    setMinDelayUnit(event.target.value)
+  }
+
+  
+
   useEffect(() => {
     setInitMsg({
       admins: [admins],
       proposers: [proposers],
       min_delay: Number(minDelay).toString(),
-      executors: [executors],
+      
     })
-  }, [admins, proposers, minDelay, executors])
+  }, [admins, proposers, minDelay, minDelayUnit])
 
   const instantiate = () => {
     if (!initMsg) {
@@ -84,15 +86,15 @@ const InstantiateTimelock = (props: {
             <option value="seconds">seconds</option>
           </select>
           <div className="px-6 mt-5 basis-1/4">
-            <button className="p-2 border-2 rounded-lg hover:text-juno">
+            <button onClick={instantiate} className="p-2 border-2 rounded-lg hover:text-juno">
               Instantiate
             </button>
           </div>
         </div>
         <hr className="mx-3" />
         <div className="grid grid-cols-2 gap-4 mt-10">
-          <CustomInput function={resetFlags} placeholder="Admins" />
-          <CustomInput function={resetFlags} placeholder="Proposers" />
+          <CustomInput function={handleChangeAdmins} placeholder="Admins" />
+          <CustomInput function={handleChangeProposers} placeholder="Proposers" />
         </div>
       </div>
     </div>
