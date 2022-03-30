@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useTheme } from 'contexts/theme'
 import { Operation, Timelock } from '../models'
 import { useWallet } from 'contexts/wallet'
 import { useContracts } from 'contexts/contracts'
 import Prosedures from './MenageTimelock/Procedures'
-import ScheduleModal from './MenageTimelock/ScheduleModal'
 
 const ManageTimelock = () => {
   const theme = useTheme()
@@ -17,14 +16,14 @@ const ManageTimelock = () => {
   const [timelock, setTimelock] = useState<Timelock>(new Timelock([], [], 0))
   const [operations, setOperations] = useState<Operation[]>([])
   const [clientFound, setClientFound] = useState(false)
-  const [queryDrop, setQueryDrop] = useState(false)
   const [executeDrop, setExecuteDrop] = useState(false)
-  const [scheduleModal, setScheduleModal] = useState(false)
-  const [proceduresDrop, setProceduresDrop] = useState(false)
+
+  const [adminProposerModal, setAdminProposerModal] = useState(false)
+
+  const [showModal, setShowModal] = useState(false)
+  const [selectedModal, setSelectedModal] = useState('')
   const contract = useContracts().cw3Timelock
   const wallet = useWallet()
-
-  const [choise, setChoise] = useState("bos")
 
   const query = async () => {
     try {
@@ -53,46 +52,23 @@ const ManageTimelock = () => {
     }
   }
 
-  const execute = async () => {
-    try {
-      const client = contract?.use(contractAddress)
-
-      if (client && wallet) {
-        const msg = {
-          mint: {
-            amount: '1000',
-          },
-        }
-        const res6 = await client?.schedule(
-          wallet.address,
-          contractAddress,
-          msg,
-          Number(17446744073709551515).toString(),
-          ['juno1smz9wdg5v7wywquyy7zn7ujvu54kuumwzw5ss8', wallet.address]
-        )
-        console.log('schedule: ', res6)
-      }
-    } catch (error: any) {
-      toast.error('Error', { style: { maxWidth: 'none' } })
-    }
+  function dhms(nanosecs: number) {
+    const days = Math.floor(nanosecs / (24 * 60 * 60 * 1000000000))
+    const days_ns = nanosecs % (24 * 60 * 60 * 1000000000)
+    const hours = Math.floor(days_ns / (60 * 60 * 1000000000))
+    const hours_ns = nanosecs % (60 * 60 * 1000)
+    const minutes = Math.floor(hours_ns / (60 * 1000000000))
+    const minutes_ns = nanosecs % (60 * 1000000000)
+    const sec = Math.floor(minutes_ns / 1000000000)
+    return (
+      (days > 0 ? days + ' days ' : '') +
+      (hours > 0 ? ': ' + hours + ' hours ' : '') +
+      (minutes > 0 ? ': ' + minutes + ': minutes : ' : '') +
+      (sec > 0 ? sec + ' seconds' : '')
+    )
   }
 
-  function dhms (nanosecs: number) {
-    const days = Math.floor(nanosecs / (24*60*60*1000000000));
-    const days_ns = nanosecs % (24*60*60*1000000000);
-    const hours = Math.floor(days_ns / (60*60*1000000000));
-    const hours_ns = nanosecs % (60*60*1000);
-    const minutes = Math.floor(hours_ns / (60*1000000000));
-    const minutes_ns = nanosecs % (60*1000000000);
-    const sec = Math.floor(minutes_ns / 1000000000);
-    return ((days > 0) ? days + " days ":"") + ((hours > 0) ? ": " + hours + " hours ":"") + (minutes > 0 ? ": " + minutes + ": minutes : ":"") + (sec > 0 ? sec + " seconds": "");
-  }
-
-  function handleScheduleModal() {
-    setScheduleModal(!scheduleModal)
-  }
   return (
-
     <div>
       <div className="px-10 py-5">
         <label className="block mb-2 text-lg font-bold text-gray-900 dark:text-gray-300 text-left">
@@ -141,55 +117,76 @@ const ManageTimelock = () => {
                   aria-orientation="vertical"
                   aria-labelledby="options-menu"
                 >
-                    <button onClick={handleScheduleModal} className="flex flex-col px-4 py-2 text-md text-gray-100 hover:text-juno hover:bg-gray-600">
-                      <span>Schedule</span>
-                    </button>
-                  
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
+                  <button
+                    onClick={() => {
+                      setShowModal(!showModal)
+                      setSelectedModal('schedule')
+                    }}
+                    className="flex flex-col px-4 py-2 text-md text-gray-100 hover:text-juno hover:bg-gray-600"
+                  >
+                    <span>Schedule</span>
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      setShowModal(!showModal)
+                      setSelectedModal('cancel')
+                    }}
+                    className="flex flex-col px-4 py-2 text-md text-gray-100 hover:text-juno hover:bg-gray-600"
                     role="menuitem"
                   >
                     <span className="flex flex-col">
                       <span>Cancel</span>
                     </span>
-                  </a>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
+                  </button>
+                  <button
+                    onClick={() => {
+                      setShowModal(!showModal)
+                      setSelectedModal('execute')
+                    }}
+                    className="flex flex-col px-4 py-2 text-md text-gray-100 hover:text-juno hover:bg-gray-600"
                     role="menuitem"
                   >
                     <span className="flex flex-col">
                       <span>Execute</span>
                     </span>
-                  </a>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
+                  </button>
+                  <button
+                    onClick={() => {
+                      setShowModal(!showModal)
+                      setSelectedModal('revoke')
+                    }}
+                    className="flex flex-col px-4 py-2 text-md text-gray-100 hover:text-juno hover:bg-gray-600"
                     role="menuitem"
                   >
                     <span className="flex flex-col">
                       <span>RevokeAdmin</span>
                     </span>
-                  </a>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
+                  </button>
+                  <button
+                    onClick={() => {
+                      setShowModal(!showModal)
+                      setSelectedModal('add')
+                    }}
+                    className="flex flex-col px-4 py-2 text-md text-gray-100 hover:text-juno hover:bg-gray-600"
                     role="menuitem"
                   >
                     <span className="flex flex-col">
                       <span>AddProposer</span>
                     </span>
-                  </a>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
+                  </button>
+                  <button
+                    onClick={() => {
+                      setShowModal(!showModal)
+                      setSelectedModal('remove')
+                    }}
+                    className="flex flex-col px-4 py-2 text-md text-gray-100 hover:text-juno hover:bg-gray-600"
                     role="menuitem"
                   >
                     <span className="flex flex-col">
                       <span>RemoveProposer</span>
                     </span>
-                  </a>
+                  </button>
                   <a
                     href="#"
                     className="block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
@@ -207,13 +204,18 @@ const ManageTimelock = () => {
       </div>
       <div className="w-full justify-center">
         <div className="flex-col">
-          {scheduleModal && (<div className="overflow-y-auto overflow-x-hidden fixed top-1/4 right-1/4 left-1/4 w-1/2 h-full">
-            <div className="relative p-4 w-full h-full md:h-auto">
-              <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                  <ScheduleModal></ScheduleModal>
+          {showModal && (
+            <div className="overflow-y-auto overflow-x-hidden fixed top-1/4 right-1/4 left-1/4 w-1/2 h-full">
+              <div className="relative p-4 w-full h-full md:h-auto">
+                <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                  <Prosedures
+                    selectedModal={selectedModal}
+                    contractAddress={contractAddress}
+                  />
+                </div>
               </div>
             </div>
-          </div>)}
+          )}
           {/* {(timelock.admins.length > 0 || timelock.proposers.length > 0)&&
           (<div className="w-full ml-20 font-bold my-3 text-center items-center text-xl">
             {timelock.admins.length + ' admins'}
@@ -266,13 +268,13 @@ const ManageTimelock = () => {
           )}
         </div>
 
-
         {operations.length > 0 &&
           operations.map((item, index) => (
             <div
               key={index}
-              className={`${theme.isDarkTheme ? 'border-gray/20' : 'border-dark/20'
-                } text-center m-5`}
+              className={`${
+                theme.isDarkTheme ? 'border-gray/20' : 'border-dark/20'
+              } text-center m-5`}
             >
               <div className="h-32 w-full p-3 flex flex-col items-center border rounded-xl">
                 <div className="flex items-center text-lg font-bold mb-1">
@@ -299,7 +301,7 @@ const ManageTimelock = () => {
           </div>
         )}
       </div>
-    </div >
+    </div>
   )
 }
 
