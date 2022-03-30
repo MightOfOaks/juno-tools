@@ -18,7 +18,11 @@ const CW3Timelock = () => {
   const contract = useContracts().cw3Timelock
   const cw20contract = useContracts().cw20Base
 
-  const [txResponse, setTxResponse] = useState<any>()
+  const [initResponse, setInitResponse] = useState<any>()
+  const [initResponseFlag, setInitResponseFlag] = useState(false)
+  const [initSpinnerFlag, setInitSpinnerFlag] = useState(false)
+
+
   const CONTRACT_ADDRESS =
     'juno1ptxjpktyrus6g8xn9yd98ewzahyhhvc56ddg6c8ln2hk6qhlesxqy43240'
 
@@ -26,21 +30,31 @@ const CW3Timelock = () => {
     Buffer.from(str, 'binary').toString('base64')
 
   const instantiate = async (initMsg: Record<string, unknown>) => {
+    setInitResponseFlag(false)
     try {
       if (!contract) {
         return toast.error('Smart contract connection failed.')
       }
+      if(!wallet.initialized) {
+        return toast.error("Oops! Need to connect your Keplr Wallet first.", {style: { maxWidth: "none" },})
+      }
+     
       console.log(initMsg)
+      setInitSpinnerFlag(true)
       const response = await contract.instantiate(
-        627,
+        648,
         initMsg,
         'Timelock Test',
         wallet.address
       )
-
+      setInitSpinnerFlag(false)
+      setInitResponse(response);
+      toast.success("Timelock contract instantiation successful.", {style: { maxWidth: "none" },})
+      setInitResponseFlag(true);
       console.log(response)
     } catch (error: any) {
       toast.error(error.message, { style: { maxWidth: 'none' } })
+      setInitSpinnerFlag(false);
     }
   }
 
@@ -155,7 +169,7 @@ const CW3Timelock = () => {
       <br />
       {!isManagePage ? (
         <div className="p-3 container items-start float-left">
-          <InstantiateTimelock function={instantiate} />
+          <InstantiateTimelock spinnerFlag={initSpinnerFlag} initFlag={initResponseFlag} initResponse={initResponse} function={instantiate} />
         </div>
       ) : (
         <div className="w-full">
