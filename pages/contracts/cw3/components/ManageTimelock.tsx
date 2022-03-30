@@ -71,6 +71,17 @@ const ManageTimelock = () => {
     }
   }
 
+  function dhms (nanosecs: number) {
+    const days = Math.floor(nanosecs / (24*60*60*1000000000));
+    const days_ns = nanosecs % (24*60*60*1000000000);
+    const hours = Math.floor(days_ns / (60*60*1000000000));
+    const hours_ns = nanosecs % (60*60*1000);
+    const minutes = Math.floor(hours_ns / (60*1000000000));
+    const minutes_ns = nanosecs % (60*1000000000);
+    const sec = Math.floor(minutes_ns / 1000000000);
+    return ((days > 0) ? days + " days ":"") + ((hours > 0) ? ": " + hours + " hours ":"") + (minutes > 0 ? ": " + minutes + ": minutes ":"") + (sec > 0 ? ": " + sec + " seconds": "");
+  }
+
   return (
     <div>
       <div className="px-10 py-5">
@@ -236,7 +247,7 @@ const ManageTimelock = () => {
                   Minimum Delay
                 </li>
                 <li className="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-                  {timelock.min_time_delay} ns
+                  {dhms(timelock.min_time_delay)}
                 </li>
               </ul>
             </div>
