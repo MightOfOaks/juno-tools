@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
-import { Bech32 } from "@cosmjs/encoding";
-
+import { Bech32 } from '@cosmjs/encoding'
 
 const CustomInput = (props: {
   placeholder: string | undefined
@@ -19,15 +18,21 @@ const CustomInput = (props: {
   const addClicked = () => {
     let tempArray: React.SetStateAction<never[]> = []
     if (items.includes(input.toString() as never)) {
-      toast.error('The address already exists.', {style: { maxWidth: "none" },})
+      toast.error('The address already exists.', {
+        style: { maxWidth: 'none' },
+      })
     } else if (input.length === 0) {
-      toast.error('The address cannot be empty.', {style: { maxWidth: "none" },})
-    } else if(!isValidAddress(input.toString())){
-      toast.error('The specified address is not valid.', {style: { maxWidth: "none" },})
-    }
-    else {
+      toast.error('The address cannot be empty.', {
+        style: { maxWidth: 'none' },
+      })
+    } else if (!isValidAddress(input.toString())) {
+      toast.error('The specified address is not valid.', {
+        style: { maxWidth: 'none' },
+      })
+    } else {
       tempArray = [...items, input] as never
       setItems(tempArray)
+      setInput('')
     }
   }
 
@@ -46,21 +51,20 @@ const CustomInput = (props: {
     setItems(tempArray)
   }
 
-function isValidAddress(input: string): boolean {
-  try {
-    const prefix = input.substring(0,5)
-    if (prefix != "juno1") {
-      return false;
+  function isValidAddress(input: string): boolean {
+    try {
+      const prefix = input.substring(0, 5)
+      if (prefix != 'juno1') {
+        return false
+      }
+      return true
+    } catch {
+      return false
     }
-    return true; 
-  } catch {
-    return false;
   }
-}
 
   useEffect(() => {
     props.function(items)
-      
   }, [items])
 
   return (
