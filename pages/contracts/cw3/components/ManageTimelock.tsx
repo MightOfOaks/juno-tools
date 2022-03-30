@@ -207,9 +207,6 @@ const ManageTimelock = () => {
             <div>
               <input type="checkbox" id="my-modal-4" className="modal-toggle" />
               <label
-                onClick={() => {
-                  setShowModal(!showModal)
-                }}
                 htmlFor="my-modal-4"
                 className="modal cursor-pointer"
                 style={{ background: 'rgb(25, 29, 32, 0.75)' }}
