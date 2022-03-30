@@ -68,7 +68,7 @@ const ManageTimelock = () => {
   return (
     <div className="px-6">
       <div className="px-10 py-2">
-        <label className="block mb-2 text-lg font-bold text-gray-900 dark:text-gray-300 text-left">
+        <label className="block mb-2 text-md font-bold text-gray-900 dark:text-gray-300 text-left">
           Timelock Contract Address
         </label>
         <div className="flex">

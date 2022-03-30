@@ -88,7 +88,7 @@ const InstantiateTimelock = (props: {
           <div className="flex-col basis-1/4">
             <label
               htmlFor="small-input"
-              className="mb-1 mx-3 block text-sm font-bold text-gray-900 dark:text-gray-300"
+              className="mb-1 mx-3 block text-md font-bold text-gray-900 dark:text-gray-300"
             >
               Minimum Delay
             </label>
@@ -104,14 +104,14 @@ const InstantiateTimelock = (props: {
             defaultValue="seconds"
             name="time"
             id="time"
-            className="h-10 mt-6 basis-1/8 rounded text-black px-1 float-left"
+            className="h-10 mt-7 basis-1/8 rounded text-black px-1 float-left"
           >
             <option value="days">days</option>
             <option value="hours">hours</option>
             <option value="minutes">minutes</option>
             <option value="seconds">seconds</option>
           </select>
-          <div className="px-3 mt-5 basis-1/4">
+          <div className="px-3 mt-6 basis-1/4">
             <button
               onClick={instantiate}
               className="p-2 border-2 rounded-lg hover:text-juno"
