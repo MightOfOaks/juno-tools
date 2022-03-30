@@ -17,9 +17,6 @@ const ManageTimelock = () => {
   const [operations, setOperations] = useState<Operation[]>([])
   const [clientFound, setClientFound] = useState(false)
   const [executeDrop, setExecuteDrop] = useState(false)
-
-  const [adminProposerModal, setAdminProposerModal] = useState(false)
-
   const [showModal, setShowModal] = useState(false)
   const [selectedModal, setSelectedModal] = useState('')
   const contract = useContracts().cw3Timelock
@@ -124,7 +121,7 @@ const ManageTimelock = () => {
                     }}
                     className="flex flex-col px-4 py-2 text-md text-gray-100 hover:text-juno hover:bg-gray-600"
                   >
-                    <span>Schedule</span>
+                    <label htmlFor="my-modal-4">Schedule</label>
                   </button>
 
                   <button
@@ -136,7 +133,7 @@ const ManageTimelock = () => {
                     role="menuitem"
                   >
                     <span className="flex flex-col">
-                      <span>Cancel</span>
+                      <label htmlFor="my-modal-4">Cancel</label>
                     </span>
                   </button>
                   <button
@@ -148,7 +145,7 @@ const ManageTimelock = () => {
                     role="menuitem"
                   >
                     <span className="flex flex-col">
-                      <span>Execute</span>
+                      <label htmlFor="my-modal-4">Execute</label>
                     </span>
                   </button>
                   <button
@@ -160,7 +157,7 @@ const ManageTimelock = () => {
                     role="menuitem"
                   >
                     <span className="flex flex-col">
-                      <span>RevokeAdmin</span>
+                      <label htmlFor="my-modal-4">Revoke Admin</label>
                     </span>
                   </button>
                   <button
@@ -172,10 +169,11 @@ const ManageTimelock = () => {
                     role="menuitem"
                   >
                     <span className="flex flex-col">
-                      <span>AddProposer</span>
+                      <label htmlFor="my-modal-4">Add Proposer</label>
                     </span>
                   </button>
-                  <button
+
+                  <a
                     onClick={() => {
                       setShowModal(!showModal)
                       setSelectedModal('remove')
@@ -184,9 +182,9 @@ const ManageTimelock = () => {
                     role="menuitem"
                   >
                     <span className="flex flex-col">
-                      <span>RemoveProposer</span>
+                      <label htmlFor="my-modal-4">Remove Proposer</label>
                     </span>
-                  </button>
+                  </a>
                   <a
                     href="#"
                     className="block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
@@ -202,32 +200,24 @@ const ManageTimelock = () => {
           </div>
         </div>
       </div>
+
       <div className="w-full justify-center">
         <div className="flex-col">
           {showModal && (
-            <div className="overflow-y-auto overflow-x-hidden fixed top-1/4 right-1/4 left-1/4 w-1/2 h-full">
-              <div className="relative p-4 w-full h-full md:h-auto">
-                <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                  <Prosedures
-                    selectedModal={selectedModal}
-                    contractAddress={contractAddress}
-                  />
-                </div>
-              </div>
+            <div>
+              <input type="checkbox" id="my-modal-4" className="modal-toggle" />
+              <label
+                htmlFor="my-modal-4"
+                className="modal cursor-pointer"
+                style={{ background: 'rgb(25, 29, 32, 0.75)' }}
+              >
+                <Prosedures
+                  selectedModal={selectedModal}
+                  contractAddress={contractAddress}
+                />
+              </label>
             </div>
           )}
-          {/* {(timelock.admins.length > 0 || timelock.proposers.length > 0)&&
-          (<div className="w-full ml-20 font-bold my-3 text-center items-center text-xl">
-            {timelock.admins.length + ' admins'}
-            {timelock.admins.map((item, index) => (
-              <div key={index}>{'admin ' + (index + 1) + ': ' + item}</div>
-            ))}
-            {timelock.proposers.length + ' proposers'}
-            {timelock.proposers.map((item, index) => (
-              <div key={index}>{'proposer ' + (index + 1) + ': ' + item}</div>
-            ))}
-            {'min delay: ' + timelock.min_time_delay} <br />
-          </div>)} */}
           {(timelock.admins.length > 0 || timelock.proposers.length > 0) && (
             <div className="flex">
               <ul className="ml-10 mr-3 w-full text-sm font-medium text-gray-900 bg-dark-gray border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
