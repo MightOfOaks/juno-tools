@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useWallet } from 'contexts/wallet'
 import { useContracts } from 'contexts/contracts'
-import CustomInput from '../CustomInput'
+import CustomInput from './CustomInput'
 
 const ScheduleModal = () => {
   const [contractAddress, setContractAddress] = useState(

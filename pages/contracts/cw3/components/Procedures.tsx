@@ -4,7 +4,7 @@ import CancelExecuteModal from './CancelExecuteModal'
 import RemoveAddProposerAdminModal from './RemoveAddProposerAdmin'
 import UpdateDelayModal from './UpdateDelayModal'
 
-const Prosedures = (props: {
+const Procedures = (props: {
   selectedModal: string
   contractAddress: string
 }) => {
@@ -63,4 +63,4 @@ const Prosedures = (props: {
   return <div>{renderModal()}</div>
 }
 
-export default Prosedures
+export default Procedures

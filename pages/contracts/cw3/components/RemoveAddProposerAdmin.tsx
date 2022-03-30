@@ -42,7 +42,7 @@ const RemoveAddProposerAdminModal = (props: {
   }
 
   return (
-    <div className="bg-black p-8">
+    <div className="bg-dark-gray p-8">
       <div className="mt-2 mb-6 ">
         {functionType.toUpperCase() + ' ' + userType.toUpperCase()}
       </div>

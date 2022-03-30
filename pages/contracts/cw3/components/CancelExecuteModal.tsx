@@ -34,7 +34,7 @@ const CancelExecuteModal = (props: {
   }
 
   return (
-    <div className="bg-black p-8">
+    <div className="bg-dark-gray p-8">
       <div> {props.functionType.toUpperCase() + ' OPERATION'}</div>
       <div className="flex-col basis-1/4 my-4">
         <label

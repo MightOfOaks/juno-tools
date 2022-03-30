@@ -4,7 +4,7 @@ import { useTheme } from 'contexts/theme'
 import { Operation, Timelock } from '../models'
 import { useWallet } from 'contexts/wallet'
 import { useContracts } from 'contexts/contracts'
-import Prosedures from './MenageTimelock/Procedures'
+import Procedures from './Procedures'
 
 const ManageTimelock = () => {
   const theme = useTheme()
@@ -27,7 +27,8 @@ const ManageTimelock = () => {
       console.log(wallet.initialized)
 
       if (!wallet.initialized) {
-        toast.error('Please connect wallet to search')
+        toast.error('Oops! Need to connect your Keplr Wallet first.', {
+          style: { maxWidth: 'none' },})
       }
       const client = contract?.use(contractAddress)
 
@@ -206,8 +207,8 @@ const ManageTimelock = () => {
               className="modal cursor-pointer"
               style={{ background: 'rgb(25, 29, 32, 0.75)' }}
             >
-              <label className="modal-box relative">
-                <Prosedures
+              <label className="modal-box relative bg-dark-gray border-2 border-plumbus-20">
+                <Procedures
                   selectedModal={selectedModal}
                   contractAddress={contractAddress}
                 />
