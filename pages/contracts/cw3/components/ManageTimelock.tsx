@@ -132,13 +132,6 @@ const ManageTimelock = () => {
             </button>
           )}
 
-{scheduleModal && (<div className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 w-full md:inset-0 h-modal md:h-full">
-  <div className="relative p-4 w-full max-w-md h-full md:h-auto">
-    <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-        <ScheduleModal></ScheduleModal>
-    </div>
-  </div>
-</div>)}
           <div className="ml-10 mt-5 relative inline-block text-left">
             {executeDrop && (
               <div className="origin-top-right border border-gray-300 bg-black absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-8">
@@ -214,6 +207,13 @@ const ManageTimelock = () => {
       </div>
       <div className="w-full justify-center">
         <div className="flex-col">
+          {scheduleModal && (<div className="overflow-y-auto overflow-x-hidden fixed top-1/4 right-1/4 left-1/4 w-1/2 h-full">
+            <div className="relative p-4 w-full h-full md:h-auto">
+              <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                  <ScheduleModal></ScheduleModal>
+              </div>
+            </div>
+          </div>)}
           {/* {(timelock.admins.length > 0 || timelock.proposers.length > 0)&&
           (<div className="w-full ml-20 font-bold my-3 text-center items-center text-xl">
             {timelock.admins.length + ' admins'}
