@@ -206,10 +206,12 @@ const ManageTimelock = () => {
               className="modal cursor-pointer"
               style={{ background: 'rgb(25, 29, 32, 0.75)' }}
             >
-              <Prosedures
-                selectedModal={selectedModal}
-                contractAddress={contractAddress}
-              />
+              <label className="modal-box relative">
+                <Prosedures
+                  selectedModal={selectedModal}
+                  contractAddress={contractAddress}
+                />
+              </label>
             </label>
           </div>
 

@@ -60,7 +60,7 @@ const Prosedures = (props: {
     }
   }
 
-  return <div className="w-1/2 ">{renderModal()}</div>
+  return <div>{renderModal()}</div>
 }
 
 export default Prosedures
