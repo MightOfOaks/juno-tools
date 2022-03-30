@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useWallet } from 'contexts/wallet'
 import { useContracts } from 'contexts/contracts'
 import toast from 'react-hot-toast'
-import CustomInput from '../CustomInput'
 
 const RemoveAddProposerAdminModal = (props: {
   functionType: string
@@ -11,9 +10,6 @@ const RemoveAddProposerAdminModal = (props: {
 }) => {
   const { userType, functionType, contractAddress } = props
   const [address, setAddress] = useState('')
-  const [executors, setExecutors] = useState<string[]>([])
-  const [targetAddress, setTargetAddress] = useState<string[]>([])
-  const [data, setData] = useState('')
   const contract = useContracts().cw3Timelock
   const wallet = useWallet()
 
@@ -73,6 +69,7 @@ const RemoveAddProposerAdminModal = (props: {
           type="button"
           className=" mt-10 h-15 w-40 bg-juno border border-gray-300 shadow-sm flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium text-gray-50 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500"
           id="options-menu"
+          disabled={address === ''}
           onClick={() => onClick()}
         >
           {functionType.toUpperCase() + ' ' + userType.toUpperCase()}

@@ -116,7 +116,6 @@ const ManageTimelock = () => {
                 >
                   <button
                     onClick={() => {
-                      setShowModal(!showModal)
                       setSelectedModal('schedule')
                     }}
                     className="flex flex-col px-4 py-2 text-md text-gray-100 hover:text-juno hover:bg-gray-600"
@@ -126,7 +125,6 @@ const ManageTimelock = () => {
 
                   <button
                     onClick={() => {
-                      setShowModal(!showModal)
                       setSelectedModal('cancel')
                     }}
                     className="flex flex-col px-4 py-2 text-md text-gray-100 hover:text-juno hover:bg-gray-600"
@@ -138,7 +136,6 @@ const ManageTimelock = () => {
                   </button>
                   <button
                     onClick={() => {
-                      setShowModal(!showModal)
                       setSelectedModal('execute')
                     }}
                     className="flex flex-col px-4 py-2 text-md text-gray-100 hover:text-juno hover:bg-gray-600"
@@ -150,7 +147,6 @@ const ManageTimelock = () => {
                   </button>
                   <button
                     onClick={() => {
-                      setShowModal(!showModal)
                       setSelectedModal('revoke')
                     }}
                     className="flex flex-col px-4 py-2 text-md text-gray-100 hover:text-juno hover:bg-gray-600"
@@ -162,7 +158,6 @@ const ManageTimelock = () => {
                   </button>
                   <button
                     onClick={() => {
-                      setShowModal(!showModal)
                       setSelectedModal('add')
                     }}
                     className="flex flex-col px-4 py-2 text-md text-gray-100 hover:text-juno hover:bg-gray-600"
@@ -175,7 +170,6 @@ const ManageTimelock = () => {
 
                   <a
                     onClick={() => {
-                      setShowModal(!showModal)
                       setSelectedModal('remove')
                     }}
                     className="flex flex-col px-4 py-2 text-md text-gray-100 hover:text-juno hover:bg-gray-600"
@@ -186,12 +180,14 @@ const ManageTimelock = () => {
                     </span>
                   </a>
                   <a
-                    href="#"
-                    className="block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
+                    onClick={() => {
+                      setSelectedModal('min-delay')
+                    }}
+                    className="flex flex-col px-4 py-2 text-md text-gray-100 hover:text-juno hover:bg-gray-600"
                     role="menuitem"
                   >
                     <span className="flex flex-col">
-                      <span>UpdateMinDelay</span>
+                      <label htmlFor="my-modal-4">Update Min Delay</label>
                     </span>
                   </a>
                 </div>
@@ -203,21 +199,20 @@ const ManageTimelock = () => {
 
       <div className="w-full justify-center">
         <div className="flex-col">
-          {showModal && (
-            <div>
-              <input type="checkbox" id="my-modal-4" className="modal-toggle" />
-              <label
-                htmlFor="my-modal-4"
-                className="modal cursor-pointer"
-                style={{ background: 'rgb(25, 29, 32, 0.75)' }}
-              >
-                <Prosedures
-                  selectedModal={selectedModal}
-                  contractAddress={contractAddress}
-                />
-              </label>
-            </div>
-          )}
+          <div>
+            <input type="checkbox" id="my-modal-4" className="modal-toggle" />
+            <label
+              htmlFor="my-modal-4"
+              className="modal cursor-pointer"
+              style={{ background: 'rgb(25, 29, 32, 0.75)' }}
+            >
+              <Prosedures
+                selectedModal={selectedModal}
+                contractAddress={contractAddress}
+              />
+            </label>
+          </div>
+
           {(timelock.admins.length > 0 || timelock.proposers.length > 0) && (
             <div className="flex">
               <ul className="ml-10 mr-3 w-full text-sm font-medium text-gray-900 bg-dark-gray border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">

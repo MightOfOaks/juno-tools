@@ -2,6 +2,7 @@ import React from 'react'
 import ScheduleModal from './ScheduleModal'
 import CancelExecuteModal from './CancelExecuteModal'
 import RemoveAddProposerAdminModal from './RemoveAddProposerAdmin'
+import UpdateDelayModal from './UpdateDelayModal'
 
 const Prosedures = (props: {
   selectedModal: string
@@ -51,6 +52,8 @@ const Prosedures = (props: {
             contractAddress={contractAddress}
           />
         )
+      case 'min-delay':
+        return <UpdateDelayModal contractAddress={contractAddress} />
 
       default:
         return <div> TEST </div>

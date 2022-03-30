@@ -57,6 +57,7 @@ const CancelExecuteModal = (props: {
           type="button"
           className=" mt-10 h-10 w-20 bg-juno border border-gray-300 shadow-sm flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium text-gray-50 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500"
           id="options-menu"
+          disabled={operationId === ''}
           onClick={() => cancelDelete()}
         >
           {props.functionType.toUpperCase()}
