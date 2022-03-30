@@ -88,7 +88,7 @@ const ManageTimelock = () => {
           {clientFound && (
             <button
               type="button"
-              className=" mx-10 h-18 p-3 w-28 bg-juno border border-gray-300 shadow-sm flex items-center justify-center rounded-xl font-medium text-gray-50 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500"
+              className="mx-5 px-4 border-2 rounded-lg hover:text-juno"
               id="options-menu"
               onClick={() => setExecuteDrop(!executeDrop)}
             >
@@ -99,12 +99,12 @@ const ManageTimelock = () => {
                 fill="currentColor"
                 viewBox="0 0 1792 1792"
                 xmlns="http://www.w3.org/2000/svg"
+                className="float-right"
               >
                 <path d="M1408 704q0 26-19 45l-448 448q-19 19-45 19t-45-19l-448-448q-19-19-19-45t19-45 45-19h896q26 0 45 19t19 45z"></path>
               </svg>
             </button>
           )}
-
           <div className="ml-10 mt-5 relative inline-block text-left">
             {executeDrop && (
               <div className="origin-top-right border border-gray-300 bg-black absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-8">
@@ -214,9 +214,10 @@ const ManageTimelock = () => {
               </label>
             </label>
           </div>
-
+          <br />
+          <hr className="mx-10" />
           {(timelock.admins.length > 0 || timelock.proposers.length > 0) && (
-            <div className="flex">
+            <div className="flex mt-10">
               <ul className="ml-10 mr-3 w-full text-sm font-medium text-gray-900 bg-dark-gray border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                 <li className="w-full font-bold px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                   Administrators
@@ -261,7 +262,7 @@ const ManageTimelock = () => {
               key={index}
               className={`${
                 theme.isDarkTheme ? 'border-gray/20' : 'border-dark/20'
-              } text-center m-5`}
+              } text-center m-5 mx-10`}
             >
               <div className="h-32 w-full p-3 flex flex-col items-center border rounded-xl">
                 <div className="flex items-center text-lg font-bold mb-1">
@@ -278,7 +279,7 @@ const ManageTimelock = () => {
           <div
             className={`${
               theme.isDarkTheme ? 'border-gray/20' : 'border-dark/20'
-            } text-center m-5`}
+            } text-center m-5 mx-10`}
           >
             <div className="h-32 w-full p-3 flex flex-col items-center border rounded-xl">
               <div className="flex items-center text-lg font-bold mb-1">
