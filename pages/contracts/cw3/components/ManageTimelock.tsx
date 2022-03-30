@@ -5,6 +5,7 @@ import { Operation, Timelock } from '../models'
 import { useWallet } from 'contexts/wallet'
 import { useContracts } from 'contexts/contracts'
 import Prosedures from './MenageTimelock/Procedures'
+import ScheduleModal from './MenageTimelock/ScheduleModal'
 
 const ManageTimelock = () => {
   const theme = useTheme()
@@ -18,7 +19,7 @@ const ManageTimelock = () => {
   const [clientFound, setClientFound] = useState(false)
   const [queryDrop, setQueryDrop] = useState(false)
   const [executeDrop, setExecuteDrop] = useState(false)
-  const [choiseDrop, setChoiseDrop] = useState(true)
+  const [scheduleModal, setScheduleModal] = useState(false)
   const [proceduresDrop, setProceduresDrop] = useState(false)
   const contract = useContracts().cw3Timelock
   const wallet = useWallet()
@@ -84,9 +85,12 @@ const ManageTimelock = () => {
     const minutes = Math.floor(hours_ns / (60*1000000000));
     const minutes_ns = nanosecs % (60*1000000000);
     const sec = Math.floor(minutes_ns / 1000000000);
-    return ((days > 0) ? days + " days ":"") + ((hours > 0) ? ": " + hours + " hours ":"") + (minutes > 0 ? ": " + minutes + ": minutes ":"") + (sec > 0 ? ": " + sec + " seconds": "");
+    return ((days > 0) ? days + " days ":"") + ((hours > 0) ? ": " + hours + " hours ":"") + (minutes > 0 ? ": " + minutes + ": minutes : ":"") + (sec > 0 ? sec + " seconds": "");
   }
 
+  function handleScheduleModal() {
+    setScheduleModal(!scheduleModal)
+  }
   return (
 
     <div>
@@ -127,112 +131,87 @@ const ManageTimelock = () => {
               </svg>
             </button>
           )}
+
+{scheduleModal && (<div className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 w-full md:inset-0 h-modal md:h-full">
+  <div className="relative p-4 w-full max-w-md h-full md:h-auto">
+    <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <ScheduleModal></ScheduleModal>
+    </div>
+  </div>
+</div>)}
           <div className="ml-10 mt-5 relative inline-block text-left">
-
-            <div>
-              <button
-                type="button"
-                className=" mr-10 h-20 w-28 bg-juno border border-gray-300 shadow-sm flex items-center justify-center rounded-xl px-4 py-2 text-lg font-medium text-gray-50 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500"
-                id="options-menu"
-                onClick={() => setExecuteDrop(true)}
-              >
-                Execute
-              </button>
-              {executeDrop && (
-                <div style={{
-                  position: 'fixed',
-                  zIndex: 1,
-                  left: 0,
-                  top: 0,
-                  width: '100%',
-                  height: '100%',
-                  overflow: 'auto',
-                  backgroundColor: 'rgba(117, 190, 218, 0.5)',
-                  transition: '0.3s ease-in-out'
-                }}>
-                  <a style={{ cursor: 'pointer' }} onClick={() => setExecuteDrop(false)}><span>X</span></a>
-                  <div style={{
-                    width: '50%',
-                    height: '65%',
-                    margin: '15% auto',
-                    backgroundColor: 'white',
-                    borderRadius: 5,
-                    position: 'relative',
-                    transition: 'inherit'
-                  }}>
-                    {choiseDrop && (<div style={{ color: 'black' }}>
-                      <div>
-                        CHOOSE
-                      </div>
-                      <div
-                        className="py-1 "
-                        role="menu"
-                        aria-orientation="vertical"
-                        aria-labelledby="options-menu"
-                      >
-                        <a
-                          onClick={() => {
-                            setChoiseDrop(false)
-                            setProceduresDrop(true)
-                          }}
-                          className="block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
-                          role="menuitem"
-                        >
-                          <span className="flex flex-col">
-                            <span>Schedule</span>
-                          </span>
-                        </a>
-                        <a
-                          onClick={() => setChoise("rea")}
-                          className="block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
-                          role="menuitem"
-                        >
-                          <span className="flex flex-col">
-                            <span>RevokeAdmin</span>
-                          </span>
-                        </a>
-                        <a
-                          onClick={() => setChoise("apr")}
-                          className="block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
-                          role="menuitem"
-                        >
-                          <span className="flex flex-col">
-                            <span>AddProposer</span>
-                          </span>
-                        </a>
-                        <a
-                          onClick={() => setChoise("rpr")}
-                          className="block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
-                          role="menuitem"
-                        >
-                          <span className="flex flex-col">
-                            <span>RemoveProposer</span>
-                          </span>
-                        </a>
-                        <a
-                          onClick={() => setChoise("umd")}
-                          className="block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
-                          role="menuitem"
-                        >
-                          <span className="flex flex-col">
-                            <span>UpdateMinDelay</span>
-                          </span>
-                        </a>
-                      </div>
-                    </div>)}
-                    {<Prosedures />}
-
-
-                  </div>
-
+            {executeDrop && (
+              <div className="origin-top-right border border-gray-300 bg-black absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-8">
+                <div
+                  className="py-1 "
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="options-menu"
+                >
+                    <button onClick={handleScheduleModal} className="flex flex-col px-4 py-2 text-md text-gray-100 hover:text-juno hover:bg-gray-600">
+                      <span>Schedule</span>
+                    </button>
+                  
+                  <a
+                    href="#"
+                    className="block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
+                    role="menuitem"
+                  >
+                    <span className="flex flex-col">
+                      <span>Cancel</span>
+                    </span>
+                  </a>
+                  <a
+                    href="#"
+                    className="block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
+                    role="menuitem"
+                  >
+                    <span className="flex flex-col">
+                      <span>Execute</span>
+                    </span>
+                  </a>
+                  <a
+                    href="#"
+                    className="block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
+                    role="menuitem"
+                  >
+                    <span className="flex flex-col">
+                      <span>RevokeAdmin</span>
+                    </span>
+                  </a>
+                  <a
+                    href="#"
+                    className="block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
+                    role="menuitem"
+                  >
+                    <span className="flex flex-col">
+                      <span>AddProposer</span>
+                    </span>
+                  </a>
+                  <a
+                    href="#"
+                    className="block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
+                    role="menuitem"
+                  >
+                    <span className="flex flex-col">
+                      <span>RemoveProposer</span>
+                    </span>
+                  </a>
+                  <a
+                    href="#"
+                    className="block px-4 py-2 text-md text-gray-100 hover:text-white hover:bg-gray-600"
+                    role="menuitem"
+                  >
+                    <span className="flex flex-col">
+                      <span>UpdateMinDelay</span>
+                    </span>
+                  </a>
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </div>
-
       </div>
-
       <div className="w-full justify-center">
         <div className="flex-col">
           {/* {(timelock.admins.length > 0 || timelock.proposers.length > 0)&&
