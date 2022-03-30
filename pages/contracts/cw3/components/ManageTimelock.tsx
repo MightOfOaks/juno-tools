@@ -66,22 +66,22 @@ const ManageTimelock = () => {
   }
 
   return (
-    <div>
-      <div className="px-10 py-5">
+    <div className="px-6">
+      <div className="px-10 py-2">
         <label className="block mb-2 text-lg font-bold text-gray-900 dark:text-gray-300 text-left">
           Timelock Contract Address
         </label>
         <div className="flex">
           <input
             type="text"
-            className="w-3/4 bg-gray-50 border border-gray-300 text-black text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="rounded py-2 px-1 text-black w-2/3"
             placeholder={contractAddress || 'Please enter contract address'}
             value={contractAddress}
             onChange={(e) => setContractAddress(e.target.value)}
           />
           <button
             onClick={query}
-            className=" mx-10 h-18 p-3 w-28 bg-juno border border-gray-300 shadow-sm flex items-center justify-center rounded-xl font-medium text-gray-50 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500"
+            className="mx-5 p-2 border-2 rounded-lg hover:text-juno"
           >
             Search
           </button>
