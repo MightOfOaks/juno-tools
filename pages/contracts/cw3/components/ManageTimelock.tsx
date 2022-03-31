@@ -21,8 +21,6 @@ const ManageTimelock = () => {
   const [timelock, setTimelock] = useState<Timelock>(new Timelock([], [], 0))
   const [operations, setOperations] = useState<Operation[]>([])
   const [clientFound, setClientFound] = useState(false)
-  const [executeDrop, setExecuteDrop] = useState(false)
-  const [showModal, setShowModal] = useState(false)
   const [selectedModal, setSelectedModal] = useState('')
   const contract = useContracts().cw3Timelock
   const wallet = useWallet()
@@ -70,19 +68,28 @@ const ManageTimelock = () => {
   }
 
   function dhms(nanosecs: number) {
+    let result = ''
     const days = Math.floor(nanosecs / (24 * 60 * 60 * 1000000000))
+    if (days > 0) result += days + ' day(s) '
     const days_ns = nanosecs % (24 * 60 * 60 * 1000000000)
     const hours = Math.floor(days_ns / (60 * 60 * 1000000000))
-    const hours_ns = nanosecs % (60 * 60 * 1000)
+    if (hours > 0) {
+      if (result.length > 0) result += ' : '
+      result += hours + ' hour(s) '
+    }
+    const hours_ns = nanosecs % (60 * 60 * 1000000000)
     const minutes = Math.floor(hours_ns / (60 * 1000000000))
+    if (minutes > 0) {
+      if (result.length > 0) result += ' : '
+      result += minutes + ' minute(s) '
+    }
     const minutes_ns = nanosecs % (60 * 1000000000)
     const sec = Math.floor(minutes_ns / 1000000000)
-    return (
-      (days > 0 ? days + ' day(s) ' : '') +
-      (hours > 0 ? ': ' + hours + ' hour(s) ' : '') +
-      (minutes > 0 ? ': ' + minutes + ': minute(s) : ' : '') +
-      (sec > 0 ? sec + ' second(s)' : '')
-    )
+    if (sec > 0) {
+      if (result.length > 0) result += ' : '
+      result += sec + ' second(s) '
+    }
+    return result
   }
 
   return (
@@ -106,25 +113,22 @@ const ManageTimelock = () => {
             Search
           </button>
           {clientFound && (
-            <button
-              type="button"
-              className="mx-5 px-4 border-2 rounded-lg hover:text-juno"
-              id="options-menu"
+            <label
+              htmlFor="modal-menu"
+              className="mx-5 p-2 border-2 rounded-lg hover:text-juno cursor-pointer"
             >
-              <label htmlFor="modal-menu">
-                Execute
-                <svg
-                  width="20"
-                  height="20"
-                  fill="currentColor"
-                  viewBox="0 0 1792 1792"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="float-right"
-                >
-                  <path d="M1408 704q0 26-19 45l-448 448q-19 19-45 19t-45-19l-448-448q-19-19-19-45t19-45 45-19h896q26 0 45 19t19 45z"></path>
-                </svg>
-              </label>
-            </button>
+              Execute
+              <svg
+                width="20"
+                height="20"
+                fill="currentColor"
+                viewBox="0 0 1792 1792"
+                xmlns="http://www.w3.org/2000/svg"
+                className="float-right"
+              >
+                <path d="M1408 704q0 26-19 45l-448 448q-19 19-45 19t-45-19l-448-448q-19-19-19-45t19-45 45-19h896q26 0 45 19t19 45z"></path>
+              </svg>
+            </label>
           )}
           <div className="ml-10 mt-5 relative inline-block text-left">
             <input type="checkbox" id="modal-menu" className="modal-toggle" />

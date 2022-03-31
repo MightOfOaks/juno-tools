@@ -37,7 +37,7 @@ export interface CW3TimelockInstance {
     senderAddress: string,
     proposer_address: string
   ) => Promise<any>
-  updateMinDelay: (new_delay: number, senderAddress: string) => Promise<any>
+  updateMinDelay: (new_delay: string, senderAddress: string) => Promise<any>
   execute: (senderAddress: string, operation_id: string) => Promise<any>
 }
 
@@ -212,7 +212,7 @@ export const CW3Timelock = (
       return res.transactionHash
     }
 
-    const updateMinDelay = async (new_delay: number, senderAddress: string) => {
+    const updateMinDelay = async (new_delay: string, senderAddress: string) => {
       const res = await client.execute(
         senderAddress,
         contractAddress,
