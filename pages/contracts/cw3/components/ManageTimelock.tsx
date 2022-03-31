@@ -5,6 +5,7 @@ import { Operation, Timelock } from '../models'
 import { useWallet } from 'contexts/wallet'
 import { useContracts } from 'contexts/contracts'
 import Procedures from './Procedures'
+import { isValidAddress } from '../../../../utils/isValidAddress';
 
 const ManageTimelock = () => {
   const theme = useTheme()
@@ -13,7 +14,8 @@ const ManageTimelock = () => {
   )
   // 'juno1ptxjpktyrus6g8xn9yd98ewzahyhhvc56ddg6c8ln2hk6qhlesxqy43240'
 
-  const decode = (str: string): string => Buffer.from(str, 'base64').toString('binary');
+  const decode = (str: string): string =>
+    Buffer.from(str, 'base64').toString('binary')
 
   const [timelock, setTimelock] = useState<Timelock>(new Timelock([], [], 0))
   const [operations, setOperations] = useState<Operation[]>([])
@@ -33,23 +35,34 @@ const ManageTimelock = () => {
           style: { maxWidth: 'none' },
         })
       }
-      const client = contract?.use(contractAddress)
+      
+      if (isValidAddress(contractAddress)) {
+        const client = contract?.use(contractAddress)
 
-      if (client) {
-        setClientFound(true)
+        if (client) {
+          setClientFound(true)
 
-        const admins = await client?.getAdmins()
-        const proposers = await client?.getProposers()
-        const minDelay = await client?.getMinDelay()
+          const admins = await client?.getAdmins()
+          const proposers = await client?.getProposers()
+          const minDelay = await client?.getMinDelay()
 
-        const res = await client?.getOperations()
-        console.log(operations)
+          const res = await client?.getOperations()
+          console.log(operations)
 
-        setTimelock(new Timelock(admins, proposers, minDelay))
-        setOperations(res.operationList)
+          setTimelock(new Timelock(admins, proposers, minDelay))
+          setOperations(res.operationList)
+        }
+      }else{
+        toast.error('You need to specify a valid Timelock contract address.', {
+          style: { maxWidth: 'none' },
+        })
       }
     } catch (error: any) {
-      toast.error(error.message, { style: { maxWidth: 'none' } })
+      if(error.message.includes('bech32 failed')){
+        toast.error('You need to specify a valid Timelock contract address.', {style: {maxWidth: 'none'}})
+      }else{ 
+        toast.error(error.message, { style: { maxWidth: 'none' } })
+      }
     }
   }
 
@@ -132,7 +145,9 @@ const ManageTimelock = () => {
                     role="menuitem"
                   >
                     <span className="flex flex-col text-md text-gray-100 hover:text-juno hover:bg-gray-600">
-                      <label className='cursor-pointer' htmlFor="my-modal-4">Schedule</label>
+                      <label className="cursor-pointer" htmlFor="my-modal-4">
+                        Schedule
+                      </label>
                     </span>
                   </button>
 
@@ -144,7 +159,9 @@ const ManageTimelock = () => {
                     role="menuitem"
                   >
                     <span className="flex flex-col text-md text-gray-100 hover:text-juno hover:bg-gray-600">
-                      <label className='cursor-pointer' htmlFor="my-modal-4">Cancel</label>
+                      <label className="cursor-pointer" htmlFor="my-modal-4">
+                        Cancel
+                      </label>
                     </span>
                   </button>
                   <button
@@ -155,7 +172,9 @@ const ManageTimelock = () => {
                     role="menuitem"
                   >
                     <span className="flex flex-col text-md text-gray-100 hover:text-juno hover:bg-gray-600">
-                      <label className='cursor-pointer' htmlFor="my-modal-4">Execute</label>
+                      <label className="cursor-pointer" htmlFor="my-modal-4">
+                        Execute
+                      </label>
                     </span>
                   </button>
                   <button
@@ -166,7 +185,9 @@ const ManageTimelock = () => {
                     role="menuitem"
                   >
                     <span className="flex flex-col text-md text-gray-100 hover:text-juno hover:bg-gray-600">
-                      <label className='cursor-pointer' htmlFor="my-modal-4">Revoke Admin</label>
+                      <label className="cursor-pointer" htmlFor="my-modal-4">
+                        Revoke Admin
+                      </label>
                     </span>
                   </button>
                   <button
@@ -177,7 +198,9 @@ const ManageTimelock = () => {
                     role="menuitem"
                   >
                     <span className="flex flex-col text-md text-gray-100 hover:text-juno hover:bg-gray-600">
-                      <label className='cursor-pointer' htmlFor="my-modal-4">Add Proposer</label>
+                      <label className="cursor-pointer" htmlFor="my-modal-4">
+                        Add Proposer
+                      </label>
                     </span>
                   </button>
 
@@ -189,7 +212,9 @@ const ManageTimelock = () => {
                     role="menuitem"
                   >
                     <span className="flex flex-col text-md text-gray-100 hover:text-juno hover:bg-gray-600">
-                      <label className='cursor-pointer' htmlFor="my-modal-4">Remove Proposer</label>
+                      <label className="cursor-pointer" htmlFor="my-modal-4">
+                        Remove Proposer
+                      </label>
                     </span>
                   </a>
                   <a
@@ -200,7 +225,9 @@ const ManageTimelock = () => {
                     role="menuitem"
                   >
                     <span className="flex flex-col text-md text-gray-100 hover:text-juno hover:bg-gray-600">
-                      <label className='cursor-pointer' htmlFor="my-modal-4">Update Min Delay</label>
+                      <label className="cursor-pointer" htmlFor="my-modal-4">
+                        Update Min Delay
+                      </label>
                     </span>
                   </a>
                 </div>
@@ -274,14 +301,19 @@ const ManageTimelock = () => {
             operations.map((item, index) => (
               <div
                 key={index}
-                className={`${theme.isDarkTheme ? 'border-gray/20' : 'border-dark/20'
-                  } text-center m-5 mx-10`}
+                className={`${
+                  theme.isDarkTheme ? 'border-gray/20' : 'border-dark/20'
+                } text-center m-5 mx-10`}
               >
                 <div className="h-32 w-full p-3 flex flex-col items-center border rounded-xl">
                   <div className="flex items-center text-lg font-bold mb-1">
                     {' Operation' + item.id + ' status: ' + item.status}
                   </div>
-                  {'Execution Time: ' + new Date(Number(item.execution_time) / 1000000).toString()} <br />
+                  {'Execution Time: ' +
+                    new Date(
+                      Number(item.execution_time) / 1000000
+                    ).toString()}{' '}
+                  <br />
                   {'Target Contract: ' + item.target} <br />
                   {'Data: ' + decode(item.data)} <br />
                 </div>
@@ -291,8 +323,9 @@ const ManageTimelock = () => {
 
         {clientFound && operations.length === 0 && (
           <div
-            className={`${theme.isDarkTheme ? 'border-gray/20' : 'border-dark/20'
-              } text-center m-5 mx-10`}
+            className={`${
+              theme.isDarkTheme ? 'border-gray/20' : 'border-dark/20'
+            } text-center m-5 mx-10`}
           >
             <div className="h-32 w-full p-3 flex flex-col items-center border rounded-xl">
               <div className="flex items-center text-lg font-bold mb-1">

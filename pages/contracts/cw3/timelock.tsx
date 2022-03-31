@@ -140,8 +140,10 @@ const CW3Timelock = () => {
   }
 
   return (
-    <div className="h-3/4 w-full overflow-y-auto"
-    style={{ scrollbarWidth: 'none'}}>
+    <div
+      className="h-3/4 w-full overflow-y-auto"
+      style={{ scrollbarWidth: 'none' }}
+    >
       <h1 className="text-6xl font-bold text-center">Timelock</h1>
       <div className="mt-5 text-center text-lg">
         A smart contract that relays execute function calls on other smart
