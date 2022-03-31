@@ -11,8 +11,8 @@ const ScheduleModal = () => {
   const [date, setDate] = useState("")
   const [time, setTime] = useState("")
   const [executors, setExecutors] = useState<string[]>([])
-  const [targetAddress, setTargetAddress] = useState<string[]>([])
-  const [data, setData] = useState('')
+  const [targetAddress, setTargetAddress] = useState("")
+  const [data, setData] = useState("")
   const contract = useContracts().cw3Timelock
   const wallet = useWallet()
 
@@ -20,8 +20,8 @@ const ScheduleModal = () => {
     setExecutors(arg0)
   }
 
-  const handleChangeTargetAddress = (arg0: string[]) => {
-    setExecutors(arg0)
+  const handleChangeTargetAddress = (arg0: string) => {
+    setTargetAddress(arg0)
   }
 
   const handleChangeExecutionDate = (event: {
@@ -41,9 +41,7 @@ const ScheduleModal = () => {
   function getExecutionTimeInNanosecs(): number
   {
       const yearMonthDay = date.split("-")
-      return(new Date(Number(yearMonthDay[1]).toString() + "-" + Number(yearMonthDay[2]).toString()+ "-" + Number(yearMonthDay[0]).toString() + "-" + time).getTime() * 1000000)
-      
-      
+      return(new Date(Number(yearMonthDay[1]).toString() + "-" + Number(yearMonthDay[2]).toString()+ "-" + Number(yearMonthDay[0]).toString() + "-" + time).getTime() * 1000000)     
   }
 
 
@@ -53,15 +51,16 @@ const ScheduleModal = () => {
       const client = contract?.use(contractAddress)
 
       if (client && wallet) {
-        const msg = {
-          mint: {
-            amount: '1000',
-          },
-        }
+        //Reserved for hard coded data
+        // const msg = {
+        //   mint: {
+        //     amount: '1000',
+        //   },
+        // }
         const res6 = await client?.schedule(
           wallet.address,
-          targetAddress[0],
-          msg,
+          targetAddress,
+          {data},
           getExecutionTimeInNanosecs().toString(),
           executors
         )
@@ -93,9 +92,16 @@ const ScheduleModal = () => {
         />
       </div>
       <CustomInput function={handleChangeExecutors} placeholder="Executors" />
-      <CustomInput
-        function={handleChangeTargetAddress}
+      <label
+          htmlFor="small-input"
+          className="mb-1 mx-3 block font-bold text-gray-900 dark:text-gray-300"
+        >
+          Target Address
+      </label>
+      <input
+        onChange={(e) => {setTargetAddress(e.target.value)}}
         placeholder="Target Address"
+        className="w-4/5 py-2 px-1 mx-3 mb-3 rounded text-black text-gray-900 dark:text-gray-300"
       />
       <div className="flex">
         <div className="flex-col basis-1/4">
