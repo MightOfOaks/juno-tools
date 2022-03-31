@@ -47,7 +47,6 @@ const UpdateDelayModal = (props: { contractAddress: string }) => {
         toast.error('Wallet Or Client Error', { style: { maxWidth: 'none' } })
       }
       if (!(isNaN(minDelay) || Number(minDelay) < 1)) {
-
         const res = await client?.updateMinDelay(
           getMinDelayInNanoSeconds(minDelay).toString(),
           wallet.address
