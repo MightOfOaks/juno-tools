@@ -13,6 +13,8 @@ const ManageTimelock = () => {
   )
   // 'juno1ptxjpktyrus6g8xn9yd98ewzahyhhvc56ddg6c8ln2hk6qhlesxqy43240'
 
+  const decode = (str: string): string => Buffer.from(str, 'base64').toString('binary');
+
   const [timelock, setTimelock] = useState<Timelock>(new Timelock([], [], 0))
   const [operations, setOperations] = useState<Operation[]>([])
   const [clientFound, setClientFound] = useState(false)
@@ -279,9 +281,9 @@ const ManageTimelock = () => {
                   <div className="flex items-center text-lg font-bold mb-1">
                     {' Operation' + item.id + ' status: ' + item.status}
                   </div>
-                  {'Execution Time: ' + new Date(Number(item.execution_time)/1000000).toString()} <br />
+                  {'Execution Time: ' + new Date(Number(item.execution_time) / 1000000).toString()} <br />
                   {'Target Contract: ' + item.target} <br />
-                  {'Data: ' + item.data} <br />
+                  {'Data: ' + decode(item.data)} <br />
                 </div>
               </div>
             ))}
