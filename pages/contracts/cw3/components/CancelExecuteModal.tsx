@@ -18,7 +18,7 @@ const CancelExecuteModal = (props: {
         if (!client || !wallet) {
           toast.error('Wallet Or Client Error', { style: { maxWidth: 'none' } })
         }
-        if (props.functionType === 'execute') {
+        if (props.functionType === 'Execute') {
           const res = await client?.execute(wallet.address, operationId)
           console.log('execute: ', res)
         } else {
@@ -60,7 +60,7 @@ const CancelExecuteModal = (props: {
           disabled={operationId === ''}
           onClick={() => cancelDelete()}
         >
-          {props.functionType.toUpperCase()}
+          {props.functionType}
         </button>
       </div>
     </div>

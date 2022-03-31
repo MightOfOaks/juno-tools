@@ -25,7 +25,7 @@ const RemoveAddProposerAdminModal = (props: {
           const res = await client?.revokeAdmin(wallet.address, address)
           console.log('revoke admin res : ', res)
         } else {
-          if (functionType === 'add') {
+          if (functionType === 'Add') {
             const res = await client?.addProposer(wallet.address, address)
             console.log('add proposer res: ', res)
           } else {
@@ -72,7 +72,7 @@ const RemoveAddProposerAdminModal = (props: {
           disabled={address === ''}
           onClick={() => onClick()}
         >
-          {functionType.toUpperCase() + ' ' + userType.toUpperCase()}
+          {functionType + ' ' + userType}
         </button>
       </div>
     </div>

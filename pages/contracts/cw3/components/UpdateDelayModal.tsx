@@ -79,7 +79,7 @@ const UpdateDelayModal = (props: { contractAddress: string }) => {
             onClick={updateMinDelay}
             className="p-2 border-2 rounded-lg hover:text-juno"
           >
-            Update Min Delay
+            Update Minimum Delay
           </button>
         </div>
       </div>

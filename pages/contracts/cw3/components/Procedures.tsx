@@ -17,21 +17,21 @@ const Procedures = (props: {
       case 'cancel':
         return (
           <CancelExecuteModal
-            functionType="cancel"
+            functionType="Cancel"
             contractAddress={contractAddress}
           />
         )
       case 'execute':
         return (
           <CancelExecuteModal
-            functionType="execute"
+            functionType="Execute"
             contractAddress={contractAddress}
           />
         )
       case 'revoke':
         return (
           <RemoveAddProposerAdminModal
-            functionType={'revoke'}
+            functionType={'Revoke'}
             userType={'Admin'}
             contractAddress={contractAddress}
           />
@@ -39,7 +39,7 @@ const Procedures = (props: {
       case 'add':
         return (
           <RemoveAddProposerAdminModal
-            functionType="add"
+            functionType="Add"
             userType="Proposer"
             contractAddress={contractAddress}
           />
@@ -47,7 +47,7 @@ const Procedures = (props: {
       case 'remove':
         return (
           <RemoveAddProposerAdminModal
-            functionType={'remove'}
+            functionType={'Remove'}
             userType={'Proposer'}
             contractAddress={contractAddress}
           />
