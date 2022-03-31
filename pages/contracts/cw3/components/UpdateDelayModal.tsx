@@ -29,11 +29,21 @@ const UpdateDelayModal = (props: { contractAddress: string }) => {
       if (!client || !wallet) {
         toast.error('Wallet Or Client Error', { style: { maxWidth: 'none' } })
       }
-
-      const res = await client?.updateMinDelay(minDelay, wallet.address)
-      console.log('update min delay res: ', res)
+      if (!(isNaN(minDelay) || Number(minDelay) < 1)){
+        const res = await client?.updateMinDelay(minDelay, wallet.address)
+        console.log('update min delay res: ', res)
+      }
+      else{
+        toast.error('You need to specify a valid delay.', { style: { maxWidth: 'none' } })
+      }
     } catch (error: any) {
-      toast.error('Error', { style: { maxWidth: 'none' } })
+      if (error.message.includes('Unauthorized')) {
+        toast.error('You need administrator rights for this action.', {
+          style: { maxWidth: 'none' },
+        })
+      } else {
+        toast.error(error.message, { style: { maxWidth: 'none' } })
+      }
     }
   }
 

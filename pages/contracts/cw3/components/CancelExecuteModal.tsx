@@ -28,7 +28,7 @@ const CancelExecuteModal = (props: {
           }
         } catch (err: any) {
           if (err.message.includes('Unauthorized')) {
-            toast.error('You need administrator rights for this action.', {
+            toast.error('You are not authorized for this action.', {
               style: { maxWidth: 'none' },
             })
           } else {
