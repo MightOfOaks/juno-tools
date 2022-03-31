@@ -17,8 +17,10 @@
     "@cosmjs/stargate": "^0",
     "@fontsource/jetbrains-mono": "^4",
     "@fontsource/roboto": "^4",
+    "@popperjs/core": "^2.11.4",
     "@svgr/webpack": "^6",
     "axios": "^0",
+    "clsx": "^1.1.1",
     "compare-versions": "^4",
     "daisyui": "^1",
     "next": "^12",
@@ -27,6 +29,7 @@
     "react-dom": "^17",
     "react-hot-toast": "^2",
     "react-icons": "^4",
+    "react-popper": "^2.2.5",
     "react-syntax-highlighter": "^15"
   },
   "devDependencies": {

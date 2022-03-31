@@ -5,7 +5,8 @@ import { Operation, Timelock } from '../models'
 import { useWallet } from 'contexts/wallet'
 import { useContracts } from 'contexts/contracts'
 import Procedures from './Procedures'
-import { isValidAddress } from '../../../../utils/isValidAddress';
+import { isValidAddress } from '../../../../utils/isValidAddress'
+import OperationsTable from './OperationsTable'
 
 const ManageTimelock = () => {
   const theme = useTheme()
@@ -35,7 +36,7 @@ const ManageTimelock = () => {
           style: { maxWidth: 'none' },
         })
       }
-      
+
       if (isValidAddress(contractAddress)) {
         const client = contract?.use(contractAddress)
 
@@ -52,15 +53,17 @@ const ManageTimelock = () => {
           setTimelock(new Timelock(admins, proposers, minDelay))
           setOperations(res.operationList)
         }
-      }else{
+      } else {
         toast.error('You need to specify a valid Timelock contract address.', {
           style: { maxWidth: 'none' },
         })
       }
     } catch (error: any) {
-      if(error.message.includes('bech32 failed')){
-        toast.error('You need to specify a valid Timelock contract address.', {style: {maxWidth: 'none'}})
-      }else{ 
+      if (error.message.includes('bech32 failed')) {
+        toast.error('You need to specify a valid Timelock contract address.', {
+          style: { maxWidth: 'none' },
+        })
+      } else {
         toast.error(error.message, { style: { maxWidth: 'none' } })
       }
     }
@@ -297,28 +300,45 @@ const ManageTimelock = () => {
         </div>
 
         <div className="overflow-auto h-40">
-          {operations.length > 0 &&
-            operations.map((item, index) => (
-              <div
-                key={index}
-                className={`${
-                  theme.isDarkTheme ? 'border-gray/20' : 'border-dark/20'
-                } text-center m-5 mx-10`}
-              >
-                <div className="h-32 w-full p-3 flex flex-col items-center border rounded-xl">
-                  <div className="flex items-center text-lg font-bold mb-1">
-                    {' Operation' + item.id + ' status: ' + item.status}
-                  </div>
-                  {'Execution Time: ' +
-                    new Date(
-                      Number(item.execution_time) / 1000000
-                    ).toString()}{' '}
-                  <br />
-                  {'Target Contract: ' + item.target} <br />
-                  {'Data: ' + decode(item.data)} <br />
-                </div>
-              </div>
-            ))}
+          {operations.length > 0 && (
+            // operations.map((item, index) => (
+            //   <div
+            //     key={index}
+            //     className={`${
+            //       theme.isDarkTheme ? 'border-gray/20' : 'border-dark/20'
+            //     } text-center m-5 mx-10`}
+            //   >
+            //     <div className="h-32 w-full p-3 flex flex-col items-center border rounded-xl">
+            //       <div className="flex items-center text-lg font-bold mb-1">
+            //         {' Operation' + item.id + ' status: ' + item.status}
+            //       </div>
+            //       {'Execution Time: ' +
+            //         new Date(
+            //           Number(item.execution_time) / 1000000
+            //         ).toString()}{' '}
+            //       <br />
+            //       {'Target Contract: ' + item.target} <br />
+            //       {'Data: ' + decode(item.data)} <br />
+            //     </div>
+            //   </div>
+            // )
+            <OperationsTable
+              data={[
+                {
+                  name: 'Timelock',
+                  contractAddress: '0x7c0d52faab596c08f484e3478aebc6205f3f5d8c',
+                  totalAmount: 10,
+                  claimed: 0,
+                  allocation: 0,
+                  start: 1000,
+                  startType: '0',
+                  expiration: 100000,
+                  expirationType: '0',
+                  logo: null,
+                },
+              ]}
+            />
+          )}
         </div>
 
         {clientFound && operations.length === 0 && (
