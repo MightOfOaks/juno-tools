@@ -115,7 +115,7 @@ const ManageTimelock = () => {
               className="modal"
               style={{ background: 'rgb(25, 29, 32, 0)' }}
             >
-              <label className="origin-top-right border border-gray-300 bg-black absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-8">
+              <label className="origin-top-right border border-gray-300 bg-black absolute right-12 mt-2 w-56 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-8">
                 <div
                   className="py-1 "
                   role="menu"
@@ -126,53 +126,56 @@ const ManageTimelock = () => {
                     onClick={() => {
                       setSelectedModal('schedule')
                     }}
-                    className="flex flex-col px-4 py-2 text-md text-gray-100 hover:text-juno hover:bg-gray-600"
+                    className="flex flex-col px-4 py-2"
+                    role="menuitem"
                   >
-                    <label htmlFor="my-modal-4">Schedule</label>
+                    <span className="flex flex-col text-md text-gray-100 hover:text-juno hover:bg-gray-600">
+                      <label className='cursor-pointer' htmlFor="my-modal-4">Schedule</label>
+                    </span>
                   </button>
 
                   <button
                     onClick={() => {
                       setSelectedModal('cancel')
                     }}
-                    className="flex flex-col px-4 py-2 text-md text-gray-100 hover:text-juno hover:bg-gray-600"
+                    className="flex flex-col px-4 py-2"
                     role="menuitem"
                   >
-                    <span className="flex flex-col">
-                      <label htmlFor="my-modal-4">Cancel</label>
+                    <span className="flex flex-col text-md text-gray-100 hover:text-juno hover:bg-gray-600">
+                      <label className='cursor-pointer' htmlFor="my-modal-4">Cancel</label>
                     </span>
                   </button>
                   <button
                     onClick={() => {
                       setSelectedModal('execute')
                     }}
-                    className="flex flex-col px-4 py-2 text-md text-gray-100 hover:text-juno hover:bg-gray-600"
+                    className="flex flex-col px-4 py-2"
                     role="menuitem"
                   >
-                    <span className="flex flex-col">
-                      <label htmlFor="my-modal-4">Execute</label>
+                    <span className="flex flex-col text-md text-gray-100 hover:text-juno hover:bg-gray-600">
+                      <label className='cursor-pointer' htmlFor="my-modal-4">Execute</label>
                     </span>
                   </button>
                   <button
                     onClick={() => {
                       setSelectedModal('revoke')
                     }}
-                    className="flex flex-col px-4 py-2 text-md text-gray-100 hover:text-juno hover:bg-gray-600"
+                    className="flex flex-col px-4 py-2"
                     role="menuitem"
                   >
-                    <span className="flex flex-col">
-                      <label htmlFor="my-modal-4">Revoke Admin</label>
+                    <span className="flex flex-col text-md text-gray-100 hover:text-juno hover:bg-gray-600">
+                      <label className='cursor-pointer' htmlFor="my-modal-4">Revoke Admin</label>
                     </span>
                   </button>
                   <button
                     onClick={() => {
                       setSelectedModal('add')
                     }}
-                    className="flex flex-col px-4 py-2 text-md text-gray-100 hover:text-juno hover:bg-gray-600"
+                    className="flex flex-col px-4 py-2"
                     role="menuitem"
                   >
-                    <span className="flex flex-col">
-                      <label htmlFor="my-modal-4">Add Proposer</label>
+                    <span className="flex flex-col text-md text-gray-100 hover:text-juno hover:bg-gray-600">
+                      <label className='cursor-pointer' htmlFor="my-modal-4">Add Proposer</label>
                     </span>
                   </button>
 
@@ -180,22 +183,22 @@ const ManageTimelock = () => {
                     onClick={() => {
                       setSelectedModal('remove')
                     }}
-                    className="flex flex-col px-4 py-2 text-md text-gray-100 hover:text-juno hover:bg-gray-600"
+                    className="flex flex-col px-4 py-2"
                     role="menuitem"
                   >
-                    <span className="flex flex-col">
-                      <label htmlFor="my-modal-4">Remove Proposer</label>
+                    <span className="flex flex-col text-md text-gray-100 hover:text-juno hover:bg-gray-600">
+                      <label className='cursor-pointer' htmlFor="my-modal-4">Remove Proposer</label>
                     </span>
                   </a>
                   <a
                     onClick={() => {
                       setSelectedModal('min-delay')
                     }}
-                    className="flex flex-col px-4 py-2 text-md text-gray-100 hover:text-juno hover:bg-gray-600"
+                    className="flex flex-col px-4 py-2"
                     role="menuitem"
                   >
-                    <span className="flex flex-col">
-                      <label htmlFor="my-modal-4">Update Min Delay</label>
+                    <span className="flex flex-col text-md text-gray-100 hover:text-juno hover:bg-gray-600">
+                      <label className='cursor-pointer' htmlFor="my-modal-4">Update Min Delay</label>
                     </span>
                   </a>
                 </div>
@@ -269,9 +272,8 @@ const ManageTimelock = () => {
             operations.map((item, index) => (
               <div
                 key={index}
-                className={`${
-                  theme.isDarkTheme ? 'border-gray/20' : 'border-dark/20'
-                } text-center m-5 mx-10`}
+                className={`${theme.isDarkTheme ? 'border-gray/20' : 'border-dark/20'
+                  } text-center m-5 mx-10`}
               >
                 <div className="h-32 w-full p-3 flex flex-col items-center border rounded-xl">
                   <div className="flex items-center text-lg font-bold mb-1">
@@ -287,9 +289,8 @@ const ManageTimelock = () => {
 
         {clientFound && operations.length === 0 && (
           <div
-            className={`${
-              theme.isDarkTheme ? 'border-gray/20' : 'border-dark/20'
-            } text-center m-5 mx-10`}
+            className={`${theme.isDarkTheme ? 'border-gray/20' : 'border-dark/20'
+              } text-center m-5 mx-10`}
           >
             <div className="h-32 w-full p-3 flex flex-col items-center border rounded-xl">
               <div className="flex items-center text-lg font-bold mb-1">
