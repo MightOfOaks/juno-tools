@@ -279,7 +279,7 @@ const ManageTimelock = () => {
                   <div className="flex items-center text-lg font-bold mb-1">
                     {' Operation' + item.id + ' status: ' + item.status}
                   </div>
-                  {'execution time: ' + item.execution_time} <br />
+                  {'execution time: ' + new Date(Number(item.execution_time)/1000000).toString()} <br />
                   {'target: ' + item.target} <br />
                   {'data: ' + item.data} <br />
                 </div>
