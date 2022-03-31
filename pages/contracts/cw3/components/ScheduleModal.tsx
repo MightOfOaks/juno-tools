@@ -8,8 +8,8 @@ const ScheduleModal = () => {
   const [contractAddress, setContractAddress] = useState(
     'juno1cspathx3ex9hud98vt6qpsujj9gnefkjphzm4f83shue5q5u8suq7me0lc'
   )
-  const [minDelay, setMinDelay] = useState(0)
-  const [minDelayUnit, setMinDelayUnit] = useState('seconds')
+  const [date, setDate] = useState("")
+  const [time, setTime] = useState("")
   const [executors, setExecutors] = useState<string[]>([])
   const [targetAddress, setTargetAddress] = useState<string[]>([])
   const [data, setData] = useState('')
@@ -24,19 +24,31 @@ const ScheduleModal = () => {
     setExecutors(arg0)
   }
 
-  const handleChangeMinDelay = (event: {
+  const handleChangeExecutionDate = (event: {
     target: { value: React.SetStateAction<string> }
   }) => {
-    setMinDelay(Number(event.target.value))
+    setDate(event.target.value)
+    console.log(date)
   }
 
-  const handleChangeMinDelayUnit = (event: {
+  const handleChangeExecutionTime = (event: {
     target: { value: React.SetStateAction<string> }
   }) => {
-    setMinDelayUnit(event.target.value)
+    setTime(event.target.value)
+    console.log(time)
   }
+  
+  function getExecutionTimeInNanosecs(): number
+  {
+      const yearMonthDay = date.split("-")
+      return(new Date(Number(yearMonthDay[1]).toString() + "-" + Number(yearMonthDay[2]).toString()+ "-" + Number(yearMonthDay[0]).toString() + "-" + time).getTime() * 1000000)
+      
+      
+  }
+
 
   const execute = async () => {
+    console.log(getExecutionTimeInNanosecs().toString())
     try {
       const client = contract?.use(contractAddress)
 
@@ -50,7 +62,7 @@ const ScheduleModal = () => {
           wallet.address,
           targetAddress[0],
           msg,
-          data,
+          getExecutionTimeInNanosecs().toString(),
           executors
         )
         console.log('schedule: ', res6)
@@ -93,33 +105,32 @@ const ScheduleModal = () => {
           >
             Execution Time
           </label>
-          <input
-            type="text"
-            onChange={handleChangeMinDelay}
-            className="py-2 px-1 mx-3 rounded text-black text-gray-900 dark:text-gray-300"
-            placeholder=" Execution Time"
-          />
-        </div>
-
-        <select
-          onChange={handleChangeMinDelayUnit}
-          defaultValue="seconds"
-          name="time"
-          id="time"
-          className="h-10 mt-6 basis-1/8 rounded text-black px-1 float-left"
-        >
-          <option value="days">days</option>
-          <option value="hours">hours</option>
-          <option value="minutes">minutes</option>
-          <option value="seconds">seconds</option>
-        </select>
-        <div className="px-3 mt-5 basis-1/4">
-          <button
-            onClick={execute}
-            className="p-2 border-2 rounded-lg hover:text-juno"
-          >
-            Schedule
-          </button>
+          <div className="flex">
+            <div>
+              <input
+                type="date"
+                onChange={handleChangeExecutionDate}
+                className="py-2 px-1 ml-3 mr-1 rounded text-black text-gray-900 dark:text-gray-300"
+                placeholder=" Execution Time"
+              />
+            </div>
+            <div>
+              <input
+                type="time"
+                onChange={handleChangeExecutionTime}
+                className="py-2 px-1 mr-2 ml-1 rounded text-black text-gray-900 dark:text-gray-300"
+                placeholder=" Execution Time"
+              />
+            </div>
+            <div className="px-2 basis-1/4">
+              <button
+                onClick={execute}
+                className="p-2 border-2 rounded-lg hover:text-juno"
+              >
+                Schedule
+              </button>
+            </div>
+         </div>
         </div>
       </div>
     </div>
