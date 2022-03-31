@@ -13,20 +13,31 @@ const CancelExecuteModal = (props: {
 
   const cancelDelete = async () => {
     if (props.contractAddress) {
-      try {
-        const client = contract?.use(props.contractAddress)
-        if (!client || !wallet) {
-          toast.error('Wallet Or Client Error', { style: { maxWidth: 'none' } })
+      if (!(isNaN(Number(operationId)) || Number(operationId) < 1)) {    
+        try {
+          const client = contract?.use(props.contractAddress)
+          if (!client || !wallet) {
+            toast.error('Wallet Or Client Error', { style: { maxWidth: 'none' } })
+          }
+          if (props.functionType === 'Execute') {
+            const res = await client?.execute(wallet.address, operationId)
+            console.log('execute: ', res)
+          } else {
+            const res = await client?.cancel(wallet.address, operationId)
+            console.log('cancel: ', res)
+          }
+        } catch (err: any) {
+          if (err.message.includes('Unauthorized')) {
+            toast.error('You need administrator rights for this action.', {
+              style: { maxWidth: 'none' },
+            })
+          } else {
+            toast.error(err.message, { style: { maxWidth: 'none' } })
+          }
         }
-        if (props.functionType === 'Execute') {
-          const res = await client?.execute(wallet.address, operationId)
-          console.log('execute: ', res)
-        } else {
-          const res = await client?.cancel(wallet.address, operationId)
-          console.log('cancel: ', res)
-        }
-      } catch (err: any) {
-        toast.error(err, { style: { maxWidth: 'none' } })
+      } else{
+        toast.error('You need to specify a valid Operation ID.', {
+          style: { maxWidth: 'none' },})
       }
     } else {
       toast.error('Contract Address Error', { style: { maxWidth: 'none' } })
