@@ -13,11 +13,13 @@ const CancelExecuteModal = (props: {
 
   const cancelDelete = async () => {
     if (props.contractAddress) {
-      if (!(isNaN(Number(operationId)) || Number(operationId) < 1)) {    
+      if (!(isNaN(Number(operationId)) || Number(operationId) < 1)) {
         try {
           const client = contract?.use(props.contractAddress)
           if (!client || !wallet) {
-            toast.error('Wallet Or Client Error', { style: { maxWidth: 'none' } })
+            toast.error('Wallet Or Client Error', {
+              style: { maxWidth: 'none' },
+            })
           }
           if (props.functionType === 'Execute') {
             const res = await client?.execute(wallet.address, operationId)
@@ -35,9 +37,10 @@ const CancelExecuteModal = (props: {
             toast.error(err.message, { style: { maxWidth: 'none' } })
           }
         }
-      } else{
+      } else {
         toast.error('You need to specify a valid Operation ID.', {
-          style: { maxWidth: 'none' },})
+          style: { maxWidth: 'none' },
+        })
       }
     } else {
       toast.error('Contract Address Error', { style: { maxWidth: 'none' } })
