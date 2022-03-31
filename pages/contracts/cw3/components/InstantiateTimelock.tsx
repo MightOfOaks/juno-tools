@@ -121,7 +121,7 @@ const InstantiateTimelock = (props: {
           </div>
 
           {props.spinnerFlag && (
-            <div className="h-12 pt-6 mr-2 basis-1/3">
+            <div className="h-12 pt-7 mr-2 basis-1/3">
               <svg
                 role="status"
                 className="mr-2 w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-juno"

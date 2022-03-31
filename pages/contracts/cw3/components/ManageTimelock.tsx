@@ -60,10 +60,10 @@ const ManageTimelock = () => {
     const minutes_ns = nanosecs % (60 * 1000000000)
     const sec = Math.floor(minutes_ns / 1000000000)
     return (
-      (days > 0 ? days + ' days ' : '') +
-      (hours > 0 ? ': ' + hours + ' hours ' : '') +
-      (minutes > 0 ? ': ' + minutes + ': minutes : ' : '') +
-      (sec > 0 ? sec + ' seconds' : '')
+      (days > 0 ? days + ' day(s) ' : '') +
+      (hours > 0 ? ': ' + hours + ' hour(s) ' : '') +
+      (minutes > 0 ? ': ' + minutes + ': minute(s) : ' : '') +
+      (sec > 0 ? sec + ' second(s)' : '')
     )
   }
 
@@ -279,9 +279,9 @@ const ManageTimelock = () => {
                   <div className="flex items-center text-lg font-bold mb-1">
                     {' Operation' + item.id + ' status: ' + item.status}
                   </div>
-                  {'execution time: ' + new Date(Number(item.execution_time)/1000000).toString()} <br />
-                  {'target: ' + item.target} <br />
-                  {'data: ' + item.data} <br />
+                  {'Execution Time: ' + new Date(Number(item.execution_time)/1000000).toString()} <br />
+                  {'Target Contract: ' + item.target} <br />
+                  {'Data: ' + item.data} <br />
                 </div>
               </div>
             ))}
