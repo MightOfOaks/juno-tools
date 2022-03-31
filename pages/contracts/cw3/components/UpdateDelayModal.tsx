@@ -23,20 +23,20 @@ const UpdateDelayModal = (props: { contractAddress: string }) => {
     setMinDelayUnit(event.target.value)
   }
 
-  const minDelayMultiplayer = () => {
-    switch (minDelayUnit) {
-      case 'minutes':
-        return 60
-        break
-      case 'hours':
-        return 60 * 60
-        break
-      case 'days':
-        return 60 * 60 * 24
-        break
-      default:
-        return 1
-        break
+  const getMinDelayInNanoSeconds = (arg: number): String => {
+    if (minDelayUnit === 'seconds') {
+      return String(arg * 1000000000)
+    }
+    if (minDelayUnit === 'minutes') {
+      return String(arg * 60000000000)
+    }
+    if (minDelayUnit === 'hours') {
+      return String(arg * 3600000000000)
+    }
+    if (minDelayUnit === 'days') {
+      return String(arg * 86400000000000)
+    } else {
+      return String(arg)
     }
   }
 
@@ -47,11 +47,16 @@ const UpdateDelayModal = (props: { contractAddress: string }) => {
         toast.error('Wallet Or Client Error', { style: { maxWidth: 'none' } })
       }
       if (!(isNaN(minDelay) || Number(minDelay) < 1)) {
-        const res = await client?.updateMinDelay((minDelay * 1000000000 * minDelayMultiplayer()).toString(), wallet.address)
+
+        const res = await client?.updateMinDelay(
+          getMinDelayInNanoSeconds(minDelay).toString(),
+          wallet.address
+        )
         console.log('update min delay res: ', res)
-      }
-      else {
-        toast.error('You need to specify a valid delay.', { style: { maxWidth: 'none' } })
+      } else {
+        toast.error('You need to specify a valid delay.', {
+          style: { maxWidth: 'none' },
+        })
       }
     } catch (error: any) {
       if (error.message.includes('Unauthorized')) {

@@ -5,7 +5,7 @@ import { Operation, Timelock } from '../models'
 import { useWallet } from 'contexts/wallet'
 import { useContracts } from 'contexts/contracts'
 import Procedures from './Procedures'
-import { isValidAddress } from '../../../../utils/isValidAddress';
+import { isValidAddress } from '../../../../utils/isValidAddress'
 
 const ManageTimelock = () => {
   const theme = useTheme()
@@ -57,7 +57,10 @@ const ManageTimelock = () => {
       }
     } catch (error: any) {
       if (error.message.includes('bech32 failed')) {
-        toast.error('You need to specify a valid Timelock contract address.', { style: { maxWidth: 'none' } })
+
+        toast.error('You need to specify a valid Timelock contract address.', {
+          style: { maxWidth: 'none' },
+        })
       } else {
         toast.error(error.message, { style: { maxWidth: 'none' } })
       }
