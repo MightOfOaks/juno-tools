@@ -9,17 +9,12 @@ import { truncateMiddle } from './OperationsTableHelpers/text'
 
 import AnchorButton from './OperationsTableHelpers/AnchorButton'
 
-export interface IAirdrop {
-  name: string
-  contractAddress: string
-  totalAmount: number
-  claimed: number
-  allocation: number
-  start: number
-  startType: string
-  expiration: number
-  expirationType: string
-  logo: { url: string } | null
+export interface OperationResponse {
+  id: string
+  executionTime: string
+  target: string
+  data: string
+  status: string
 }
 
 const getAirdropDate = (date: number, type: string | null) => {
@@ -34,88 +29,57 @@ type BaseProps<T = HTMLTableElement> = DetailedHTMLProps<
   T
 >
 
-export interface AirdropsTableProps extends Omit<BaseProps, 'children'> {
-  data: IAirdrop[]
+export interface OperationsTableProps extends Omit<BaseProps, 'children'> {
+  data: OperationResponse[]
 }
 
-const OperationsTable = ({ data, className, ...rest }: AirdropsTableProps) => {
+const OperationsTable = ({
+  data,
+  className,
+  ...rest
+}: OperationsTableProps) => {
   const wallet = useWallet()
 
   return (
     <table className={clsx('min-w-full', className)} {...rest}>
       <thead className="sticky inset-x-0 top-0 bg-plumbus-dark/50 backdrop-blur-sm">
         <tr className="text-left text-plumbus-matte">
-          <th className="p-4">Name</th>
-          <th className="p-4 text-right">Amount</th>
-          <th className="p-4 text-right">Claimed</th>
-          <th className="p-4 text-right">Allocation</th>
-          <th className="p-4">Start</th>
-          <th className="p-4">End</th>
+          <th className="p-4">ID</th>
+          <th className="p-4 text-right">Execution Time</th>
+          <th className="p-4 text-right">Target</th>
+          <th className="p-4 text-right">Data</th>
+          <th className="p-4">Status</th>
           <th className={clsx('p-4', { hidden: !wallet.address })}></th>
         </tr>
       </thead>
 
       <tbody className="divide-y divide-white/20">
         {data.length > 0 ? (
-          data.map((airdrop, i) => (
+          data.map((operation, i) => (
             <tr
-              key={`airdrop-${i}`}
+              key={`operation-${i}`}
               className="hover:bg-white/5"
-              id={airdrop.contractAddress}
+              id={operation.id}
             >
               <td className="p-4">
                 <div className="flex items-center space-x-4 font-medium">
                   <div className="w-8 min-w-max h-8 min-h-max">
                     <img
-                      src={airdrop.logo?.url ?? '/juno_logo.png'}
-                      alt={airdrop.name}
+                      src={'/juno_logo.png'}
+                      alt={operation.id}
                       className="overflow-hidden w-8 h-8 bg-plumbus rounded-full"
                     />
                   </div>
                   <div>
-                    <div>{airdrop.name}</div>
-                    <Tooltip label="Click to copy contract addreess">
-                      <button
-                        onClick={() => copy(airdrop.contractAddress)}
-                        className="group flex space-x-2 font-mono text-xs text-white/50 hover:underline"
-                      >
-                        <span>
-                          {truncateMiddle(airdrop.contractAddress, 32)}
-                        </span>
-                        <FaCopy className="opacity-50 group-hover:opacity-100" />
-                      </button>
-                    </Tooltip>
+                    <div>{operation.id}</div>
                   </div>
                 </div>
               </td>
-              <td className="p-4 text-right">
-                {airdrop.totalAmount.toLocaleString('en')}
-              </td>
-              <td className="p-4 text-right">
-                {airdrop.claimed.toLocaleString('en')}
-              </td>
-              <td className="p-4 text-right">
-                {airdrop.allocation?.toLocaleString('en') || '-'}
-              </td>
-              <td className="p-4">
-                {getAirdropDate(airdrop.start, airdrop.startType)}
-              </td>
-              <td className="p-4">
-                {getAirdropDate(airdrop.expiration, airdrop.expirationType)}
-              </td>
-              <td className="p-4">
-                <div className="flex">
-                  <AnchorButton
-                    className={clsx({
-                      hidden: !wallet.address || !airdrop.allocation,
-                    })}
-                    href={`/airdrops/${airdrop.contractAddress}/claim`}
-                    variant="outline"
-                  >
-                    CLAIM
-                  </AnchorButton>
-                </div>
-              </td>
+              <td className="p-4 text-right">{operation.executionTime}</td>
+              <td className="p-4 text-right">{operation.target}</td>
+              <td className="p-4 text-right">{operation.data}</td>
+              <td className="p-4">{operation.status}</td>
+              <td className="p-4"></td>
             </tr>
           ))
         ) : (

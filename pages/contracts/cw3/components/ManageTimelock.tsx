@@ -7,6 +7,7 @@ import { useContracts } from 'contexts/contracts'
 import Procedures from './Procedures'
 import { isValidAddress } from '../../../../utils/isValidAddress'
 import OperationsTable from './OperationsTable'
+import { ImInsertTemplate } from 'react-icons/im'
 
 const ManageTimelock = () => {
   const theme = useTheme()
@@ -329,16 +330,13 @@ const ManageTimelock = () => {
             <OperationsTable
               data={[
                 {
-                  name: 'Timelock',
-                  contractAddress: '0x7c0d52faab596c08f484e3478aebc6205f3f5d8c',
-                  totalAmount: 10,
-                  claimed: 0,
-                  allocation: 0,
-                  start: 1000,
-                  startType: '0',
-                  expiration: 100000,
-                  expirationType: '0',
-                  logo: null,
+                  id: '1',
+                  executionTime: new Date(
+                    Number(100000000) / 1000000
+                  ).toString(),
+                  target: '0x1234567890123456789012345678901234567890',
+                  data: 'data',
+                  status: 'pending',
                 },
               ]}
             />
