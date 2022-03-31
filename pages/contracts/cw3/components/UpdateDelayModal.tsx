@@ -23,17 +23,34 @@ const UpdateDelayModal = (props: { contractAddress: string }) => {
     setMinDelayUnit(event.target.value)
   }
 
+  const minDelayMultiplayer = () => {
+    switch (minDelayUnit) {
+      case 'minutes':
+        return 60
+        break
+      case 'hours':
+        return 60 * 60
+        break
+      case 'days':
+        return 60 * 60 * 24
+        break
+      default:
+        return 1
+        break
+    }
+  }
+
   const updateMinDelay = async () => {
     try {
       const client = contract?.use(contractAddress)
       if (!client || !wallet) {
         toast.error('Wallet Or Client Error', { style: { maxWidth: 'none' } })
       }
-      if (!(isNaN(minDelay) || Number(minDelay) < 1)){
-        const res = await client?.updateMinDelay(minDelay, wallet.address)
+      if (!(isNaN(minDelay) || Number(minDelay) < 1)) {
+        const res = await client?.updateMinDelay((minDelay * 1000000000 * minDelayMultiplayer()).toString(), wallet.address)
         console.log('update min delay res: ', res)
       }
-      else{
+      else {
         toast.error('You need to specify a valid delay.', { style: { maxWidth: 'none' } })
       }
     } catch (error: any) {

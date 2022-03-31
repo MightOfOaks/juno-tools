@@ -20,8 +20,6 @@ const ManageTimelock = () => {
   const [timelock, setTimelock] = useState<Timelock>(new Timelock([], [], 0))
   const [operations, setOperations] = useState<Operation[]>([])
   const [clientFound, setClientFound] = useState(false)
-  const [executeDrop, setExecuteDrop] = useState(false)
-  const [showModal, setShowModal] = useState(false)
   const [selectedModal, setSelectedModal] = useState('')
   const contract = useContracts().cw3Timelock
   const wallet = useWallet()
@@ -35,7 +33,7 @@ const ManageTimelock = () => {
           style: { maxWidth: 'none' },
         })
       }
-      
+
       if (isValidAddress(contractAddress)) {
         const client = contract?.use(contractAddress)
 
@@ -52,33 +50,48 @@ const ManageTimelock = () => {
           setTimelock(new Timelock(admins, proposers, minDelay))
           setOperations(res.operationList)
         }
-      }else{
+      } else {
         toast.error('You need to specify a valid Timelock contract address.', {
           style: { maxWidth: 'none' },
         })
       }
     } catch (error: any) {
-      if(error.message.includes('bech32 failed')){
-        toast.error('You need to specify a valid Timelock contract address.', {style: {maxWidth: 'none'}})
-      }else{ 
+      if (error.message.includes('bech32 failed')) {
+        toast.error('You need to specify a valid Timelock contract address.', { style: { maxWidth: 'none' } })
+      } else {
         toast.error(error.message, { style: { maxWidth: 'none' } })
       }
     }
   }
 
   function dhms(nanosecs: number) {
+    let result = ''
     const days = Math.floor(nanosecs / (24 * 60 * 60 * 1000000000))
+    if (days > 0)
+      result += days + ' day(s) '
     const days_ns = nanosecs % (24 * 60 * 60 * 1000000000)
     const hours = Math.floor(days_ns / (60 * 60 * 1000000000))
-    const hours_ns = nanosecs % (60 * 60 * 1000)
+    if (hours > 0) {
+      if (result.length > 0)
+        result += ' : '
+      result += hours + ' hour(s) '
+    }
+    const hours_ns = nanosecs % (60 * 60 * 1000000000)
     const minutes = Math.floor(hours_ns / (60 * 1000000000))
+    if (minutes > 0) {
+      if (result.length > 0)
+        result += ' : '
+      result += minutes + ' minute(s) '
+    }
     const minutes_ns = nanosecs % (60 * 1000000000)
     const sec = Math.floor(minutes_ns / 1000000000)
+    if (sec > 0) {
+      if (result.length > 0)
+        result += ' : '
+      result += sec + ' second(s) '
+    }
     return (
-      (days > 0 ? days + ' day(s) ' : '') +
-      (hours > 0 ? ': ' + hours + ' hour(s) ' : '') +
-      (minutes > 0 ? ': ' + minutes + ': minute(s) : ' : '') +
-      (sec > 0 ? sec + ' second(s)' : '')
+      result
     )
   }
 
@@ -108,7 +121,7 @@ const ManageTimelock = () => {
               className="mx-5 px-4 border-2 rounded-lg hover:text-juno"
               id="options-menu"
             >
-              <label htmlFor="modal-menu">
+              <label className='cursor-pointer' htmlFor="modal-menu">
                 Execute
                 <svg
                   width="20"
@@ -301,9 +314,8 @@ const ManageTimelock = () => {
             operations.map((item, index) => (
               <div
                 key={index}
-                className={`${
-                  theme.isDarkTheme ? 'border-gray/20' : 'border-dark/20'
-                } text-center m-5 mx-10`}
+                className={`${theme.isDarkTheme ? 'border-gray/20' : 'border-dark/20'
+                  } text-center m-5 mx-10`}
               >
                 <div className="h-32 w-full p-3 flex flex-col items-center border rounded-xl">
                   <div className="flex items-center text-lg font-bold mb-1">
@@ -323,9 +335,8 @@ const ManageTimelock = () => {
 
         {clientFound && operations.length === 0 && (
           <div
-            className={`${
-              theme.isDarkTheme ? 'border-gray/20' : 'border-dark/20'
-            } text-center m-5 mx-10`}
+            className={`${theme.isDarkTheme ? 'border-gray/20' : 'border-dark/20'
+              } text-center m-5 mx-10`}
           >
             <div className="h-32 w-full p-3 flex flex-col items-center border rounded-xl">
               <div className="flex items-center text-lg font-bold mb-1">
