@@ -55,7 +55,7 @@ const CancelExecuteModal = (props: {
       <div>
         <button
           type="button"
-          className= "mx-3 mt-3 p-2 border-2 rounded-lg hover:text-juno"
+          className="mx-3 mt-3 p-2 border-2 rounded-lg hover:text-juno"
           id="options-menu"
           disabled={operationId === ''}
           onClick={() => cancelDelete()}

@@ -92,24 +92,30 @@ const ManageTimelock = () => {
               type="button"
               className="mx-5 px-4 border-2 rounded-lg hover:text-juno"
               id="options-menu"
-              onClick={() => setExecuteDrop(!executeDrop)}
             >
-              Execute
-              <svg
-                width="20"
-                height="20"
-                fill="currentColor"
-                viewBox="0 0 1792 1792"
-                xmlns="http://www.w3.org/2000/svg"
-                className="float-right"
-              >
-                <path d="M1408 704q0 26-19 45l-448 448q-19 19-45 19t-45-19l-448-448q-19-19-19-45t19-45 45-19h896q26 0 45 19t19 45z"></path>
-              </svg>
+              <label htmlFor="modal-menu">
+                Execute
+                <svg
+                  width="20"
+                  height="20"
+                  fill="currentColor"
+                  viewBox="0 0 1792 1792"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="float-right"
+                >
+                  <path d="M1408 704q0 26-19 45l-448 448q-19 19-45 19t-45-19l-448-448q-19-19-19-45t19-45 45-19h896q26 0 45 19t19 45z"></path>
+                </svg>
+              </label>
             </button>
           )}
           <div className="ml-10 mt-5 relative inline-block text-left">
-            {executeDrop && (
-              <div className="origin-top-right border border-gray-300 bg-black absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-8">
+            <input type="checkbox" id="modal-menu" className="modal-toggle" />
+            <label
+              htmlFor="modal-menu"
+              className="modal"
+              style={{ background: 'rgb(25, 29, 32, 0)' }}
+            >
+              <label className="origin-top-right border border-gray-300 bg-black absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-8">
                 <div
                   className="py-1 "
                   role="menu"
@@ -193,8 +199,8 @@ const ManageTimelock = () => {
                     </span>
                   </a>
                 </div>
-              </div>
-            )}
+              </label>
+            </label>
           </div>
         </div>
       </div>
