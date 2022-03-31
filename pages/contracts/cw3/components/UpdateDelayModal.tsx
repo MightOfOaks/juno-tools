@@ -45,15 +45,18 @@ const UpdateDelayModal = (props: { contractAddress: string }) => {
           htmlFor="small-input"
           className="mb-1 mx-3 block text-sm font-bold text-gray-900 dark:text-gray-300"
         >
-          Execution Time
+          Minimum Delay
         </label>
-
+        <div className="flex mt-3">
+        <div>
         <input
           type="text"
           onChange={handleChangeMinDelay}
           className="py-2 px-1 mx-3 rounded text-black text-gray-900 dark:text-gray-300"
-          placeholder=" Execution Time"
+          placeholder=" Minimum Delay"
         />
+        </div>
+        <div>
         <select
           onChange={handleChangeMinDelayUnit}
           defaultValue="seconds"
@@ -66,13 +69,15 @@ const UpdateDelayModal = (props: { contractAddress: string }) => {
           <option value="minutes">minutes</option>
           <option value="seconds">seconds</option>
         </select>
+        </div>
+      </div>
       </div>
 
       <div>
         <div className="px-3 mt-8 basis-1/4">
           <button
             onClick={updateMinDelay}
-            className=" mt-10 h-15 w-25 bg-juno border border-gray-300 shadow-sm flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium text-gray-50 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500"
+            className="p-2 border-2 rounded-lg hover:text-juno"
           >
             Update Min Delay
           </button>

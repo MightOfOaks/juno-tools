@@ -32,7 +32,7 @@ const Procedures = (props: {
         return (
           <RemoveAddProposerAdminModal
             functionType={'revoke'}
-            userType={'admin'}
+            userType={'Admin'}
             contractAddress={contractAddress}
           />
         )
@@ -40,7 +40,7 @@ const Procedures = (props: {
         return (
           <RemoveAddProposerAdminModal
             functionType="add"
-            userType="proposer"
+            userType="Proposer"
             contractAddress={contractAddress}
           />
         )
@@ -48,7 +48,7 @@ const Procedures = (props: {
         return (
           <RemoveAddProposerAdminModal
             functionType={'remove'}
-            userType={'proposer'}
+            userType={'Proposer'}
             contractAddress={contractAddress}
           />
         )

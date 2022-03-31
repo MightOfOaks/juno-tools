@@ -21,7 +21,7 @@ const RemoveAddProposerAdminModal = (props: {
           toast.error('Wallet Or Client Error', { style: { maxWidth: 'none' } })
         }
 
-        if (userType === 'admin') {
+        if (userType === 'Admin') {
           const res = await client?.revokeAdmin(wallet.address, address)
           console.log('revoke admin res : ', res)
         } else {
@@ -67,7 +67,7 @@ const RemoveAddProposerAdminModal = (props: {
       <div>
         <button
           type="button"
-          className=" mt-10 h-15 w-40 bg-juno border border-gray-300 shadow-sm flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium text-gray-50 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500"
+          className="mt-3 p-2 border-2 rounded-lg hover:text-juno"
           id="options-menu"
           disabled={address === ''}
           onClick={() => onClick()}
