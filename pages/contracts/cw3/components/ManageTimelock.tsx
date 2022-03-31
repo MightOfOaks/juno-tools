@@ -264,24 +264,26 @@ const ManageTimelock = () => {
           )}
         </div>
 
-        {operations.length > 0 &&
-          operations.map((item, index) => (
-            <div
-              key={index}
-              className={`${
-                theme.isDarkTheme ? 'border-gray/20' : 'border-dark/20'
-              } text-center m-5 mx-10`}
-            >
-              <div className="h-32 w-full p-3 flex flex-col items-center border rounded-xl">
-                <div className="flex items-center text-lg font-bold mb-1">
-                  {' Operation' + item.id + ' status: ' + item.status}
+        <div className="overflow-auto h-40">
+          {operations.length > 0 &&
+            operations.map((item, index) => (
+              <div
+                key={index}
+                className={`${
+                  theme.isDarkTheme ? 'border-gray/20' : 'border-dark/20'
+                } text-center m-5 mx-10`}
+              >
+                <div className="h-32 w-full p-3 flex flex-col items-center border rounded-xl">
+                  <div className="flex items-center text-lg font-bold mb-1">
+                    {' Operation' + item.id + ' status: ' + item.status}
+                  </div>
+                  {'execution time: ' + item.execution_time} <br />
+                  {'target: ' + item.target} <br />
+                  {'data: ' + item.data} <br />
                 </div>
-                {'execution time: ' + item.execution_time} <br />
-                {'target: ' + item.target} <br />
-                {'data: ' + item.data} <br />
               </div>
-            </div>
-          ))}
+            ))}
+        </div>
 
         {clientFound && operations.length === 0 && (
           <div
