@@ -28,7 +28,8 @@ const ManageTimelock = () => {
 
       if (!wallet.initialized) {
         toast.error('Oops! Need to connect your Keplr Wallet first.', {
-          style: { maxWidth: 'none' },})
+          style: { maxWidth: 'none' },
+        })
       }
       const client = contract?.use(contractAddress)
 

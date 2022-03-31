@@ -30,7 +30,7 @@ export interface CW3TimelockInstance {
     executors?: string[]
   ) => Promise<string>
 
-  cancel: (senderAddress: string, operation_id: number) => Promise<any>
+  cancel: (senderAddress: string, operation_id: string) => Promise<any>
   revokeAdmin: (senderAddress: string, admin_address: string) => Promise<any>
   addProposer: (senderAddress: string, proposer_address: string) => Promise<any>
   removeProposer: (
@@ -38,7 +38,7 @@ export interface CW3TimelockInstance {
     proposer_address: string
   ) => Promise<any>
   updateMinDelay: (new_delay: number, senderAddress: string) => Promise<any>
-  execute: (senderAddress: string, operation_id: number) => Promise<any>
+  execute: (senderAddress: string, operation_id: string) => Promise<any>
 }
 
 export interface CW3TimelockContract {
@@ -138,7 +138,7 @@ export const CW3Timelock = (
 
     const cancel = async (
       senderAddress: string,
-      operation_id: number
+      operation_id: string
     ): Promise<string> => {
       const res = await client.execute(
         senderAddress,
@@ -153,7 +153,7 @@ export const CW3Timelock = (
 
     const execute = async (
       senderAddress: string,
-      operation_id: number
+      operation_id: string
     ): Promise<string> => {
       const res = await client.execute(
         senderAddress,

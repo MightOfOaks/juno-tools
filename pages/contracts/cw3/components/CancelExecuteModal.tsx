@@ -19,10 +19,10 @@ const CancelExecuteModal = (props: {
           toast.error('Wallet Or Client Error', { style: { maxWidth: 'none' } })
         }
         if (props.functionType === 'execute') {
-          const res = await client?.execute(wallet.address, Number(operationId))
+          const res = await client?.execute(wallet.address, operationId)
           console.log('execute: ', res)
         } else {
-          const res = await client?.cancel(wallet.address, Number(operationId))
+          const res = await client?.cancel(wallet.address, operationId)
           console.log('cancel: ', res)
         }
       } catch (err: any) {
