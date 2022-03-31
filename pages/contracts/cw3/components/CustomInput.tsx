@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { Bech32 } from '@cosmjs/encoding'
+import { isValidAddress } from 'utils/isValidAddress'
 
 const CustomInput = (props: {
   placeholder: string | undefined
@@ -49,18 +50,6 @@ const CustomInput = (props: {
       }
     }
     setItems(tempArray)
-  }
-
-  function isValidAddress(input: string): boolean {
-    try {
-      const prefix = input.substring(0, 5)
-      if (prefix != 'juno1') {
-        return false
-      }
-      return true
-    } catch {
-      return false
-    }
   }
 
   useEffect(() => {

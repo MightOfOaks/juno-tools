@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useWallet } from 'contexts/wallet'
 import { useContracts } from 'contexts/contracts'
 import toast from 'react-hot-toast'
+import { isValidAddress } from 'utils/isValidAddress'
 
 const RemoveAddProposerAdminModal = (props: {
   functionType: string
@@ -20,21 +21,29 @@ const RemoveAddProposerAdminModal = (props: {
         if (!client || !wallet) {
           toast.error('Wallet Or Client Error', { style: { maxWidth: 'none' } })
         }
+        if(isValidAddress(address)){
 
-        if (userType === 'Admin') {
-          const res = await client?.revokeAdmin(wallet.address, address)
-          console.log('revoke admin res : ', res)
-        } else {
-          if (functionType === 'Add') {
-            const res = await client?.addProposer(wallet.address, address)
-            console.log('add proposer res: ', res)
+          if (userType === 'Admin') {
+            const res = await client?.revokeAdmin(wallet.address, address)
+            console.log('revoke admin res : ', res)
           } else {
-            const res = await client?.removeProposer(wallet.address, address)
-            console.log('remove proposer res: ', res)
+            if (functionType === 'Add') {
+              const res = await client?.addProposer(wallet.address, address)
+              console.log('add proposer res: ', res)
+            } else {
+              const res = await client?.removeProposer(wallet.address, address)
+              console.log('remove proposer res: ', res)
+            }
           }
+        } else{
+          toast.error('The specified address is not valid.', { style: { maxWidth: 'none' } });
         }
       } catch (err: any) {
-        toast.error(err, { style: { maxWidth: 'none' } })
+          if(err.message.includes("Unauthorized")){
+            toast.error('You need administrator rights for this action.', { style: { maxWidth: 'none' } })
+          }else{
+            toast.error(err.message, {style: { maxWidth: 'none' },})
+          }
       }
     } else {
       toast.error('Contract Address Error', { style: { maxWidth: 'none' } })
@@ -44,7 +53,7 @@ const RemoveAddProposerAdminModal = (props: {
   return (
     <div className="bg-dark-gray p-8">
       <div className="mt-2 mb-6 ">
-        {functionType.toUpperCase() + ' ' + userType.toUpperCase()}
+        {functionType + ' ' + userType}
       </div>
       <div className="mb-6 w-9/12">
         <label
