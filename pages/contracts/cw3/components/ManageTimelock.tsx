@@ -6,7 +6,7 @@ import { useWallet } from 'contexts/wallet'
 import { useContracts } from 'contexts/contracts'
 import Procedures from './Procedures'
 import { isValidAddress } from '../../../../utils/isValidAddress'
-import OperationsTable from './OperationsTable'
+import OperationsTable, { OperationResponse } from './OperationsTable'
 import { ImInsertTemplate } from 'react-icons/im'
 
 const ManageTimelock = () => {
@@ -23,6 +23,7 @@ const ManageTimelock = () => {
   const [operations, setOperations] = useState<Operation[]>([])
   const [clientFound, setClientFound] = useState(false)
   const [selectedModal, setSelectedModal] = useState('')
+  const [data, setData] = useState<OperationResponse[]>([])
   const contract = useContracts().cw3Timelock
   const wallet = useWallet()
 
@@ -51,6 +52,17 @@ const ManageTimelock = () => {
 
           setTimelock(new Timelock(admins, proposers, minDelay))
           setOperations(res.operationList)
+          for (let i = 0; i < res.operationList.length; i++) {
+            const operation = res.operationList[i]
+            const opObj = {
+              id: operation.id,
+              executionTime: operation.executionTime,
+              target: operation.target,
+              data: decode(operation.data),
+              status: operation.status,
+            }
+            setData([...data, opObj])
+          }
         }
       } else {
         toast.error('You need to specify a valid Timelock contract address.', {
@@ -327,19 +339,7 @@ const ManageTimelock = () => {
             //     </div>
             //   </div>
             // )
-            <OperationsTable
-              data={[
-                {
-                  id: '1',
-                  executionTime: new Date(
-                    Number(100000000) / 1000000
-                  ).toString(),
-                  target: '0x1234567890123456789012345678901234567890',
-                  data: 'data',
-                  status: 'pending',
-                },
-              ]}
-            />
+            <OperationsTable data={data} />
           )}
         </div>
 
