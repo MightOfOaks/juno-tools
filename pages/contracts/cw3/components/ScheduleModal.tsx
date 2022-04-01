@@ -56,8 +56,9 @@ const ScheduleModal = () => {
   }
 
   const execute = async () => {
-    console.log(getExecutionTimeInNanosecs().toString())
+    
     try {
+      console.log(getExecutionTimeInNanosecs().toString())
       const client = contract?.use(contractAddress)
 
       if (client && wallet) {
@@ -76,12 +77,10 @@ const ScheduleModal = () => {
           executors
         )
         setSpinnerFlag(false)
-        if (!res.toString().includes('Error')) {
-          toast.success('Successfully scheduled an operation.', {
-            style: { maxWidth: 'none' },
-          })
-        }
-        console.log('schedule: ', res)
+        toast.success('Successfully scheduled an operation.', {
+          style: { maxWidth: 'none' },
+        })
+       
       }
     } catch (error: any) {
       setSpinnerFlag(false)
@@ -89,7 +88,15 @@ const ScheduleModal = () => {
         toast.error('You are not authorized to perform this action.', {
           style: { maxWidth: 'none' },
         })
-      } else {
+      }else if(error.message.includes('Minimum Delay condition not satisfied')){
+        toast.error('Minimum delay condition not satisfied.', {
+          style: { maxWidth: 'none' },
+        })
+      }else if(error.message.includes("addr_validate error")){
+        toast.error('Invalid target contract address.', {
+          style: { maxWidth: 'none' },
+        })
+      }else {
         toast.error(error.message, { style: { maxWidth: 'none' } })
       }
     }

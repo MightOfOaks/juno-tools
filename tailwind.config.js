@@ -56,6 +56,18 @@ module.exports = {
         '.juno-gradient-brand': {
           background: `linear-gradient(102.33deg, #F9BCB2 10.96%, #FFFFFF 93.51%)`,
         },
+        '.no-scrollbar': {
+          /* IE and Edge */
+          '-ms-overflow-style': 'none',
+
+          /* Firefox */
+          'scrollbar-width': 'none',
+
+          /* Safari and Chrome */
+          '&::-webkit-scrollbar': {
+            display: 'none',
+          }
+        },      
       })
     }),
   ],
