@@ -54,7 +54,11 @@ const ManageTimelock = () => {
             const operation = res.operationList[i]
             const opObj = {
               id: operation.id,
-              executionTime: operation.executionTime,
+              executionTime: new Date(
+                Number(operation.execution_time) / 1000000
+              )
+                .toString()
+                .slice(0, 33),
               target: operation.target,
               data: decode(operation.data),
               status: operation.status,

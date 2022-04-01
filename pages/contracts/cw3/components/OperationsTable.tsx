@@ -44,12 +44,12 @@ const OperationsTable = ({
     <table className={clsx('min-w-full', className)} {...rest}>
       <thead className="sticky inset-x-0 top-0 bg-plumbus-dark/50 backdrop-blur-sm">
         <tr className="text-left text-plumbus-matte">
-          <th className="p-4">ID</th>
-          <th className="p-4 text-right">Execution Time</th>
-          <th className="p-4 text-right">Target</th>
-          <th className="p-4 text-right">Data</th>
-          <th className="p-4">Status</th>
-          <th className={clsx('p-4', { hidden: !wallet.address })}></th>
+          <th className="p-3">ID</th>
+          <th className="p-3 text-right">Execution Time</th>
+          <th className="p-3 text-right">Target</th>
+          <th className="p-3 text-right">Data</th>
+          <th className="p-3">Status</th>
+          <th className={clsx('p-3', { hidden: !wallet.address })}></th>
         </tr>
       </thead>
 
@@ -79,13 +79,12 @@ const OperationsTable = ({
               <td className="p-4 text-right">{operation.target}</td>
               <td className="p-4 text-right">{operation.data}</td>
               <td className="p-4">{operation.status}</td>
-              <td className="p-4"></td>
             </tr>
           ))
         ) : (
           <tr>
             <td colSpan={6} className="p-4 text-center text-white/50">
-              No airdrops available :(
+              No opereations available :(
             </td>
           </tr>
         )}
