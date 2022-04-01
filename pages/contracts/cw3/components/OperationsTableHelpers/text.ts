@@ -19,3 +19,5 @@ export const truncateMiddle = (
     text.substring(text.length - backChars)
   )
 }
+
+export default {truncateMiddle, ellipsis}
