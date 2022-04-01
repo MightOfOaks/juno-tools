@@ -61,7 +61,7 @@ const ManageTimelock = () => {
                 .slice(0, 33),
               target: operation.target,
               data: decode(operation.data),
-              status: operation.status,
+              status: (((new Date().getTime()*1000000) > Number(operation.execution_time) && operation.status === "Pending") ? "Ready" : operation.status),
               proposer: operation.proposer,
             }
             setData([...data, opObj])
