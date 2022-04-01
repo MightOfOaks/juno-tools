@@ -8,6 +8,7 @@ import Procedures from './Procedures'
 import { isValidAddress } from '../../../../utils/isValidAddress'
 import OperationsTable, { OperationResponse } from './OperationsTable'
 import { ImInsertTemplate } from 'react-icons/im'
+import { copy } from './OperationsTableHelpers/clipboard'
 
 const ManageTimelock = () => {
   const theme = useTheme()
@@ -283,7 +284,7 @@ const ManageTimelock = () => {
                   <li
                     key={index}
                     className={
-                      'w-full px-4 py-2' +
+                      'hover:bg-white/5 w-full px-4 py-2' +
                       (index !== timelock.proposers.length - 1
                         ? ' border-b'
                         : ' p-1')
@@ -302,7 +303,7 @@ const ManageTimelock = () => {
                   <li
                     key={index}
                     className={
-                      'w-full px-4 py-2' +
+                      'hover:bg-white/5 w-full px-4 py-2' +
                       (index !== timelock.proposers.length - 1
                         ? ' border-b'
                         : ' p-1')
@@ -317,7 +318,7 @@ const ManageTimelock = () => {
                 <li className="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                   <span className="text-plumbus-matte">Minimum Delay</span>
                 </li>
-                <li className="w-full px-4 py-2 border-gray-200 dark:border-gray-600">
+                <li className="hover:bg-white/5 w-full px-4 py-2 border-gray-200 dark:border-gray-600">
                   {dhms(timelock.min_time_delay)}
                 </li>
               </ul>
@@ -325,7 +326,7 @@ const ManageTimelock = () => {
           )}
         </div>
 
-        <div className="overflow-auto h-40 my-10">
+        <div className="overflow-auto px-10 h-40 my-10">
           {data.length > 0 && <OperationsTable data={data} />}
         </div>
 
