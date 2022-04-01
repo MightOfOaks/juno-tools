@@ -111,19 +111,19 @@ const CW3Timelock = () => {
       // const res5 = await client?.updateMinDelay(10000000000, wallet.address)
       // console.log('updateMinDelay', res5)
 
-      const msg = {
-        mint: {
-          amount: '1000',
-        },
-      }
-      const res6 = await client?.schedule(
-        wallet.address,
-        'juno154xu4268g2rdtnxjjsfr3wy9t3vx97308rdgau66s0d3amlxp7zq4j78us',
-        msg,
-        Number(17446744073709551515).toString(),
-        ['juno1smz9wdg5v7wywquyy7zn7ujvu54kuumwzw5ss8']
-      )
-      console.log('schedule: ', res6)
+      // const msg = {
+      //   mint: {
+      //     amount: '1000',
+      //   },
+      // }
+      // const res6 = await client?.schedule(
+      //   wallet.address,
+      //   'juno154xu4268g2rdtnxjjsfr3wy9t3vx97308rdgau66s0d3amlxp7zq4j78us',
+      //   msg,
+      //   Number(17446744073709551515).toString(),
+      //   ['juno1smz9wdg5v7wywquyy7zn7ujvu54kuumwzw5ss8']
+      // )
+      // console.log('schedule: ', res6)
 
       //   revokeAdmin: (senderAddress: string, admin_address: string) => Promise<any>
     } catch (error: any) {

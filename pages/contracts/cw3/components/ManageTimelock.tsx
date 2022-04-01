@@ -280,7 +280,7 @@ const ManageTimelock = () => {
           <hr className="mx-10" />
           {(timelock.admins.length > 0 || timelock.proposers.length > 0) && (
             <div className="flex mt-10">
-              <ul className="ml-10 mr-3 w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+              <ul className="ml-10 mr-3 h-full w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                 <li className="w-full font-bold px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                   <span className="text-plumbus-matte">Administrators</span>
                 </li>
@@ -289,7 +289,7 @@ const ManageTimelock = () => {
                     key={index}
                     className={
                       'hover:bg-white/5 w-full px-4 py-2' +
-                      (index !== timelock.proposers.length - 1
+                      (index !== timelock.admins.length - 1
                         ? ' border-b'
                         : ' p-1')
                     }
@@ -299,7 +299,7 @@ const ManageTimelock = () => {
                   </li>
                 ))}
               </ul>
-              <ul className="ml-2 mr-3 w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+              <ul className="ml-2 mr-3 h-full w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                 <li className="w-full font-bold px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                   <span className="text-plumbus-matte">Proposers</span>
                 </li>
