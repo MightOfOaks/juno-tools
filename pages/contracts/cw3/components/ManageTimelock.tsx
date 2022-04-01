@@ -20,7 +20,6 @@ const ManageTimelock = () => {
     Buffer.from(str, 'base64').toString('binary')
 
   const [timelock, setTimelock] = useState<Timelock>(new Timelock([], [], 0))
-  const [operations, setOperations] = useState<Operation[]>([])
   const [clientFound, setClientFound] = useState(false)
   const [selectedModal, setSelectedModal] = useState('')
   const [data, setData] = useState<OperationResponse[]>([])
@@ -48,10 +47,8 @@ const ManageTimelock = () => {
           const minDelay = await client?.getMinDelay()
 
           const res = await client?.getOperations()
-          console.log(operations)
 
           setTimelock(new Timelock(admins, proposers, minDelay))
-          setOperations(res.operationList)
           for (let i = 0; i < res.operationList.length; i++) {
             const operation = res.operationList[i]
             const opObj = {
@@ -317,33 +314,10 @@ const ManageTimelock = () => {
         </div>
 
         <div className="overflow-auto h-40">
-          {operations.length > 0 && (
-            // operations.map((item, index) => (
-            //   <div
-            //     key={index}
-            //     className={`${
-            //       theme.isDarkTheme ? 'border-gray/20' : 'border-dark/20'
-            //     } text-center m-5 mx-10`}
-            //   >
-            //     <div className="h-32 w-full p-3 flex flex-col items-center border rounded-xl">
-            //       <div className="flex items-center text-lg font-bold mb-1">
-            //         {' Operation' + item.id + ' status: ' + item.status}
-            //       </div>
-            //       {'Execution Time: ' +
-            //         new Date(
-            //           Number(item.execution_time) / 1000000
-            //         ).toString()}{' '}
-            //       <br />
-            //       {'Target Contract: ' + item.target} <br />
-            //       {'Data: ' + decode(item.data)} <br />
-            //     </div>
-            //   </div>
-            // )
-            <OperationsTable data={data} />
-          )}
+          {data.length > 0 && <OperationsTable data={data} />}
         </div>
 
-        {clientFound && operations.length === 0 && (
+        {clientFound && data.length === 0 && (
           <div
             className={`${
               theme.isDarkTheme ? 'border-gray/20' : 'border-dark/20'
