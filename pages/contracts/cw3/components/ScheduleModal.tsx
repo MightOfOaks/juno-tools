@@ -45,12 +45,12 @@ const ScheduleModal = () => {
     return (
       new Date(
         Number(yearMonthDay[1]).toString() +
-        '-' +
-        Number(yearMonthDay[2]).toString() +
-        '-' +
-        Number(yearMonthDay[0]).toString() +
-        '-' +
-        time
+          '-' +
+          Number(yearMonthDay[2]).toString() +
+          '-' +
+          Number(yearMonthDay[0]).toString() +
+          '-' +
+          time
       ).getTime() * 1000000
     )
   }

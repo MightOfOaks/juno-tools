@@ -78,10 +78,20 @@ const OperationsTable = ({
                 </div>
               </td>
               <td className="p-4 text-right">{operation.executionTime}</td>
-              <td className="p-4 text-right">
+              <td
+                className="p-4 text-right cursor-pointer hover:text-juno"
+                onClick={async () => {
+                  copy(operation.proposer)
+                }}
+              >
                 {truncateMiddle(operation.proposer, 13)}
               </td>
-              <td className="p-4 text-right">
+              <td
+                className="p-4 text-right cursor-pointer hover:text-juno"
+                onClick={async () => {
+                  copy(operation.proposer)
+                }}
+              >
                 {truncateMiddle(operation.target, 13)}
               </td>
               <td className="p-4 text-right">{operation.data}</td>
