@@ -275,37 +275,39 @@ const ManageTimelock = () => {
           <hr className="mx-10" />
           {(timelock.admins.length > 0 || timelock.proposers.length > 0) && (
             <div className="flex mt-10">
-              <ul className="ml-10 mr-3 w-full text-sm font-medium text-gray-900 bg-dark-gray border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+              <ul className="ml-10 mr-3 w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                 <li className="w-full font-bold px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-                  Administrators
+                  <span className="text-plumbus-matte">Administrators</span>
                 </li>
                 {timelock.admins.map((item, index) => (
                   <li
                     key={index}
                     className="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600"
                   >
-                    {index + 1 + ') ' + item}
+                    <span className="mr-5 font-bold">{index + 1}</span>
+                    {item}
                   </li>
                 ))}
               </ul>
-              <ul className="ml-2 mr-2 w-full text-sm font-medium text-gray-900 bg-dark-gray border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+              <ul className="ml-2 mr-2 w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                 <li className="w-full font-bold px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-                  Proposers
+                  <span className="text-plumbus-matte">Proposers</span>
                 </li>
                 {timelock.proposers.map((item, index) => (
                   <li
                     key={index}
                     className="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600"
                   >
-                    {index + 1 + ') ' + item}
+                    <span className="mr-5 font-bold">{index + 1}</span>
+                    {item}
                   </li>
                 ))}
               </ul>
-              <ul className="ml-2 mr-10 w-1/3 h-1/3 text-sm font-medium text-gray-900 bg-dark-gray border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+              <ul className="ml-2 mr-10 w-1/3 h-1/3 text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                 <li className="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-                  Minimum Delay
+                  <span className="text-plumbus-matte">Minimum Delay</span>
                 </li>
-                <li className="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                <li className="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600">
                   {dhms(timelock.min_time_delay)}
                 </li>
               </ul>
@@ -313,7 +315,7 @@ const ManageTimelock = () => {
           )}
         </div>
 
-        <div className="overflow-auto h-40">
+        <div className="overflow-auto h-40 my-10">
           {data.length > 0 && <OperationsTable data={data} />}
         </div>
 
