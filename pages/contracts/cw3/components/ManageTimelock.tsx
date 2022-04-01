@@ -282,21 +282,31 @@ const ManageTimelock = () => {
                 {timelock.admins.map((item, index) => (
                   <li
                     key={index}
-                    className="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600"
+                    className={
+                      'w-full px-4 py-2' +
+                      (index !== timelock.proposers.length - 1
+                        ? ' border-b'
+                        : ' p-1')
+                    }
                   >
                     <span className="mr-5 font-bold">{index + 1}</span>
                     {item}
                   </li>
                 ))}
               </ul>
-              <ul className="ml-2 mr-2 w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+              <ul className="ml-2 mr-3 w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                 <li className="w-full font-bold px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                   <span className="text-plumbus-matte">Proposers</span>
                 </li>
                 {timelock.proposers.map((item, index) => (
                   <li
                     key={index}
-                    className="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600"
+                    className={
+                      'w-full px-4 py-2' +
+                      (index !== timelock.proposers.length - 1
+                        ? ' border-b'
+                        : ' p-1')
+                    }
                   >
                     <span className="mr-5 font-bold">{index + 1}</span>
                     {item}
@@ -307,7 +317,7 @@ const ManageTimelock = () => {
                 <li className="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                   <span className="text-plumbus-matte">Minimum Delay</span>
                 </li>
-                <li className="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600">
+                <li className="w-full px-4 py-2 border-gray-200 dark:border-gray-600">
                   {dhms(timelock.min_time_delay)}
                 </li>
               </ul>
