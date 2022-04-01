@@ -25,7 +25,7 @@ export interface CW3TimelockInstance {
   schedule: (
     senderAddress: string,
     targetAddress: string,
-    data: Record<string, unknown>,
+    data: string,
     executionTime: string,
     executors?: string[]
   ) => Promise<string>
@@ -112,7 +112,7 @@ export const CW3Timelock = (
     const schedule = async (
       senderAddress: string,
       targetAddress: string,
-      data: Record<string, unknown>,
+      data: string,
       executionTime: string,
       executors?: string[]
     ): Promise<string> => {
@@ -122,9 +122,8 @@ export const CW3Timelock = (
           contractAddress,
           {
             schedule: {
-              target_address:
-                'juno1t5xudvdl4qlu30ta9lh4gzqkk47ldpuc7leveutjpulqmq8wufksk0zu4x',
-              data: encode(JSON.stringify(data)),
+              target_address: targetAddress,
+              data: encode(data),
               execution_time: executionTime,
               executors: executors,
             },
