@@ -15,6 +15,7 @@ export interface OperationResponse {
   target: string
   data: string
   status: string
+  proposer: string
 }
 
 const getAirdropDate = (date: number, type: string | null) => {
@@ -46,6 +47,7 @@ const OperationsTable = ({
         <tr className="text-left text-plumbus-matte">
           <th className="p-3">ID</th>
           <th className="p-3 text-right">Execution Time</th>
+          <th className="p-3 text-right">Proposer</th>
           <th className="p-3 text-right">Target</th>
           <th className="p-3 text-right">Data</th>
           <th className="p-3">Status</th>
@@ -76,7 +78,12 @@ const OperationsTable = ({
                 </div>
               </td>
               <td className="p-4 text-right">{operation.executionTime}</td>
-              <td className="p-4 text-right">{operation.target}</td>
+              <td className="p-4 text-right">
+                {truncateMiddle(operation.proposer, 13)}
+              </td>
+              <td className="p-4 text-right">
+                {truncateMiddle(operation.target, 13)}
+              </td>
               <td className="p-4 text-right">{operation.data}</td>
               <td className="p-4">{operation.status}</td>
             </tr>

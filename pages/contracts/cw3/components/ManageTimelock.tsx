@@ -62,8 +62,10 @@ const ManageTimelock = () => {
               target: operation.target,
               data: decode(operation.data),
               status: operation.status,
+              proposer: operation.proposer,
             }
             setData([...data, opObj])
+            console.log(operation.proposer)
           }
         }
       } else {
