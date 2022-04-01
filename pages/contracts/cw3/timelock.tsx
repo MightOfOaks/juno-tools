@@ -141,7 +141,7 @@ const CW3Timelock = () => {
 
   return (
     <div
-      className="w-full h-full overflow-y-auto"
+      className="w-full h-screen flex-grow overflow-y-auto no-scrollbar"
       style={{ scrollbarWidth: 'none' }}
     >
       <h1 className="mt-[10%] text-6xl font-bold text-center">Timelock</h1>

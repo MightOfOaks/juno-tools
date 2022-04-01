@@ -14,3 +14,5 @@ export async function copy(
     return toast.error(String(err))
   }
 }
+
+export default { copy }

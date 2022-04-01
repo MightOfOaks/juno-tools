@@ -17,3 +17,5 @@ export class Operation {
     public data: string
   ) {}
 }
+
+export default {Timelock, Operation}
