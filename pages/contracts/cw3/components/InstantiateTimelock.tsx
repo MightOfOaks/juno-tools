@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import toast, { resolveValue } from 'react-hot-toast'
 import CustomInput from './CustomInput'
+import { copy } from './OperationsTableHelpers/clipboard'
+import Tooltip from './OperationsTableHelpers/Tooltip'
 
 const InstantiateTimelock = (props: {
   spinnerFlag: boolean
@@ -148,18 +150,17 @@ const InstantiateTimelock = (props: {
               >
                 Timelock Contract Address
               </label>
-              <label
-                htmlFor="small-input"
-                className="hover:text-juno mx-1 block text-sm font-bold text-gray-900 dark:text-gray-300"
-                onClick={async () => {
-                  await navigator.clipboard.writeText(
-                    props.initResponse.contractAddress
-                  )
-                  toast.success('Copied to clipboard')
-                }}
-              >
-                {props.initResponse.contractAddress}
-              </label>
+              <Tooltip label="Click to copy">
+                <label
+                  htmlFor="small-input"
+                  className="hover:text-juno mx-1 block text-sm font-medium text-gray-900 dark:text-gray-300 cursor-pointer"
+                  onClick={async () => {
+                    copy(props.initResponse.contractAddress)
+                  }}
+                >
+                  {props.initResponse.contractAddress}
+                </label>
+              </Tooltip>
 
               <label
                 htmlFor="small-input"
@@ -168,18 +169,17 @@ const InstantiateTimelock = (props: {
                 TxHash
               </label>
 
-              <label
-                htmlFor="small-input"
-                className="hover:text-juno mx-1 block text-sm font-medium text-gray-900 dark:text-gray-300"
-                onClick={async () => {
-                  await navigator.clipboard.writeText(
-                    props.initResponse.transactionHash
-                  )
-                  toast.success('Copied to clipboard')
-                }}
-              >
-                {props.initResponse.transactionHash}
-              </label>
+              <Tooltip label="Click to copy">
+                <label
+                  htmlFor="small-input"
+                  className="hover:text-juno mx-1 block text-sm font-medium text-gray-900 dark:text-gray-300 cursor-pointer"
+                  onClick={async () => {
+                    copy(props.initResponse.transactionHash)
+                  }}
+                >
+                  {props.initResponse.transactionHash}
+                </label>
+              </Tooltip>
             </div>
           )}
         </div>

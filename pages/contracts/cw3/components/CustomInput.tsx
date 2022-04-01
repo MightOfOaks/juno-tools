@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { Bech32 } from '@cosmjs/encoding'
 import { isValidAddress } from 'utils/isValidAddress'
+import { copy } from './OperationsTableHelpers/clipboard'
+import Tooltip from './OperationsTableHelpers/Tooltip'
 
 const CustomInput = (props: {
   placeholder: string | undefined
@@ -35,11 +37,6 @@ const CustomInput = (props: {
       setItems(tempArray)
       setInput('')
     }
-  }
-
-  const copy = async (text: string) => {
-    await navigator.clipboard.writeText(text)
-    toast.success('Copied to clipboard')
   }
 
   const removeClicked = (item: string) => {
@@ -86,20 +83,18 @@ const CustomInput = (props: {
         {items.map((item: string) => {
           return (
             <div key={item}>
-              <div className="col-span-1 grid grid-cols-2 p-2 rounded bg-black bg-opacity-10">
-                <button
-                  type="button"
-                  onClick={() => copy(item)}
-                  className="text-sm"
-                  data-bs-toggle="tooltip"
-                  title={item}
-                  // title="<em>Tooltip</em> <u>with</u> <b>HTML</b>"
-                  data-bs-html="true"
-                >
-                  {item.slice(0, 5) +
-                    '...' +
-                    item.slice(item.length - 5, item.length)}
-                </button>
+              <div className="col-span-1 grid grid-cols-2 p-2 rounded bg-black bg-opacity-10 hover:text-juno">
+                <Tooltip label={item}>
+                  <button
+                    type="button"
+                    onClick={() => copy(item)}
+                    className="text-sm"
+                  >
+                    {item.slice(0, 5) +
+                      '...' +
+                      item.slice(item.length - 5, item.length)}
+                  </button>
+                </Tooltip>
                 <div
                   className="ml-5"
                   onClick={() => {

@@ -84,7 +84,9 @@ const OperationsTable = ({
                   copy(operation.proposer)
                 }}
               >
-                {truncateMiddle(operation.proposer, 13)}
+                <Tooltip label={operation.proposer}>
+                  <span>{truncateMiddle(operation.proposer, 13)}</span>
+                </Tooltip>
               </td>
               <td
                 className="p-4 text-right cursor-pointer hover:text-juno"
@@ -92,7 +94,9 @@ const OperationsTable = ({
                   copy(operation.proposer)
                 }}
               >
-                {truncateMiddle(operation.target, 13)}
+                <Tooltip label={operation.target}>
+                  <span>{truncateMiddle(operation.target, 13)}</span>
+                </Tooltip>
               </td>
               <td className="p-4 text-right">{operation.data}</td>
               <td className="p-4">{operation.status}</td>

@@ -61,7 +61,12 @@ const ManageTimelock = () => {
                 .slice(0, 33),
               target: operation.target,
               data: decode(operation.data),
-              status: (((new Date().getTime()*1000000) > Number(operation.execution_time) && operation.status === "Pending") ? "Ready" : operation.status),
+              status:
+                new Date().getTime() * 1000000 >
+                  Number(operation.execution_time) &&
+                operation.status === 'Pending'
+                  ? 'Ready'
+                  : operation.status,
               proposer: operation.proposer,
             }
             setData([...data, opObj])
@@ -332,7 +337,7 @@ const ManageTimelock = () => {
           )}
         </div>
 
-        <div className="overflow-auto px-10 h-40 my-10">
+        <div className="overflow-auto px-10 h-100 my-10">
           {data.length > 0 && <OperationsTable data={data} />}
         </div>
 
