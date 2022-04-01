@@ -88,7 +88,7 @@ const ScheduleModal = () => {
         toast.error('You are not authorized to perform this action.', {
           style: { maxWidth: 'none' },
         })
-      }else if(error.message.includes('Minimum Delay condition not satisfied')){
+      }else if(error.message.includes('Minimum Delay condition not satisfied')||error.message.includes('Cannot Sub')){
         toast.error('Minimum delay condition not satisfied.', {
           style: { maxWidth: 'none' },
         })
