@@ -63,9 +63,9 @@ const ScheduleModal = () => {
       if (client && wallet) {
         //Reserved for hard coded data
         // const msg = {
-          // mint: {
-          //   amount: '1000',
-          // },
+        // mint: {
+        //   amount: '1000',
+        // },
         // }
         setSpinnerFlag(true)
         const res = await client?.schedule(
@@ -76,8 +76,10 @@ const ScheduleModal = () => {
           executors
         )
         setSpinnerFlag(false)
-        if(!(res.toString().includes('Error'))) {
-          toast.success('Successfully scheduled an operation.', {style: { maxWidth: 'none' },})
+        if (!res.toString().includes('Error')) {
+          toast.success('Successfully scheduled an operation.', {
+            style: { maxWidth: 'none' },
+          })
         }
         console.log('schedule: ', res)
       }
