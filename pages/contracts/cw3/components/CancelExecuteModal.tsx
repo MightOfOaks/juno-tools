@@ -52,6 +52,14 @@ const CancelExecuteModal = (props: {
             toast.error('The execution time has not been reached yet.', {
               style: { maxWidth: 'none' },
             })
+          } else if (err.message.includes('already executed')) {
+            toast.error('The operation with the specified ID has already been executed.', {
+              style: { maxWidth: 'none' },
+            })
+          } else if (err.message.includes('submessages')) {
+            toast.error('The contained message within the specified operation is not valid for the target contract.', {
+              style: { maxWidth: 'none' },
+            })
           } else {
             toast.error(err.message, { style: { maxWidth: 'none' } })
           }
