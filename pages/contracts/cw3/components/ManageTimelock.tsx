@@ -45,6 +45,7 @@ const ManageTimelock = () => {
 
           const res = await client?.getOperations()
           const operationList = res.operationList
+          console.log(operationList)
 
           setTimelock(new Timelock(admins, proposers, minDelay))
           for (let i = 0; i < operationList.length; i++) {
@@ -58,7 +59,7 @@ const ManageTimelock = () => {
                     ? 'Ready'
                     : operationList[i].status,
                   operationList[i].proposer,
-                  operationList[i].executor,
+                  operationList[i].executors,
                   new Date(Number(operationList[i].execution_time) / 1000000)
                     .toString()
                     .slice(0, 33),
