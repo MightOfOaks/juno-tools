@@ -48,7 +48,7 @@ const ManageTimelock = () => {
           console.log(operationList)
 
           setTimelock(new Timelock(admins, proposers, minDelay))
-          if (data.length === 0) {
+            setData([])
             for (let i = 0; i < operationList.length; i++) {
               setData((prevData) =>
                 prevData.concat(
@@ -71,7 +71,7 @@ const ManageTimelock = () => {
                 )
               )
             }
-          }
+          
         }
       } else {
         toast.error('You need to specify a valid Timelock contract address.', {
@@ -153,7 +153,7 @@ const ManageTimelock = () => {
             </label>
           )}
           <div className="ml-10 mt-5 relative inline-block text-left">
-            <input type="checkbox" id="modal-menu" className="modal-toggle" />
+            <input type="checkbox" id="modal-menu" className="modal-toggle" onChange={query}/>
             <label
               htmlFor="modal-menu"
               className="modal"
