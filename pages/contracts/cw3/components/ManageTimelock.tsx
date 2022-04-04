@@ -337,7 +337,10 @@ const ManageTimelock = () => {
           )}
         </div>
 
-        <div className="overflow-auto px-10 h-100 my-10">
+        <div
+          className="overflow-auto px-10 my-10 no-scrollbar"
+          style={{ maxHeight: '525px' }}
+        >
           {data.length > 0 && <OperationsTable data={data} />}
         </div>
 
