@@ -14,8 +14,9 @@ export class Operation {
     public executors: string[],
     public execution_time: string,
     public target: string,
-    public data: string
+    public data: string,
+    public description: string
   ) {}
 }
 
-export default {Timelock, Operation}
+export default { Timelock, Operation }

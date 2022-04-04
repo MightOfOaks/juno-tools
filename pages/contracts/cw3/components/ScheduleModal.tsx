@@ -14,6 +14,7 @@ const ScheduleModal = () => {
   const [targetAddress, setTargetAddress] = useState('')
   const [data, setData] = useState('')
   const [spinnerFlag, setSpinnerFlag] = useState(false)
+  const [description, setDescription] = useState('')
 
   const contract = useContracts().cw3Timelock
   const wallet = useWallet()
@@ -56,7 +57,6 @@ const ScheduleModal = () => {
   }
 
   const execute = async () => {
-    
     try {
       console.log(getExecutionTimeInNanosecs().toString())
       const client = contract?.use(contractAddress)
@@ -73,6 +73,7 @@ const ScheduleModal = () => {
           wallet.address,
           targetAddress,
           data,
+          description,
           getExecutionTimeInNanosecs().toString(),
           executors
         )
@@ -80,7 +81,6 @@ const ScheduleModal = () => {
         toast.success('Successfully scheduled an operation.', {
           style: { maxWidth: 'none' },
         })
-       
       }
     } catch (error: any) {
       setSpinnerFlag(false)
@@ -88,15 +88,18 @@ const ScheduleModal = () => {
         toast.error('You are not authorized to perform this action.', {
           style: { maxWidth: 'none' },
         })
-      }else if(error.message.includes('Minimum Delay condition not satisfied')||error.message.includes('Cannot Sub')){
+      } else if (
+        error.message.includes('Minimum Delay condition not satisfied') ||
+        error.message.includes('Cannot Sub')
+      ) {
         toast.error('Minimum delay condition not satisfied.', {
           style: { maxWidth: 'none' },
         })
-      }else if(error.message.includes("addr_validate error")){
+      } else if (error.message.includes('addr_validate error')) {
         toast.error('Invalid target contract address.', {
           style: { maxWidth: 'none' },
         })
-      }else {
+      } else {
         toast.error(error.message, { style: { maxWidth: 'none' } })
       }
     }
@@ -136,6 +139,22 @@ const ScheduleModal = () => {
         placeholder="Target Address"
         className="w-4/5 py-2 px-1 mx-3 mb-3 rounded text-black text-gray-900 dark:text-gray-300"
       />
+      <div className="flex-col basis-1/4 my-4">
+        <label
+          htmlFor="small-input"
+          className="mb-1 mx-3 block text-sm font-bold text-gray-900 dark:text-gray-300"
+        >
+          Description
+        </label>
+        <input
+          type="text"
+          onChange={(e) => {
+            setDescription(e.target.value)
+          }}
+          className="py-2 px-1 mx-3 rounded text-black text-gray-900 dark:text-gray-300"
+          placeholder="Data"
+        />
+      </div>
       <div className="flex">
         <div className="flex-col basis-1/4">
           <label

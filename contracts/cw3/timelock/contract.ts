@@ -26,6 +26,7 @@ export interface CW3TimelockInstance {
     senderAddress: string,
     targetAddress: string,
     data: string,
+    description: string,
     executionTime: string,
     executors: string[]
   ) => Promise<string>
@@ -113,23 +114,24 @@ export const CW3Timelock = (
       senderAddress: string,
       targetAddress: string,
       data: string,
+      description: string,
       executionTime: string,
       executors: string[]
-    ): Promise<string> => {    
-        const res = await client.execute(
-          senderAddress,
-          contractAddress,
-          {
-            schedule: {
-              target_address: targetAddress,
-              data: encode(data),
-              execution_time: executionTime,
-              executors: executors.length > 0 ? executors : undefined,
-            },
+    ): Promise<string> => {
+      const res = await client.execute(
+        senderAddress,
+        contractAddress,
+        {
+          schedule: {
+            target_address: targetAddress,
+            data: encode(data),
+            execution_time: executionTime,
+            executors: executors.length > 0 ? executors : undefined,
           },
-          'auto'
-        )
-        return res.transactionHash
+        },
+        'auto'
+      )
+      return res.transactionHash
     }
 
     const cancel = async (
