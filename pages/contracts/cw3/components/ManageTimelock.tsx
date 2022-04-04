@@ -45,29 +45,32 @@ const ManageTimelock = () => {
 
           const res = await client?.getOperations()
           const operationList = res.operationList
+          console.log(operationList)
 
           setTimelock(new Timelock(admins, proposers, minDelay))
-          for (let i = 0; i < operationList.length; i++) {
-            setData((prevData) =>
-              prevData.concat(
-                new Operation(
-                  operationList[i].id,
-                  new Date().getTime() * 1000000 >
-                    Number(operationList[i].execution_time) &&
-                  operationList[i].status === 'Pending'
-                    ? 'Ready'
-                    : operationList[i].status,
-                  operationList[i].proposer,
-                  operationList[i].executor,
-                  new Date(Number(operationList[i].execution_time) / 1000000)
-                    .toString()
-                    .slice(0, 33),
-                  operationList[i].target,
-                  decode(operationList[i].data),
-                  operationList[i].description
+          if (data.length === 0) {
+            for (let i = 0; i < operationList.length; i++) {
+              setData((prevData) =>
+                prevData.concat(
+                  new Operation(
+                    operationList[i].id,
+                    new Date().getTime() * 1000000 >
+                      Number(operationList[i].execution_time) &&
+                    operationList[i].status === 'Pending'
+                      ? 'Ready'
+                      : operationList[i].status,
+                    operationList[i].proposer,
+                    operationList[i].executors,
+                    new Date(Number(operationList[i].execution_time) / 1000000)
+                      .toString()
+                      .slice(0, 33),
+                    operationList[i].target,
+                    decode(operationList[i].data),
+                    operationList[i].description
+                  )
                 )
               )
-            )
+            }
           }
         }
       } else {

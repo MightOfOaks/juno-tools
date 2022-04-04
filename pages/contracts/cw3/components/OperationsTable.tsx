@@ -5,7 +5,6 @@ import { DetailedHTMLProps, TableHTMLAttributes, useState } from 'react'
 import { copy } from './OperationsTableHelpers/clipboard'
 import { truncateMiddle } from './OperationsTableHelpers/text'
 import { Operation } from '../models'
-import Procedures from './Procedures'
 
 type BaseProps<T = HTMLTableElement> = DetailedHTMLProps<
   TableHTMLAttributes<T>,
@@ -25,7 +24,13 @@ const OperationsTable = ({
   const [selectedOperation, setSelectedOperation] = useState<Operation>()
 
   const IterateExecutors = () => {
-    if (selectedOperation && selectedOperation.executors) {
+    console.log(selectedOperation?.executors)
+
+    if (
+      selectedOperation &&
+      selectedOperation.executors &&
+      selectedOperation?.executors.length > 0
+    ) {
       for (let i = 0; i < selectedOperation.executors.length; i++) {
         return (
           <label
@@ -36,6 +41,17 @@ const OperationsTable = ({
           </label>
         )
       }
+    } else if (selectedOperation?.executors.length == 1) {
+      return (
+        <div className="flex-col basis-1/4 my-4">
+          <label
+            htmlFor="small-input"
+            className="mb-1 mx-3 block text-sm font-bold text-gray-900 dark:text-gray-300"
+          >
+            Everyone can execute
+          </label>
+        </div>
+      )
     } else {
       return (
         <div className="flex-col basis-1/4 my-4">
@@ -132,38 +148,42 @@ const OperationsTable = ({
           </tr>
         )}
         {/* RENDER OPERATION MODAL WHEN CLICKED  */}
-        <input type="checkbox" id="my-modal-5" className="modal-toggle" />
-        <label
-          htmlFor="my-modal-5"
-          className="modal cursor-pointer"
-          style={{ background: 'rgb(25, 29, 32, 0.75)' }}
-        >
-          <label className="modal-box relative bg-dark-gray border-2 border-plumbus-20">
-            <div className="bg-dark-gray p-8">
-              <div className="text-lg font-bold">
-                {' OPERATION ' + selectedOperation?.id}
-              </div>
-              <div className="flex-col basis-1/4 my-4">
-                <div>Description</div>
-                <div className="mx-3 font-bold overflow-auto h-50">
-                  {selectedOperation?.description
-                    ? selectedOperation.description
-                    : 'No Description Provided'}
+        <tr>
+          <td>
+            <input type="checkbox" id="my-modal-5" className="modal-toggle" />
+            <label
+              htmlFor="my-modal-5"
+              className="modal cursor-pointer"
+              style={{ background: 'rgb(25, 29, 32, 0.75)' }}
+            >
+              <label className="modal-box relative bg-dark-gray border-2 border-plumbus-20">
+                <div className="bg-dark-gray p-8">
+                  <div className="text-lg font-bold">
+                    {' OPERATION ' + selectedOperation?.id}
+                  </div>
+                  <div className="flex-col basis-1/4 my-4">
+                    <div>Description</div>
+                    <div className="mx-3 font-bold overflow-auto h-50">
+                      {selectedOperation?.description
+                        ? selectedOperation.description
+                        : 'No Description Provided'}
+                    </div>
+                    <div>Data</div>
+                    <div className="mx-3 font-bold overflow-auto h-50">
+                      {selectedOperation?.data
+                        ? selectedOperation.data
+                        : 'No Data Provided'}
+                    </div>
+                  </div>
+                  <div className="flex-col basis-1/4 my-4 overflow-auto h-50">
+                    <div>Executors</div>
+                    {IterateExecutors()}
+                  </div>
                 </div>
-                <div>Data</div>
-                <div className="mx-3 font-bold overflow-auto h-50">
-                  {selectedOperation?.data
-                    ? selectedOperation.data
-                    : 'No Data Provided'}
-                </div>
-              </div>
-              <div className="flex-col basis-1/4 my-4 overflow-auto h-50">
-                <div>Executors</div>
-                {IterateExecutors()}
-              </div>
-            </div>
-          </label>
-        </label>
+              </label>
+            </label>
+          </td>
+        </tr>
       </tbody>
     </table>
   )
