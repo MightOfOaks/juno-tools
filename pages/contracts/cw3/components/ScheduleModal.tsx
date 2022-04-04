@@ -5,10 +5,8 @@ import { useContracts } from 'contexts/contracts'
 import CustomInput from './CustomInput'
 import Tooltip from './OperationsTableHelpers/Tooltip'
 
-const ScheduleModal = () => {
-  const [contractAddress, setContractAddress] = useState(
-    'juno1cspathx3ex9hud98vt6qpsujj9gnefkjphzm4f83shue5q5u8suq7me0lc'
-  )
+const ScheduleModal = (props: { contractAddress: string }) => {
+  const { contractAddress } = props
   const [date, setDate] = useState('')
   const [time, setTime] = useState('')
   const [executors, setExecutors] = useState<string[]>([])
@@ -22,10 +20,6 @@ const ScheduleModal = () => {
 
   const handleChangeExecutors = (arg0: string[]) => {
     setExecutors(arg0)
-  }
-
-  const handleChangeTargetAddress = (arg0: string) => {
-    setTargetAddress(arg0)
   }
 
   const handleChangeExecutionDate = (event: {
@@ -63,12 +57,6 @@ const ScheduleModal = () => {
       const client = contract?.use(contractAddress)
 
       if (client && wallet) {
-        //Reserved for hard coded data
-        // const msg = {
-        // mint: {
-        //   amount: '1000',
-        // },
-        // }
         setSpinnerFlag(true)
         const res = await client?.schedule(
           wallet.address,
@@ -78,7 +66,10 @@ const ScheduleModal = () => {
           getExecutionTimeInNanosecs().toString(),
           executors
         )
+
         setSpinnerFlag(false)
+        console.log(res)
+
         toast.success('Successfully scheduled an operation.', {
           style: { maxWidth: 'none' },
         })

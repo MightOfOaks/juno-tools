@@ -13,7 +13,7 @@ const Procedures = (props: {
   const renderModal = () => {
     switch (selectedModal) {
       case 'schedule':
-        return <ScheduleModal />
+        return <ScheduleModal contractAddress={contractAddress} />
       case 'cancel':
         return (
           <CancelExecuteModal
