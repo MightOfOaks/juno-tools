@@ -159,7 +159,7 @@ const ManageTimelock = () => {
               className="modal"
               style={{ background: 'rgb(25, 29, 32, 0)' }}
             >
-              <label className="origin-top-right border border-gray-300 bg-black absolute right-12 mt-2 w-56 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-8">
+              <label className="origin-top-right border border-[#FE9D9E] bg-[#120F0F] absolute right-12 mt-2 w-56 rounded-md shadow-lg ring-1 ring-[#FE9D9E] ring-opacity-10">
                 <div
                   className="py-1 "
                   role="menu"
