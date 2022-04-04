@@ -209,7 +209,7 @@ const ScheduleModal = (props: { contractAddress: string }) => {
             >
               Execution Time
             </label>
-            <Tooltip label="The time after which a scheduled operation can be executed and have an affect on the target contract.">
+            <Tooltip label="The time after which a scheduled operation can be executed and have an effect on the target contract.">
               <svg
                 className="mt-1 w-4 h-4"
                 fill="currentColor"

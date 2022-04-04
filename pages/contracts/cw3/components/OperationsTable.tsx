@@ -5,6 +5,7 @@ import { DetailedHTMLProps, TableHTMLAttributes, useState } from 'react'
 import { copy } from './OperationsTableHelpers/clipboard'
 import { truncateMiddle } from './OperationsTableHelpers/text'
 import { Operation } from '../models'
+import toast from 'react-hot-toast'
 
 type BaseProps<T = HTMLTableElement> = DetailedHTMLProps<
   TableHTMLAttributes<T>,
@@ -25,7 +26,7 @@ const OperationsTable = ({
 
   const IterateExecutors = () => {
     console.log(selectedOperation?.executors)
-
+try{
     if (
       selectedOperation &&
       selectedOperation.executors &&
@@ -41,14 +42,14 @@ const OperationsTable = ({
           </label>
         )
       }
-    } else if (selectedOperation?.executors.length == 1) {
+    } else if (selectedOperation?.executors.length == 0) {
       return (
         <div className="flex-col basis-1/4 my-4">
           <label
             htmlFor="small-input"
             className="mb-1 mx-3 block text-sm font-bold text-gray-900 dark:text-gray-300"
           >
-            Everyone can execute
+            Any address can execute this operation.
           </label>
         </div>
       )
@@ -59,11 +60,14 @@ const OperationsTable = ({
             htmlFor="small-input"
             className="mb-1 mx-3 block text-sm font-bold text-gray-900 dark:text-gray-300"
           >
-            No Executors Found
+            No executors found.
           </label>
         </div>
       )
     }
+  } catch (err: any) {
+    toast.error('Error: ' + err.message, { style: { maxWidth: 'none' } })
+  }
   }
 
   return (
@@ -159,20 +163,20 @@ const OperationsTable = ({
               <label className="modal-box relative bg-dark-gray border-2 border-plumbus-20">
                 <div className="bg-dark-gray p-8">
                   <div className="text-lg font-bold">
-                    {' OPERATION ' + selectedOperation?.id}
+                    {' Operation ID: ' + selectedOperation?.id}
                   </div>
                   <div className="flex-col basis-1/4 my-4">
                     <div>Description</div>
                     <div className="mx-3 font-bold overflow-auto h-50">
                       {selectedOperation?.description
                         ? selectedOperation.description
-                        : 'No Description Provided'}
+                        : 'No description provided.'}
                     </div>
                     <div>Data</div>
                     <div className="mx-3 font-bold overflow-auto h-50">
                       {selectedOperation?.data
                         ? selectedOperation.data
-                        : 'No Data Provided'}
+                        : 'No data provided.'}
                     </div>
                   </div>
                   <div className="flex-col basis-1/4 my-4 overflow-auto h-50">

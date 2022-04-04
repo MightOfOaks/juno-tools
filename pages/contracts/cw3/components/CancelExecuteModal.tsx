@@ -68,7 +68,7 @@ const CancelExecuteModal = (props: {
 
   return (
     <div className="bg-dark-gray p-8">
-      <div> {props.functionType.toUpperCase() + ' OPERATION'}</div>
+      <div> {props.functionType + ' Operation'}</div>
       <div className="flex-col basis-1/4 my-4">
         <label
           htmlFor="small-input"
