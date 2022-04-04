@@ -26,48 +26,37 @@ const OperationsTable = ({
 
   const IterateExecutors = () => {
     console.log(selectedOperation?.executors)
-try{
-    if (
-      selectedOperation &&
-      selectedOperation.executors &&
-      selectedOperation?.executors.length > 0
-    ) {
-      for (let i = 0; i < selectedOperation.executors.length; i++) {
+    try {
+      if (
+        selectedOperation &&
+        selectedOperation.executors &&
+        selectedOperation.executors?.length > 0
+      ) {
+        for (let i = 0; i < selectedOperation.executors?.length; i++) {
+          return (
+            <label
+              htmlFor="small-input"
+              className="mb-1 mx-3 block text-sm font-bold text-gray-900 dark:text-gray-300"
+            >
+              {selectedOperation.executors[i]}
+            </label>
+          )
+        }
+      } else {
         return (
-          <label
-            htmlFor="small-input"
-            className="mb-1 mx-3 block text-sm font-bold text-gray-900 dark:text-gray-300"
-          >
-            {selectedOperation.executors[i]}
-          </label>
+          <div className="flex-col basis-1/4 my-2">
+            <label
+              htmlFor="small-input"
+              className="mb-1 mx-3 block font-normal text-gray-900 dark:text-gray-300"
+            >
+              Any address can execute this operation.
+            </label>
+          </div>
         )
       }
-    } else if (selectedOperation?.executors.length == 0) {
-      return (
-        <div className="flex-col basis-1/4 my-4">
-          <label
-            htmlFor="small-input"
-            className="mb-1 mx-3 block text-sm font-bold text-gray-900 dark:text-gray-300"
-          >
-            Any address can execute this operation.
-          </label>
-        </div>
-      )
-    } else {
-      return (
-        <div className="flex-col basis-1/4 my-4">
-          <label
-            htmlFor="small-input"
-            className="mb-1 mx-3 block text-sm font-bold text-gray-900 dark:text-gray-300"
-          >
-            No executors found.
-          </label>
-        </div>
-      )
+    } catch (err: any) {
+      toast.error('Error: ' + err.message, { style: { maxWidth: 'none' } })
     }
-  } catch (err: any) {
-    toast.error('Error: ' + err.message, { style: { maxWidth: 'none' } })
-  }
   }
 
   return (
@@ -165,21 +154,21 @@ try{
                   <div className="text-lg font-bold">
                     {' Operation ID: ' + selectedOperation?.id}
                   </div>
-                  <div className="flex-col basis-1/4 my-4">
+                  <div className="flex-col font-bold basis-1/4 my-4">
                     <div>Description</div>
-                    <div className="mx-3 font-bold overflow-auto h-50">
+                    <div className="mx-3 mb-3 font-normal overflow-auto h-50">
                       {selectedOperation?.description
                         ? selectedOperation.description
                         : 'No description provided.'}
                     </div>
                     <div>Data</div>
-                    <div className="mx-3 font-bold overflow-auto h-50">
+                    <div className="mx-3 font-normal overflow-auto h-50">
                       {selectedOperation?.data
                         ? selectedOperation.data
                         : 'No data provided.'}
                     </div>
                   </div>
-                  <div className="flex-col basis-1/4 my-4 overflow-auto h-50">
+                  <div className="flex-col basis-1/4 my-3 font-bold overflow-auto h-50">
                     <div>Executors</div>
                     {IterateExecutors()}
                   </div>
