@@ -27,8 +27,6 @@ const ManageTimelock = () => {
 
   const query = async () => {
     try {
-      console.log(wallet.initialized)
-
       if (!wallet.initialized) {
         toast.error('Oops! Need to connect your Keplr Wallet first.', {
           style: { maxWidth: 'none' },
@@ -46,32 +44,30 @@ const ManageTimelock = () => {
           const minDelay = await client?.getMinDelay()
 
           const res = await client?.getOperations()
-          console.log(res)
+          const operationList = res.operationList
 
           setTimelock(new Timelock(admins, proposers, minDelay))
-          for (let i = 0; i < res.operationList.length; i++) {
-            const operation = res.operationList[i]
-            const opObj = {
-              id: operation.id,
-              execution_time: new Date(
-                Number(operation.execution_time) / 1000000
+          for (let i = 0; i < operationList.length; i++) {
+            setData((prevData) =>
+              prevData.concat(
+                new Operation(
+                  operationList[i].id,
+                  new Date().getTime() * 1000000 >
+                    Number(operationList[i].execution_time) &&
+                  operationList[i].status === 'Pending'
+                    ? 'Ready'
+                    : operationList[i].status,
+                  operationList[i].proposer,
+                  operationList[i].executor,
+                  new Date(Number(operationList[i].execution_time) / 1000000)
+                    .toString()
+                    .slice(0, 33),
+                  operationList[i].target,
+                  decode(operationList[i].data),
+                  operationList[i].description
+                )
               )
-                .toString()
-                .slice(0, 33),
-              target: operation.target,
-              data: decode(operation.data),
-              status:
-                new Date().getTime() * 1000000 >
-                  Number(operation.execution_time) &&
-                operation.status === 'Pending'
-                  ? 'Ready'
-                  : operation.status,
-              proposer: operation.proposer,
-              description: operation.description,
-              executors: operation.executors,
-            }
-            setData([...data, opObj])
-            console.log(operation.proposer)
+            )
           }
         }
       } else {

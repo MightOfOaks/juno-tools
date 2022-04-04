@@ -25,7 +25,7 @@ const OperationsTable = ({
   const [selectedOperation, setSelectedOperation] = useState<Operation>()
 
   const IterateExecutors = () => {
-    if (selectedOperation && selectedOperation.executors != []) {
+    if (selectedOperation && selectedOperation.executors) {
       for (let i = 0; i < selectedOperation.executors.length; i++) {
         return (
           <label
