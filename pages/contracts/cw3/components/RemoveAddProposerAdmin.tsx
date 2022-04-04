@@ -68,11 +68,15 @@ const RemoveAddProposerAdminModal = (props: {
               style: { maxWidth: 'none' },
             }
           )
-        } else if ('bech32 failed') {
+        } else if (err.message.includes('bech32 failed')) {
           toast.error('The specified address is not valid.', {
             style: { maxWidth: 'none' },
           })
-        } else {
+        } else if (err.message.includes("Proposers list contains this proposer address")){
+          toast.error('The specified address is already included in the proposers list.', {
+            style: { maxWidth: 'none' },
+          })
+        }else {
           toast.error(err.message, { style: { maxWidth: 'none' } })
         }
       }
