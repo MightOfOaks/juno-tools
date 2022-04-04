@@ -119,7 +119,18 @@ const ScheduleModal = () => {
             Data
           </label>
           <Tooltip label="The function message to be executed by the target contract in JSON format.">
-            <svg className="mt-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path></svg>        
+            <svg
+              className="mt-1 w-4 h-4"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                clipRule="evenodd"
+              ></path>
+            </svg>
           </Tooltip>
         </div>
         <input
@@ -131,18 +142,33 @@ const ScheduleModal = () => {
           placeholder="Data"
         />
       </div>
-     
-       <CustomInput function={handleChangeExecutors} placeholder="Executors" tooltip='Addresses that are in charge of executing operations. Any address can execute the scheduled operation after the execution time if the executor list is left empty.'/>     
+
+      <CustomInput
+        function={handleChangeExecutors}
+        placeholder="Executors"
+        tooltip="Addresses that are in charge of executing operations. Any address can execute the scheduled operation after the execution time if the executor list is left empty."
+      />
       <div className="flex">
-      <label
-        htmlFor="small-input"
-        className="mb-1 ml-3 mr-1 block font-bold text-gray-900 dark:text-gray-300"
-      >
-        Target Address
-      </label>
-      <Tooltip label="Target contract address over which the Timelock contract has control.">
-            <svg className="mt-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path></svg>        
-      </Tooltip>
+        <label
+          htmlFor="small-input"
+          className="mb-1 ml-3 mr-1 block font-bold text-gray-900 dark:text-gray-300"
+        >
+          Target Address
+        </label>
+        <Tooltip label="Target contract address over which the Timelock contract has control.">
+          <svg
+            className="mt-1 w-4 h-4"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fillRule="evenodd"
+              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+              clipRule="evenodd"
+            ></path>
+          </svg>
+        </Tooltip>
       </div>
       <input
         onChange={(e) => {
@@ -160,7 +186,18 @@ const ScheduleModal = () => {
             Description
           </label>
           <Tooltip label="Brief account of the operation to be scheduled.">
-            <svg className="mt-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path></svg>        
+            <svg
+              className="mt-1 w-4 h-4"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                clipRule="evenodd"
+              ></path>
+            </svg>
           </Tooltip>
         </div>
         <input
@@ -182,7 +219,18 @@ const ScheduleModal = () => {
               Execution Time
             </label>
             <Tooltip label="The time after which a scheduled operation can be executed and have an affect on the target contract.">
-               <svg className="mt-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path></svg>        
+              <svg
+                className="mt-1 w-4 h-4"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                  clipRule="evenodd"
+                ></path>
+              </svg>
             </Tooltip>
           </div>
           <div className="flex">
