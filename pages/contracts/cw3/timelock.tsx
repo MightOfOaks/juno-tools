@@ -43,7 +43,7 @@ const CW3Timelock = () => {
       console.log(initMsg)
       setInitSpinnerFlag(true)
       const response = await contract.instantiate(
-        648,
+        702,
         initMsg,
         'Timelock Test',
         wallet.address
