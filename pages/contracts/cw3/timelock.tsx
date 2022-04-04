@@ -153,7 +153,7 @@ const CW3Timelock = () => {
         <div className="mb-3 px-10">
           <label
             htmlFor="Section"
-            className="block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
+            className="block overflow-hidden h-6 rounded-full bg-gray-300"
           ></label>
           <span className="text-gray-400 font-medium">Create</span>
           <div className="bg-juno rounded-full border-solid border-2 border-white-600 relative inline-block w-10 ml-2 mr-2 align-middle select-none">
