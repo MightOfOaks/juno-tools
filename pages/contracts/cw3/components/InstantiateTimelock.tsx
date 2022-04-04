@@ -95,7 +95,7 @@ const InstantiateTimelock = (props: {
               >
                 Minimum Delay
               </label>
-              <Tooltip label="The minimum amount of time delay with which the proposers can schedule operations.">
+              <Tooltip label="The minimum amount of time delay for the Timelock contract. Operations can only be scheduled by the proposers if their execution time is further in the future than the amount of this delay.">
                 <svg
                   className="mt-1 w-4 h-4"
                   fill="currentColor"

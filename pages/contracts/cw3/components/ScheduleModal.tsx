@@ -196,8 +196,8 @@ const ScheduleModal = (props: { contractAddress: string }) => {
           onChange={(e) => {
             setDescription(e.target.value)
           }}
-          className="py-2 px-1 mx-3 rounded text-black text-gray-900 dark:text-gray-300"
-          placeholder="Data"
+          className = "py-2 px-1 mx-3 rounded text-black text-gray-900 dark:text-gray-300"
+          placeholder = "Description"
         />
       </div>
       <div className="flex">
