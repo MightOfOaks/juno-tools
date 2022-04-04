@@ -145,19 +145,19 @@ const OperationsTable = ({
               </div>
               <div className="flex-col basis-1/4 my-4">
                 <div>Description</div>
-                <div className="mx-3 font-bold">
+                <div className="mx-3 font-bold overflow-auto h-50">
                   {selectedOperation?.description
                     ? selectedOperation.description
                     : 'No Description Provided'}
                 </div>
                 <div>Data</div>
-                <div className="mx-3 font-bold">
+                <div className="mx-3 font-bold overflow-auto h-50">
                   {selectedOperation?.data
                     ? selectedOperation.data
                     : 'No Data Provided'}
                 </div>
               </div>
-              <div className="flex-col basis-1/4 my-4">
+              <div className="flex-col basis-1/4 my-4 overflow-auto h-50">
                 <div>Executors</div>
                 {IterateExecutors()}
               </div>
