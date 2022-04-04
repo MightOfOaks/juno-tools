@@ -88,12 +88,17 @@ const InstantiateTimelock = (props: {
       <div className="relative px-10 flex-col">
         <div className="mb-10 flex flex-row w-max">
           <div className="flex-col basis-1/4">
+            <div className="flex">
             <label
               htmlFor="small-input"
-              className="mb-1 mx-3 block text-md font-bold text-gray-900 dark:text-gray-300"
+              className="mb-1 ml-3 mr-1 block text-md font-bold text-gray-900 dark:text-gray-300"
             >
               Minimum Delay
             </label>
+            <Tooltip label="The minimum amount of time delay with which the proposers can schedule operations.">
+              <svg className="mt-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path></svg>        
+            </Tooltip>
+            </div>
             <input
               type="text"
               onChange={handleChangeMinDelay}
@@ -185,10 +190,11 @@ const InstantiateTimelock = (props: {
         </div>
         <hr className="mx-3" />
         <div className="grid grid-cols-2 gap-4 mt-10">
-          <CustomInput function={handleChangeAdmins} placeholder="Admins" />
+          <CustomInput function={handleChangeAdmins} placeholder="Admins" tooltip='The administrators are responsible for the initial configuration of the Timelock contract. If the administrator list is left empty, the address by which the Timelock contract is instantiated will be set as an administrator by default, along with the Timelock contract itself. Once the list of proposers and the minimum delay time of the contract is determined (upon instantiation or later), the administrator rights are expected to be renounced/revoked for the Timelock contract to become self-governed. From this point on, every action would need to pass through the Timelock mechanism before they can be executed.' />
           <CustomInput
             function={handleChangeProposers}
             placeholder="Proposers"
+            tooltip='Addresses that are in charge of scheduling and cancelling operations.'
           />
         </div>
       </div>
