@@ -115,7 +115,10 @@ const OperationsTable = ({
                 }}
                 className="cursor-pointer"
               >
-                <label htmlFor="my-modal-5" className="cursor-pointer">
+                <label
+                  htmlFor="my-modal-5"
+                  className="cursor-pointer border-l pl-2 hover:text-juno"
+                >
                   details
                 </label>
               </td>
