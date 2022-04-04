@@ -1,29 +1,11 @@
 import clsx from 'clsx'
 import Tooltip from './OperationsTableHelpers/Tooltip'
 import { useWallet } from 'contexts/wallet'
-import { DetailedHTMLProps, TableHTMLAttributes } from 'react'
-import toast from 'react-hot-toast'
-import { FaCopy } from 'react-icons/fa'
+import { DetailedHTMLProps, TableHTMLAttributes, useState } from 'react'
 import { copy } from './OperationsTableHelpers/clipboard'
 import { truncateMiddle } from './OperationsTableHelpers/text'
-
-import AnchorButton from './OperationsTableHelpers/AnchorButton'
-
-export interface OperationResponse {
-  id: string
-  executionTime: string
-  target: string
-  data: string
-  status: string
-  proposer: string
-}
-
-const getAirdropDate = (date: number, type: string | null) => {
-  if (type === null) return '-'
-  if (type === 'height') return date
-  const d = new Date(date * 1000)
-  return d.toLocaleDateString('en-US') + ' approx'
-}
+import { Operation } from '../models'
+import Procedures from './Procedures'
 
 type BaseProps<T = HTMLTableElement> = DetailedHTMLProps<
   TableHTMLAttributes<T>,
@@ -31,7 +13,7 @@ type BaseProps<T = HTMLTableElement> = DetailedHTMLProps<
 >
 
 export interface OperationsTableProps extends Omit<BaseProps, 'children'> {
-  data: OperationResponse[]
+  data: Operation[]
 }
 
 const OperationsTable = ({
@@ -40,6 +22,33 @@ const OperationsTable = ({
   ...rest
 }: OperationsTableProps) => {
   const wallet = useWallet()
+  const [selectedOperation, setSelectedOperation] = useState<Operation>()
+
+  const IterateExecutors = () => {
+    if (selectedOperation && selectedOperation.executors != []) {
+      for (let i = 0; i < selectedOperation.executors.length; i++) {
+        return (
+          <label
+            htmlFor="small-input"
+            className="mb-1 mx-3 block text-sm font-bold text-gray-900 dark:text-gray-300"
+          >
+            {selectedOperation.executors[i]}
+          </label>
+        )
+      }
+    } else {
+      return (
+        <div className="flex-col basis-1/4 my-4">
+          <label
+            htmlFor="small-input"
+            className="mb-1 mx-3 block text-sm font-bold text-gray-900 dark:text-gray-300"
+          >
+            No Executors Found
+          </label>
+        </div>
+      )
+    }
+  }
 
   return (
     <table className={clsx('min-w-full', className)} {...rest}>
@@ -60,15 +69,15 @@ const OperationsTable = ({
           data.map((operation, i) => (
             <tr
               key={`operation-${i}`}
-              className="hover:bg-white/5"
-              id={operation.id}
+              className="hover:bg-white/5 "
+              id={operation.id.toString()}
             >
               <td className="p-4">
                 <div className="flex items-center space-x-4 font-medium">
                   <div className="w-8 min-w-max h-8 min-h-max">
                     <img
                       src={'/juno_logo.png'}
-                      alt={operation.id}
+                      alt={operation.id.toString()}
                       className="overflow-hidden w-8 h-8 bg-plumbus rounded-full"
                     />
                   </div>
@@ -77,7 +86,7 @@ const OperationsTable = ({
                   </div>
                 </div>
               </td>
-              <td className="p-4 text-right">{operation.executionTime}</td>
+              <td className="p-4 text-right">{operation.execution_time}</td>
               <td
                 className="p-4 text-right cursor-pointer hover:text-juno"
                 onClick={async () => {
@@ -100,6 +109,16 @@ const OperationsTable = ({
               </td>
               <td className="p-4 text-right">{operation.data}</td>
               <td className="p-4">{operation.status}</td>
+              <td
+                onClick={() => {
+                  setSelectedOperation(operation)
+                }}
+                className="cursor-pointer"
+              >
+                <label htmlFor="my-modal-5" className="cursor-pointer">
+                  details
+                </label>
+              </td>
             </tr>
           ))
         ) : (
@@ -109,6 +128,39 @@ const OperationsTable = ({
             </td>
           </tr>
         )}
+        {/* RENDER OPERATION MODAL WHEN CLICKED  */}
+        <input type="checkbox" id="my-modal-5" className="modal-toggle" />
+        <label
+          htmlFor="my-modal-5"
+          className="modal cursor-pointer"
+          style={{ background: 'rgb(25, 29, 32, 0.75)' }}
+        >
+          <label className="modal-box relative bg-dark-gray border-2 border-plumbus-20">
+            <div className="bg-dark-gray p-8">
+              <div className="text-lg font-bold">
+                {' OPERATION ' + selectedOperation?.id}
+              </div>
+              <div className="flex-col basis-1/4 my-4">
+                <div>Description</div>
+                <div className="mx-3 font-bold">
+                  {selectedOperation?.description
+                    ? selectedOperation.description
+                    : 'No Description Provided'}
+                </div>
+                <div>Data</div>
+                <div className="mx-3 font-bold">
+                  {selectedOperation?.data
+                    ? selectedOperation.data
+                    : 'No Data Provided'}
+                </div>
+              </div>
+              <div className="flex-col basis-1/4 my-4">
+                <div>Executors</div>
+                {IterateExecutors()}
+              </div>
+            </div>
+          </label>
+        </label>
       </tbody>
     </table>
   )

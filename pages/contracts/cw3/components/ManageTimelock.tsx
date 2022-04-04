@@ -6,9 +6,7 @@ import { useWallet } from 'contexts/wallet'
 import { useContracts } from 'contexts/contracts'
 import Procedures from './Procedures'
 import { isValidAddress } from '../../../../utils/isValidAddress'
-import OperationsTable, { OperationResponse } from './OperationsTable'
-import { ImInsertTemplate } from 'react-icons/im'
-import { copy } from './OperationsTableHelpers/clipboard'
+import OperationsTable from './OperationsTable'
 
 const ManageTimelock = () => {
   const theme = useTheme()
@@ -23,7 +21,7 @@ const ManageTimelock = () => {
   const [timelock, setTimelock] = useState<Timelock>(new Timelock([], [], 0))
   const [clientFound, setClientFound] = useState(false)
   const [selectedModal, setSelectedModal] = useState('')
-  const [data, setData] = useState<OperationResponse[]>([])
+  const [data, setData] = useState<Operation[]>([])
   const contract = useContracts().cw3Timelock
   const wallet = useWallet()
 
@@ -48,13 +46,14 @@ const ManageTimelock = () => {
           const minDelay = await client?.getMinDelay()
 
           const res = await client?.getOperations()
+          console.log(res)
 
           setTimelock(new Timelock(admins, proposers, minDelay))
           for (let i = 0; i < res.operationList.length; i++) {
             const operation = res.operationList[i]
             const opObj = {
               id: operation.id,
-              executionTime: new Date(
+              execution_time: new Date(
                 Number(operation.execution_time) / 1000000
               )
                 .toString()
@@ -68,6 +67,8 @@ const ManageTimelock = () => {
                   ? 'Ready'
                   : operation.status,
               proposer: operation.proposer,
+              description: operation.description,
+              executors: operation.executors,
             }
             setData([...data, opObj])
             console.log(operation.proposer)
