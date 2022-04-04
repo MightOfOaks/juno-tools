@@ -126,6 +126,7 @@ export const CW3Timelock = (
             target_address: targetAddress,
             data: encode(data),
             execution_time: executionTime,
+            description: description,
             executors: executors.length > 0 ? executors : undefined,
           },
         },
