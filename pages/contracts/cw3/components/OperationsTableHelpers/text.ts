@@ -20,4 +20,4 @@ export const truncateMiddle = (
   )
 }
 
-export default {truncateMiddle, ellipsis}
+export default { truncateMiddle, ellipsis }

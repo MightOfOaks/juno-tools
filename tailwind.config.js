@@ -66,8 +66,8 @@ module.exports = {
           /* Safari and Chrome */
           '&::-webkit-scrollbar': {
             display: 'none',
-          }
-        },      
+          },
+        },
       })
     }),
   ],
