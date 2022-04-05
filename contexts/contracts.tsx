@@ -3,6 +3,10 @@ import {
   UseCW1SubkeysContractProps,
 } from 'contracts/cw1/subkeys'
 import {
+  useCW3TimelockContract,
+  UseCW3TimelockContractProps,
+} from 'contracts/cw3/timelock'
+import {
   useCW20BaseContract,
   UseCW20BaseContractProps,
 } from 'contracts/cw20/base'
@@ -26,6 +30,7 @@ interface ContractsContextType {
   cw20Staking: UseCW20StakingContractProps | null
   cw20MerkleAirdrop: UseCW20MerkleAirdropContractProps | null
   cw1Subkeys: UseCW1SubkeysContractProps | null
+  cw3Timelock: UseCW3TimelockContractProps | null
 }
 
 const defaultContext: ContractsContextType = {
@@ -34,6 +39,7 @@ const defaultContext: ContractsContextType = {
   cw20Staking: null,
   cw20MerkleAirdrop: null,
   cw1Subkeys: null,
+  cw3Timelock: null,
 }
 
 const ContractsContext =
@@ -50,6 +56,7 @@ export function ContractsProvider({
   const cw20Staking = useCW20StakingContract()
   const cw20MerkleAirdrop = useCW20MerkleAirdropContract()
   const cw1Subkeys = useCW1SubkeysContract()
+  const cw3Timelock = useCW3TimelockContract()
 
   const value: ContractsContextType = {
     cw20Base,
@@ -57,6 +64,7 @@ export function ContractsProvider({
     cw20Staking,
     cw20MerkleAirdrop,
     cw1Subkeys,
+    cw3Timelock,
   }
 
   return (
