@@ -60,8 +60,14 @@ const TimeLockInstantiatePage: NextPage = () => {
       setInitResponseFlag(true)
       console.log(response)
     } catch (error: any) {
-      toast.error(error.message, { style: { maxWidth: 'none' } })
       setInitSpinnerFlag(false)
+      if (error.message.includes('invalid digit found')) {
+        toast.error('Minimum time delay is too large for any practical use.', {
+          style: { maxWidth: 'none' },
+        })
+      } else {
+        toast.error(error.message, { style: { maxWidth: 'none' } })
+      }
     }
   }
 
