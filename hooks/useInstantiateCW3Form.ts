@@ -57,6 +57,8 @@ export const useInstantiateCW3Form = () => {
       setMinDelayUnit(data.minDelayUnit)
       const msg = createInstantiateMsg({ wallet, data })
 
+      console.log('Message: ' + msg)
+
       const response = await contract.instantiate(
         702,
         {

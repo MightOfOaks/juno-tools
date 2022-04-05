@@ -10,6 +10,7 @@ const CustomInput = (props: {
   placeholder: string | undefined
   function: (arg0: string[]) => void
   tooltip?: string | undefined
+  isRequired?: boolean | undefined
 }) => {
   const [input, setInput] = useState('')
   const [items, setItems] = useState([])
@@ -62,7 +63,11 @@ const CustomInput = (props: {
           <div className="flex">
             <label
               htmlFor="small-input"
-              className="block mb-2 font-medium text-gray-900 dark:text-gray-300 text-md"
+              className={`block mb-2 font-bold text-white dark:text-gray-300 text-md ${
+                props.isRequired
+                  ? "after:text-red-500 after:content-['_*']"
+                  : ''
+              }`}
             >
               {props.placeholder}
             </label>

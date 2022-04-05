@@ -86,13 +86,13 @@ const InstantiateTimelock = (props: {
   }
   return (
     <div>
-      <div className="relative flex-col px-10">
+      <div className="relative flex-col px-10 mt-10">
         <div className="flex flex-row mb-10 w-max">
           <div className="basis-1/4 flex-col">
             <div className="flex">
               <label
                 htmlFor="small-input"
-                className="block mr-1 mb-1 ml-3 font-bold text-gray-900 dark:text-gray-300 text-md"
+                className="block mr-1 mb-1 ml-3 font-bold text-white dark:text-gray-300 text-md"
               >
                 Minimum Delay
               </label>
@@ -163,14 +163,14 @@ const InstantiateTimelock = (props: {
             <div className="float-right basis-1/3 mr-2 ml-20 h-12">
               <label
                 htmlFor="small-input"
-                className="block mx-1 text-sm font-bold text-gray-900 dark:text-gray-300 underline underline-offset-1"
+                className="block mx-1 text-sm font-bold text-white dark:text-gray-300 underline underline-offset-1"
               >
                 Timelock Contract Address
               </label>
               <Tooltip label="Click to copy">
                 <label
                   htmlFor="small-input"
-                  className="block mx-1 text-sm font-medium text-gray-900 hover:text-juno dark:text-gray-300 cursor-pointer"
+                  className="block mx-1 text-sm font-medium text-white hover:text-juno dark:text-gray-300 cursor-pointer"
                   onClick={async () => {
                     copy(props.initResponse.contractAddress)
                   }}
@@ -181,7 +181,7 @@ const InstantiateTimelock = (props: {
 
               <label
                 htmlFor="small-input"
-                className="block mx-1 mt-2 text-sm font-bold text-gray-900 dark:text-gray-300 underline underline-offset-1"
+                className="block mx-1 mt-2 text-sm font-bold text-white dark:text-gray-300 underline underline-offset-1"
               >
                 TxHash
               </label>
@@ -189,7 +189,7 @@ const InstantiateTimelock = (props: {
               <Tooltip label="Click to copy">
                 <label
                   htmlFor="small-input"
-                  className="block mx-1 text-sm font-medium text-gray-900 hover:text-juno dark:text-gray-300 cursor-pointer"
+                  className="block mx-1 text-sm font-medium text-white hover:text-juno dark:text-gray-300 cursor-pointer"
                   onClick={async () => {
                     copy(props.initResponse.transactionHash)
                   }}
@@ -211,6 +211,7 @@ const InstantiateTimelock = (props: {
             function={handleChangeProposers}
             placeholder="Proposers"
             tooltip="Addresses that are in charge of scheduling and cancelling operations."
+            isRequired={true}
           />
         </div>
       </div>
