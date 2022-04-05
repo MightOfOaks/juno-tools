@@ -5,10 +5,11 @@ import { links } from 'utils/links'
 const PageHeaderCW3 = () => {
   return (
     <PageHeader title="CW3 Timelock">
-      CW3 is a specification for fungible tokens based on CosmWasm. Learn more
-      in the{' '}
+      A smart contract that relays execute function calls on other smart
+      contracts with a predetermined minimum time delay. <br />
+      Learn more in the{' '}
       <Anchor
-        href={links['Docs CW20']}
+        href={links['Docs CW3-Timelock']}
         className="font-bold text-plumbus hover:underline"
       >
         documentation

@@ -130,7 +130,7 @@ const ScheduleModal = (props: { contractAddress: string }) => {
           onChange={(e) => {
             setData(e.target.value)
           }}
-          className="py-2 px-1 mx-3 text-black text-gray-900 dark:text-gray-300 rounded"
+          className="py-2 px-1 mx-3 text-gray-900 dark:text-gray-300 rounded"
           placeholder="Data"
         />
       </div>
@@ -167,7 +167,7 @@ const ScheduleModal = (props: { contractAddress: string }) => {
           setTargetAddress(e.target.value)
         }}
         placeholder="Target Address"
-        className="py-2 px-1 mx-3 mb-3 w-4/5 text-black text-gray-900 dark:text-gray-300 rounded"
+        className="py-2 px-1 mx-3 mb-3 w-4/5 text-gray-900 dark:text-gray-300 rounded"
       />
       <div className="basis-1/4 flex-col my-4">
         <div className="flex">
@@ -197,7 +197,7 @@ const ScheduleModal = (props: { contractAddress: string }) => {
           onChange={(e) => {
             setDescription(e.target.value)
           }}
-          className="py-2 px-1 mx-3 text-black text-gray-900 dark:text-gray-300 rounded"
+          className="py-2 px-1 mx-3 text-gray-900 dark:text-gray-300 rounded"
           placeholder="Description"
         />
       </div>
@@ -230,7 +230,7 @@ const ScheduleModal = (props: { contractAddress: string }) => {
               <input
                 type="date"
                 onChange={handleChangeExecutionDate}
-                className="py-2 px-1 mr-1 ml-3 text-black text-gray-900 dark:text-gray-300 rounded"
+                className="py-2 px-1 mr-1 ml-3 text-gray-900 dark:text-gray-300 rounded"
                 placeholder=" Execution Time"
               />
             </div>
@@ -238,7 +238,7 @@ const ScheduleModal = (props: { contractAddress: string }) => {
               <input
                 type="time"
                 onChange={handleChangeExecutionTime}
-                className="py-2 px-1 mr-2 ml-1 text-black text-gray-900 dark:text-gray-300 rounded"
+                className="py-2 px-1 mr-2 ml-1 text-gray-900 dark:text-gray-300 rounded"
                 placeholder=" Execution Time"
               />
             </div>
