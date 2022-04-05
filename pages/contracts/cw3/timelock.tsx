@@ -85,53 +85,6 @@ const CW3Timelock = () => {
     }
   }
 
-  const execute = async () => {
-    try {
-      const client = contract?.use(CONTRACT_ADDRESS)
-      console.log(client)
-
-      // let operation_id = 1
-      // const res1 = await client?.cancel(wallet.address, operation_id)
-      // console.log('cancel', res1)
-
-      // const res2 = await client?.addProposer(
-      //   wallet.address,
-      //   'juno1dc5yv2w2plccmxxh6szden8kqkshqjgkeqkg74'
-      // )
-      // console.log('addProposer', res2)
-
-      // const res3 = await client?.removeProposer(
-      //   wallet.address,
-      //   'juno1dc5yv2w2plccmxxh6szden8kqkshqjgkeqkg74'
-      // )
-      // console.log('removeProposer', res3)
-
-      // const res4 = await client?.execute(wallet.address, operation_id)
-      // console.log('execute', res4)
-
-      // const res5 = await client?.updateMinDelay(10000000000, wallet.address)
-      // console.log('updateMinDelay', res5)
-
-      // const msg = {
-      //   mint: {
-      //     amount: '1000',
-      //   },
-      // }
-      // const res6 = await client?.schedule(
-      //   wallet.address,
-      //   'juno154xu4268g2rdtnxjjsfr3wy9t3vx97308rdgau66s0d3amlxp7zq4j78us',
-      //   msg,
-      //   Number(17446744073709551515).toString(),
-      //   ['juno1smz9wdg5v7wywquyy7zn7ujvu54kuumwzw5ss8']
-      // )
-      // console.log('schedule: ', res6)
-
-      //   revokeAdmin: (senderAddress: string, admin_address: string) => Promise<any>
-    } catch (error: any) {
-      toast.error(error.message, { style: { maxWidth: 'none' } })
-    }
-  }
-
   const togglePage = () => {
     if (isManagePage) {
       setIsManagePage(false)

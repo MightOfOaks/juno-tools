@@ -30,7 +30,7 @@ const TimeLockInstantiatePage: NextPage = () => {
 
   return (
     <form className="py-6 px-12 space-y-4" onSubmit={submitHandler}>
-      <NextSeo title="Instantiate CW20 Token" />
+      <NextSeo title="Instantiate Timelock Contract" />
 
       <PageHeaderCW3 />
 
@@ -47,37 +47,44 @@ const TimeLockInstantiatePage: NextPage = () => {
 
       <FormGroup
         title="Timelock Details"
-        subtitle="Basic information about your new timelock"
+        subtitle="Basic information about your new Timelock contract"
       >
-        <FormControl title="Min Delay" htmlId="min-delay" isRequired>
-          <Input
-            id="minDelay"
-            type="text"
-            placeholder="Minimum Delay"
-            required
-            {...register('minDelay', {
-              required: true,
-            })}
-          />
-        </FormControl>
-
-        <FormControl title="Min Delay Unit" htmlId="delay-unit-select">
-          <select
-            id="delay-unit-select"
-            className={clsx(
-              'bg-white/10 rounded border-2 border-white/20 form-select',
-              'placeholder:text-white/50',
-              'focus:ring focus:ring-plumbus-20'
-            )}
-            {...register('minDelayUnit', {
-              required: true,
-            })}
+        <div className="flex">
+          <FormControl
+            title="Min Delay"
+            htmlId="min-delay"
+            className="mr-3"
+            isRequired
           >
-            {delayUnits.map((element) => (
-              <option key={element.id}>{element.time}</option>
-            ))}
-          </select>
-        </FormControl>
+            <Input
+              id="minDelay"
+              type="text"
+              placeholder="Minimum Delay"
+              required
+              {...register('minDelay', {
+                required: true,
+              })}
+            />
+          </FormControl>
+
+          <FormControl title="Min Delay Unit" htmlId="delay-unit-select">
+            <select
+              id="delay-unit-select"
+              className={clsx(
+                'bg-white/10 rounded border-2 border-white/20 form-select',
+                'placeholder:text-white/50',
+                'focus:ring focus:ring-plumbus-20'
+              )}
+              {...register('minDelayUnit', {
+                required: true,
+              })}
+            >
+              {delayUnits.map((element) => (
+                <option key={element.id}>{element.time}</option>
+              ))}
+            </select>
+          </FormControl>
+        </div>
 
         <FormControl title="Admins" htmlId="admins" isRequired>
           <Input

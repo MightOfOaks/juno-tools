@@ -19,6 +19,24 @@ export const useInstantiateCW3Form = () => {
 
   const form = useForm<InstantiateFormData>()
   const [result, setResult] = useState<InstantiateResponse | null>(null)
+  const [minDelayUnit, setMinDelayUnit] = useState('seconds')
+
+  const getMinDelayInNanoSeconds = (arg: number): String => {
+    if (minDelayUnit === 'seconds') {
+      return String(arg * 1000000000)
+    }
+    if (minDelayUnit === 'minutes') {
+      return String(arg * 60000000000)
+    }
+    if (minDelayUnit === 'hours') {
+      return String(arg * 3600000000000)
+    }
+    if (minDelayUnit === 'days') {
+      return String(arg * 86400000000000)
+    } else {
+      return String(arg)
+    }
+  }
 
   const submitHandler = form.handleSubmit(async (data) => {
     console.log('instantiate timelock form hook', data)
@@ -30,16 +48,26 @@ export const useInstantiateCW3Form = () => {
         return toast.error('Smart contract connection failed.')
       }
 
+      if (!wallet.initialized) {
+        return toast.error('Oops! Need to connect your Keplr Wallet first.', {
+          style: { maxWidth: 'none' },
+        })
+      }
+
+      setMinDelayUnit(data.minDelayUnit)
       const msg = createInstantiateMsg({ wallet, data })
 
-      //   setResult(
-      //     await contract?.instantiate(
-      //       CW20_BASE_CODE_ID,
-      //       msg,
-      //       msg.name,
-      //       wallet.address
-      //     )
-      //   )
+      const response = await contract.instantiate(
+        702,
+        {
+          admins: msg.admins,
+          proposers: msg.proposers,
+          min_delay: getMinDelayInNanoSeconds(Number(msg.minDelay)).toString(),
+        },
+        'Timelock Test',
+        wallet.address
+      )
+      console.log(response.transactionHash)
     } catch (error: any) {
       console.error(error)
       toast.error(error?.message)

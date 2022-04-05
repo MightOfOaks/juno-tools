@@ -9,8 +9,8 @@ import { cw3LinkTabs } from '../../../components/timelock/LinkTabs.data'
 import { useInstantiateCW3Form } from '../../../hooks/useInstantiateCW3Form'
 const QueryTab: NextPage = () => {
   return (
-    <form className="py-6 space-y-4">
-      <NextSeo title="Instantiate CW20 Token" />
+    <form className="py-6 px-12 space-y-4">
+      <NextSeo title="Query Timelock Contract" />
 
       <PageHeaderCW3 />
 
