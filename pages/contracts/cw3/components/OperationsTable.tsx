@@ -141,7 +141,7 @@ const OperationsTable = ({
           ) : (
             <tr>
               <td colSpan={6} className="p-4 text-center text-white/50">
-                No opereations available :(
+                No operations available :(
               </td>
             </tr>
           )}
@@ -158,14 +158,14 @@ const OperationsTable = ({
               setDetailsModal(!detailsModal)
             }}
           />
-          <div className="absolute top-1/2 left-1/4">
+          <div className="absolute top-1/2 left-1/3">
             <label
               htmlFor="my-modal-5"
               className="cursor-pointer modal"
               style={{ background: 'rgb(25, 29, 32, 0.75)' }}
             >
-              <label className="relative bg-dark-gray border-2 border-plumbus-20 modal-box">
-                <div className="p-8 bg-dark-gray">
+              <label className="relative bg-[#3a3535] ">
+                <div className="p-6 bg-[#3a3535] rounded border-2 border-[#f0827d]">
                   <div className="text-lg font-bold">
                     {' Operation ID: ' + selectedOperation?.id}
                   </div>
@@ -183,7 +183,7 @@ const OperationsTable = ({
                         : 'No data provided.'}
                     </div>
                   </div>
-                  <div className="overflow-auto basis-1/4 flex-col my-3 font-bold h-50">
+                  <div className="overflow-auto basis-1/4 flex-col mt-3 mb-1 font-bold h-50">
                     <div>Executors</div>
                     {IterateExecutors()}
                   </div>
