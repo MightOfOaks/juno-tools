@@ -129,12 +129,20 @@ const InstantiateTimelock = (props: {
             defaultValue="seconds"
             name="time"
             id="time"
-            className="float-left px-1 mt-7 h-11 text-plumbus-50 bg-white/10 rounded border-2 border-white/20 basis-1/8"
+            className="float-left px-1 mt-7 h-11 text-white/50 bg-white/10 options:bg-white/50 rounded border-2 border-white/20 basis-1/8"
           >
-            <option value="days">days</option>
-            <option value="hours">hours</option>
-            <option value="minutes">minutes</option>
-            <option value="seconds">seconds</option>
+            <option className="bg-[#3a3535]" value="days">
+              days
+            </option>
+            <option className="bg-[#3a3535]" value="hours">
+              hours
+            </option>
+            <option className="bg-[#3a3535]" value="minutes">
+              minutes
+            </option>
+            <option className="bg-[#3a3535]" value="seconds">
+              seconds
+            </option>
           </select>
 
           {props.initFlag && (
