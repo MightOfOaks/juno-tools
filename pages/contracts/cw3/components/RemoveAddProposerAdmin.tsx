@@ -91,7 +91,7 @@ const RemoveAddProposerAdminModal = (props: {
   }
 
   return (
-    <div className="p-8 bg-dark-gray">
+    <div className="p-8">
       <div className="mt-2 mb-6 ">{functionType + ' ' + userType}</div>
       <div className="mb-2 w-9/12">
         <label

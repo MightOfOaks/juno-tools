@@ -45,6 +45,11 @@ const ManageTimelock = () => {
               onChange={(e) => setContractAddress(e.target.value)}
             />
           </div>
+        </div>
+      </div>
+      <hr className="m-10" />
+      <div className="justify-center p-3 pl-10">
+        <div className="grid grid-cols-2">
           <div className="mt-5 mb-1">
             <select
               id="contract-query-type"
@@ -59,43 +64,39 @@ const ManageTimelock = () => {
               <option value="" disabled selected hidden>
                 Execute Action
               </option>
-              <option className="bg-[#3a3535] rounded" value="schedule">
+              <option className="" value="schedule">
                 Schedule
               </option>
-              <option className="bg-[#3a3535]" value="cancel">
+              <option className="" value="cancel">
                 Cancel
               </option>
-              <option className="bg-[#3a3535]" value="execute">
+              <option className="" value="execute">
                 Execute
               </option>
-              <option className="bg-[#3a3535]" value="revoke">
+              <option className="" value="revoke">
                 Revoke Admin
               </option>
-              <option className="bg-[#3a3535]" value="add">
+              <option className="" value="add">
                 Add Proposer
               </option>
-              <option className="bg-[#3a3535]" value="remove">
+              <option className="" value="remove">
                 Remove Proposer
               </option>
-              <option className="bg-[#3a3535]" value="min-delay">
+              <option className="" value="min-delay">
                 Update Minimum Delay
               </option>
               ))
             </select>
-            <hr className="mt-5" />
           </div>
-        </div>
-      </div>
-
-      <div className="justify-center w-3/4">
-        <div className="flex-col">
-          <div>
-            <Procedures
-              selectedModal={selectedModal}
-              contractAddress={contractAddress}
-            />
+          <div className="flex-col">
+            <div>
+              <Procedures
+                selectedModal={selectedModal}
+                contractAddress={contractAddress}
+              />
+            </div>
+            <br />
           </div>
-          <br />
         </div>
       </div>
     </div>

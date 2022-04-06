@@ -81,7 +81,7 @@ const CancelExecuteModal = (props: {
   }
 
   return (
-    <div className="p-8 bg-dark-gray">
+    <div className="p-8">
       <div> {props.functionType + ' Operation'}</div>
       <div className="basis-1/4 flex-col my-4">
         <label

@@ -103,7 +103,9 @@ const CustomInput = (props: {
           className=" basis-1/12 mt-2 ml-1"
           onClick={addClicked}
         >
-          <span className="p-2 hover:text-juno rounded-full border-2">+</span>
+          <span className="p-2 text-white bg-juno hover:bg-plumbus rounded-full">
+            +
+          </span>
         </button>
       </div>
       <div className="grid grid-cols-2 w-3/4">

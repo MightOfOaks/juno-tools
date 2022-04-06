@@ -78,7 +78,7 @@ const UpdateDelayModal = (props: { contractAddress: string }) => {
   }
 
   return (
-    <div className="p-8 ml-10 w-2/5 bg-dark-gray">
+    <div className="p-8 ml-10 w-2/5">
       <div className="basis-1/4 flex-col my-1">
         <div className="flex">
           <label
