@@ -57,7 +57,7 @@ const CustomInput = (props: {
   }, [items])
 
   return (
-    <div className="px-3">
+    <div className="px-3 mt-2">
       <div className="flex flex-row">
         <div className="mb-6 w-9/12">
           <div className="flex">

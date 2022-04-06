@@ -129,7 +129,7 @@ const InstantiateTimelock = (props: {
             defaultValue="seconds"
             name="time"
             id="time"
-            className="float-left px-1 mt-7 h-11 text-white/50 bg-white/10 options:bg-white/50 rounded border-2 border-white/20 basis-1/8"
+            className="float-left px-1 mt-7 h-11 text-white bg-white/10 options:bg-white/50 rounded border-2 border-white/20 basis-1/8"
           >
             <option className="bg-[#3a3535]" value="days">
               days
@@ -187,7 +187,7 @@ const InstantiateTimelock = (props: {
           )}
         </div>
         <hr className="mx-3" />
-        <div className="grid grid-cols-2 gap-4 mt-10">
+        <div className="grid grid-cols-2 gap-4 mt-8">
           <CustomInput
             function={handleChangeAdmins}
             placeholder="Administrators"

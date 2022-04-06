@@ -37,13 +37,15 @@ const ManageTimelock = () => {
           <div>
             <input
               type="text"
-              className="py-2 px-1 w-2/3 text-black rounded"
+              className="py-2 px-1 w-2/3 bg-white/10 rounded border-2 border-white/20 focus:ring
+              focus:ring-plumbus-20
+              form-input, placeholder:text-white/50,"
               placeholder={contractAddress || 'Please enter contract address'}
               value={contractAddress}
               onChange={(e) => setContractAddress(e.target.value)}
             />
           </div>
-          <div className="my-3">
+          <div className="mt-5 mb-1">
             <select
               id="contract-query-type"
               name="query-type"
@@ -57,20 +59,35 @@ const ManageTimelock = () => {
               <option value="" disabled selected hidden>
                 Execute Action
               </option>
-              <option value="schedule">Schedule</option>
-              <option value="cancel">Cancel</option>
-              <option value="execute">Execute</option>
-              <option value="revoke">Revoke Admin</option>
-              <option value="add">Add Proposer</option>
-              <option value="remove">Remove Proposer</option>
-              <option value="min-delay">Update Minimum Delay</option>
+              <option className="bg-[#3a3535] rounded" value="schedule">
+                Schedule
+              </option>
+              <option className="bg-[#3a3535]" value="cancel">
+                Cancel
+              </option>
+              <option className="bg-[#3a3535]" value="execute">
+                Execute
+              </option>
+              <option className="bg-[#3a3535]" value="revoke">
+                Revoke Admin
+              </option>
+              <option className="bg-[#3a3535]" value="add">
+                Add Proposer
+              </option>
+              <option className="bg-[#3a3535]" value="remove">
+                Remove Proposer
+              </option>
+              <option className="bg-[#3a3535]" value="min-delay">
+                Update Minimum Delay
+              </option>
               ))
             </select>
+            <hr className="mt-5" />
           </div>
         </div>
       </div>
 
-      <div className="justify-center w-full">
+      <div className="justify-center w-3/4">
         <div className="flex-col">
           <div>
             <Procedures
