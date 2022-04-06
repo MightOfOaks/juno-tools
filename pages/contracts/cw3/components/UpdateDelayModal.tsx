@@ -78,13 +78,12 @@ const UpdateDelayModal = (props: { contractAddress: string }) => {
   }
 
   return (
-    <div className="p-8 bg-dark-gray">
-      <div>Update Min Delay</div>
-      <div className="basis-1/4 flex-col my-4">
+    <div className="p-8 ml-10 w-2/5 bg-dark-gray">
+      <div className="basis-1/4 flex-col my-1">
         <div className="flex">
           <label
             htmlFor="small-input"
-            className="block mr-2 mb-1 ml-3 font-bold text-gray-900 dark:text-gray-300 text-md"
+            className="block mr-2 mb-1 ml-3 font-bold text-white dark:text-gray-300 text-md"
           >
             Minimum Delay
           </label>
@@ -109,7 +108,7 @@ const UpdateDelayModal = (props: { contractAddress: string }) => {
             <input
               type="text"
               onChange={handleChangeMinDelay}
-              className="py-2 px-1 mx-3 text-black text-gray-900 dark:text-gray-300 rounded"
+              className="py-2 px-1 mx-3 text-white dark:text-gray-300 rounded"
               placeholder=" Minimum Delay"
             />
           </div>

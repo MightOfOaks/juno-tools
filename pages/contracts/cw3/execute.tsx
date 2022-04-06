@@ -11,15 +11,16 @@ import ManageTimelock from './components/ManageTimelock'
 
 const ExecuteTab = () => {
   return (
-    <form className="py-6 px-12 space-y-4">
-      <NextSeo title="Execute actions for Timelock Contract" />
-      <PageHeaderCW3 />
-      <LinkTabs data={cw3LinkTabs} activeIndex={2} />
-
+    <div>
+      <form className="py-6 px-12 space-y-4">
+        <NextSeo title="Execute actions for Timelock Contract" />
+        <PageHeaderCW3 />
+        <LinkTabs data={cw3LinkTabs} activeIndex={2} />
+      </form>
       <div className="w-full">
         <ManageTimelock />
       </div>
-    </form>
+    </div>
   )
 }
 

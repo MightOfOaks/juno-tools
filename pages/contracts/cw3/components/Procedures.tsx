@@ -57,7 +57,7 @@ const Procedures = (props: {
         return <UpdateDelayModal contractAddress={contractAddress} />
 
       default:
-        return <div> TEST </div>
+        return null
     }
   }
 

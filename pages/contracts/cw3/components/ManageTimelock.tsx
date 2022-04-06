@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import { useContracts } from 'contexts/contracts'
 import { useTheme } from 'contexts/theme'
 import { useWallet } from 'contexts/wallet'
@@ -117,156 +118,48 @@ const ManageTimelock = () => {
   return (
     <div className="px-6">
       <div className="py-2 px-10">
-        <label className="block mb-2 font-bold text-left text-gray-900 dark:text-gray-300 text-md">
+        <label className="block mb-2 font-bold text-left text-white dark:text-gray-300 text-md">
           Timelock Contract Address
         </label>
-        <div className="flex">
-          <input
-            type="text"
-            className="py-2 px-1 w-2/3 text-black rounded"
-            placeholder={contractAddress || 'Please enter contract address'}
-            value={contractAddress}
-            onChange={(e) => setContractAddress(e.target.value)}
-          />
-          <button
+        <div className="flex-row">
+          <div>
+            <input
+              type="text"
+              className="py-2 px-1 w-2/3 text-black rounded"
+              placeholder={contractAddress || 'Please enter contract address'}
+              value={contractAddress}
+              onChange={(e) => setContractAddress(e.target.value)}
+            />
+            {/* <button
             onClick={query}
             className="p-2 mx-5 hover:text-juno rounded-lg border-2"
           >
             Search
-          </button>
-          {clientFound && (
-            <label
-              htmlFor="modal-menu"
-              className="p-2 mx-5 hover:text-juno rounded-lg border-2 cursor-pointer"
+          </button> */}
+          </div>
+          <div className="my-3">
+            <select
+              id="contract-query-type"
+              name="query-type"
+              className={clsx(
+                'text-white bg-white/10 rounded border-2 border-white/20 form-select',
+                'placeholder:text-white/50',
+                'focus:ring focus:ring-plumbus-20'
+              )}
+              onChange={(e) => setSelectedModal(e.target.value)}
             >
-              Execute
-              <svg
-                width="20"
-                height="20"
-                fill="currentColor"
-                viewBox="0 0 1792 1792"
-                xmlns="http://www.w3.org/2000/svg"
-                className="float-right"
-              >
-                <path d="M1408 704q0 26-19 45l-448 448q-19 19-45 19t-45-19l-448-448q-19-19-19-45t19-45 45-19h896q26 0 45 19t19 45z"></path>
-              </svg>
-            </label>
-          )}
-          <div className="inline-block relative mt-5 ml-10 text-left">
-            <input
-              type="checkbox"
-              id="modal-menu"
-              className="modal-toggle"
-              onChange={query}
-            />
-            <label
-              htmlFor="modal-menu"
-              className="modal"
-              style={{ background: 'rgb(25, 29, 32, 0)' }}
-            >
-              <label className="absolute right-12 mt-2 w-56 bg-[#120F0F] rounded-md border border-[#FE9D9E] ring-1 ring-[#FE9D9E] ring-opacity-10 shadow-lg origin-top-right">
-                <div
-                  className="py-1 "
-                  role="menu"
-                  aria-orientation="vertical"
-                  aria-labelledby="options-menu"
-                >
-                  <button
-                    onClick={() => {
-                      setSelectedModal('schedule')
-                    }}
-                    className="flex flex-col py-2 px-4"
-                    role="menuitem"
-                  >
-                    <span className="flex flex-col text-gray-100 hover:text-juno hover:bg-gray-600 text-md">
-                      <label className="cursor-pointer" htmlFor="my-modal-4">
-                        Schedule
-                      </label>
-                    </span>
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      setSelectedModal('cancel')
-                    }}
-                    className="flex flex-col py-2 px-4"
-                    role="menuitem"
-                  >
-                    <span className="flex flex-col text-gray-100 hover:text-juno hover:bg-gray-600 text-md">
-                      <label className="cursor-pointer" htmlFor="my-modal-4">
-                        Cancel
-                      </label>
-                    </span>
-                  </button>
-                  <button
-                    onClick={() => {
-                      setSelectedModal('execute')
-                    }}
-                    className="flex flex-col py-2 px-4"
-                    role="menuitem"
-                  >
-                    <span className="flex flex-col text-gray-100 hover:text-juno hover:bg-gray-600 text-md">
-                      <label className="cursor-pointer" htmlFor="my-modal-4">
-                        Execute
-                      </label>
-                    </span>
-                  </button>
-                  <button
-                    onClick={() => {
-                      setSelectedModal('revoke')
-                    }}
-                    className="flex flex-col py-2 px-4"
-                    role="menuitem"
-                  >
-                    <span className="flex flex-col text-gray-100 hover:text-juno hover:bg-gray-600 text-md">
-                      <label className="cursor-pointer" htmlFor="my-modal-4">
-                        Revoke Admin
-                      </label>
-                    </span>
-                  </button>
-                  <button
-                    onClick={() => {
-                      setSelectedModal('add')
-                    }}
-                    className="flex flex-col py-2 px-4"
-                    role="menuitem"
-                  >
-                    <span className="flex flex-col text-gray-100 hover:text-juno hover:bg-gray-600 text-md">
-                      <label className="cursor-pointer" htmlFor="my-modal-4">
-                        Add Proposer
-                      </label>
-                    </span>
-                  </button>
-
-                  <a
-                    onClick={() => {
-                      setSelectedModal('remove')
-                    }}
-                    className="flex flex-col py-2 px-4"
-                    role="menuitem"
-                  >
-                    <span className="flex flex-col text-gray-100 hover:text-juno hover:bg-gray-600 text-md">
-                      <label className="cursor-pointer" htmlFor="my-modal-4">
-                        Remove Proposer
-                      </label>
-                    </span>
-                  </a>
-                  <a
-                    onClick={() => {
-                      setSelectedModal('min-delay')
-                    }}
-                    className="flex flex-col py-2 px-4"
-                    role="menuitem"
-                  >
-                    <span className="flex flex-col text-gray-100 hover:text-juno hover:bg-gray-600 text-md">
-                      <label className="cursor-pointer" htmlFor="my-modal-4">
-                        Update Min Delay
-                      </label>
-                    </span>
-                  </a>
-                </div>
-              </label>
-            </label>
+              <option value="" disabled selected hidden>
+                Execute Action
+              </option>
+              <option value="schedule">Schedule</option>
+              <option value="cancel">Cancel</option>
+              <option value="execute">Execute</option>
+              <option value="revoke">Revoke Admin</option>
+              <option value="add">Add Proposer</option>
+              <option value="remove">Remove Proposer</option>
+              <option value="min-delay">Update Minimum Delay</option>
+              ))
+            </select>
           </div>
         </div>
       </div>
@@ -274,19 +167,10 @@ const ManageTimelock = () => {
       <div className="justify-center w-full">
         <div className="flex-col">
           <div>
-            <input type="checkbox" id="my-modal-4" className="modal-toggle" />
-            <label
-              htmlFor="my-modal-4"
-              className="cursor-pointer modal"
-              style={{ background: 'rgb(25, 29, 32, 0.75)' }}
-            >
-              <label className="relative bg-dark-gray border-2 border-plumbus-20 modal-box">
-                <Procedures
-                  selectedModal={selectedModal}
-                  contractAddress={contractAddress}
-                />
-              </label>
-            </label>
+            <Procedures
+              selectedModal={selectedModal}
+              contractAddress={contractAddress}
+            />
           </div>
           <br />
           <hr className="mx-10" />

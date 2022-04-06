@@ -95,7 +95,7 @@ const CancelExecuteModal = (props: {
           onChange={(e) => {
             setOperationId(e.target.value)
           }}
-          className="py-2 px-1 mx-3 text-black text-gray-900 dark:text-gray-300 rounded"
+          className="py-2 px-1 mx-3 text-gray-900 dark:text-gray-300 rounded"
           placeholder="Operation ID"
         />
       </div>
