@@ -21,6 +21,8 @@ const ManageTimelock = () => {
 
   const [timelock, setTimelock] = useState<Timelock>(new Timelock([], [], 0))
   const [clientFound, setClientFound] = useState(false)
+  const [menuModal, setMenuModal] = useState(false)
+  const [executeModal, setExecuteModal] = useState(false)
   const [selectedModal, setSelectedModal] = useState('')
   const [data, setData] = useState<Operation[]>([])
   const contract = useContracts().cw3Timelock
@@ -129,14 +131,20 @@ const ManageTimelock = () => {
             onChange={(e) => setContractAddress(e.target.value)}
           />
           <button
-            onClick={query}
+            onClick={(e) => {
+              e.preventDefault()
+              query()
+            }}
             className="p-2 mx-5 hover:text-juno rounded-lg border-2"
           >
             Search
           </button>
           {clientFound && (
-            <label
-              htmlFor="modal-menu"
+            <button
+              onClick={(e) => {
+                e.preventDefault()
+                setMenuModal(true)
+              }}
               className="p-2 mx-5 hover:text-juno rounded-lg border-2 cursor-pointer"
             >
               Execute
@@ -150,144 +158,195 @@ const ManageTimelock = () => {
               >
                 <path d="M1408 704q0 26-19 45l-448 448q-19 19-45 19t-45-19l-448-448q-19-19-19-45t19-45 45-19h896q26 0 45 19t19 45z"></path>
               </svg>
-            </label>
+            </button>
           )}
-          <div className="inline-block relative mt-5 ml-10 text-left">
-            <input
-              type="checkbox"
-              id="modal-menu"
-              className="modal-toggle"
-              onChange={query}
-            />
-            <label
-              htmlFor="modal-menu"
-              className="modal"
-              style={{ background: 'rgb(25, 29, 32, 0)' }}
-            >
-              <label className="absolute right-12 mt-2 w-56 bg-[#120F0F] rounded-md border border-[#FE9D9E] ring-1 ring-[#FE9D9E] ring-opacity-10 shadow-lg origin-top-right">
-                <div
-                  className="py-1 "
-                  role="menu"
-                  aria-orientation="vertical"
-                  aria-labelledby="options-menu"
+          {menuModal && (
+            <div>
+              <input
+                type="checkbox"
+                id="modal-menu"
+                className="absolute top-0 left-0 w-full h-full opacity-0"
+                onChange={(e) => {
+                  setMenuModal(!menuModal)
+                  query()
+                }}
+              />
+              <div className="inline-block relative mt-5 ml-10 text-left">
+                <label
+                  htmlFor="modal-menu"
+                  className="modal"
+                  style={{ background: 'rgb(25, 29, 32, 0)' }}
                 >
-                  <button
-                    onClick={() => {
-                      setSelectedModal('schedule')
-                    }}
-                    className="flex flex-col py-2 px-4"
-                    role="menuitem"
-                  >
-                    <span className="flex flex-col text-gray-100 hover:text-juno hover:bg-gray-600 text-md">
-                      <label className="cursor-pointer" htmlFor="my-modal-4">
-                        Schedule
-                      </label>
-                    </span>
-                  </button>
+                  <label className="absolute right-12 mt-2 w-56 bg-[#120F0F] rounded-md border border-[#FE9D9E] ring-1 ring-[#FE9D9E] ring-opacity-10 shadow-lg origin-top-right">
+                    <div
+                      className="py-1 "
+                      role="menu"
+                      aria-orientation="vertical"
+                      aria-labelledby="options-menu"
+                    >
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault()
+                          setSelectedModal('schedule')
+                          setExecuteModal(!executeModal)
+                        }}
+                        className="flex flex-col py-2 px-4"
+                        role="menuitem"
+                      >
+                        <span className="flex flex-col text-gray-100 hover:text-juno hover:bg-gray-600 text-md">
+                          <label
+                            className="cursor-pointer"
+                            htmlFor="my-modal-4"
+                          >
+                            Schedule
+                          </label>
+                        </span>
+                      </button>
 
-                  <button
-                    onClick={() => {
-                      setSelectedModal('cancel')
-                    }}
-                    className="flex flex-col py-2 px-4"
-                    role="menuitem"
-                  >
-                    <span className="flex flex-col text-gray-100 hover:text-juno hover:bg-gray-600 text-md">
-                      <label className="cursor-pointer" htmlFor="my-modal-4">
-                        Cancel
-                      </label>
-                    </span>
-                  </button>
-                  <button
-                    onClick={() => {
-                      setSelectedModal('execute')
-                    }}
-                    className="flex flex-col py-2 px-4"
-                    role="menuitem"
-                  >
-                    <span className="flex flex-col text-gray-100 hover:text-juno hover:bg-gray-600 text-md">
-                      <label className="cursor-pointer" htmlFor="my-modal-4">
-                        Execute
-                      </label>
-                    </span>
-                  </button>
-                  <button
-                    onClick={() => {
-                      setSelectedModal('revoke')
-                    }}
-                    className="flex flex-col py-2 px-4"
-                    role="menuitem"
-                  >
-                    <span className="flex flex-col text-gray-100 hover:text-juno hover:bg-gray-600 text-md">
-                      <label className="cursor-pointer" htmlFor="my-modal-4">
-                        Revoke Admin
-                      </label>
-                    </span>
-                  </button>
-                  <button
-                    onClick={() => {
-                      setSelectedModal('add')
-                    }}
-                    className="flex flex-col py-2 px-4"
-                    role="menuitem"
-                  >
-                    <span className="flex flex-col text-gray-100 hover:text-juno hover:bg-gray-600 text-md">
-                      <label className="cursor-pointer" htmlFor="my-modal-4">
-                        Add Proposer
-                      </label>
-                    </span>
-                  </button>
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault()
+                          setSelectedModal('cancel')
+                          setExecuteModal(!executeModal)
+                        }}
+                        className="flex flex-col py-2 px-4"
+                        role="menuitem"
+                      >
+                        <span className="flex flex-col text-gray-100 hover:text-juno hover:bg-gray-600 text-md">
+                          <label
+                            className="cursor-pointer"
+                            htmlFor="my-modal-4"
+                          >
+                            Cancel
+                          </label>
+                        </span>
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault()
+                          setSelectedModal('execute')
+                          setExecuteModal(!executeModal)
+                        }}
+                        className="flex flex-col py-2 px-4"
+                        role="menuitem"
+                      >
+                        <span className="flex flex-col text-gray-100 hover:text-juno hover:bg-gray-600 text-md">
+                          <label
+                            className="cursor-pointer"
+                            htmlFor="my-modal-4"
+                          >
+                            Execute
+                          </label>
+                        </span>
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault()
+                          setSelectedModal('revoke')
+                          setExecuteModal(!executeModal)
+                        }}
+                        className="flex flex-col py-2 px-4"
+                        role="menuitem"
+                      >
+                        <span className="flex flex-col text-gray-100 hover:text-juno hover:bg-gray-600 text-md">
+                          <label
+                            className="cursor-pointer"
+                            htmlFor="my-modal-4"
+                          >
+                            Revoke Admin
+                          </label>
+                        </span>
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault()
+                          setSelectedModal('add')
+                          setExecuteModal(!executeModal)
+                        }}
+                        className="flex flex-col py-2 px-4"
+                        role="menuitem"
+                      >
+                        <span className="flex flex-col text-gray-100 hover:text-juno hover:bg-gray-600 text-md">
+                          <label
+                            className="cursor-pointer"
+                            htmlFor="my-modal-4"
+                          >
+                            Add Proposer
+                          </label>
+                        </span>
+                      </button>
 
-                  <a
-                    onClick={() => {
-                      setSelectedModal('remove')
-                    }}
-                    className="flex flex-col py-2 px-4"
-                    role="menuitem"
-                  >
-                    <span className="flex flex-col text-gray-100 hover:text-juno hover:bg-gray-600 text-md">
-                      <label className="cursor-pointer" htmlFor="my-modal-4">
-                        Remove Proposer
-                      </label>
-                    </span>
-                  </a>
-                  <a
-                    onClick={() => {
-                      setSelectedModal('min-delay')
-                    }}
-                    className="flex flex-col py-2 px-4"
-                    role="menuitem"
-                  >
-                    <span className="flex flex-col text-gray-100 hover:text-juno hover:bg-gray-600 text-md">
-                      <label className="cursor-pointer" htmlFor="my-modal-4">
-                        Update Min Delay
-                      </label>
-                    </span>
-                  </a>
-                </div>
-              </label>
-            </label>
-          </div>
+                      <a
+                        onClick={(e) => {
+                          e.preventDefault()
+                          setSelectedModal('remove')
+                          setExecuteModal(!executeModal)
+                        }}
+                        className="flex flex-col py-2 px-4"
+                        role="menuitem"
+                      >
+                        <span className="flex flex-col text-gray-100 hover:text-juno hover:bg-gray-600 text-md">
+                          <label
+                            className="cursor-pointer"
+                            htmlFor="my-modal-4"
+                          >
+                            Remove Proposer
+                          </label>
+                        </span>
+                      </a>
+                      <a
+                        onClick={(e) => {
+                          e.preventDefault()
+                          setSelectedModal('min-delay')
+                          setExecuteModal(!executeModal)
+                        }}
+                        className="flex flex-col py-2 px-4"
+                        role="menuitem"
+                      >
+                        <span className="flex flex-col text-gray-100 hover:text-juno hover:bg-gray-600 text-md">
+                          <label
+                            className="cursor-pointer"
+                            htmlFor="my-modal-4"
+                          >
+                            Update Min Delay
+                          </label>
+                        </span>
+                      </a>
+                    </div>
+                  </label>
+                </label>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
       <div className="justify-center w-full">
         <div className="flex-col">
-          <div>
-            <input type="checkbox" id="my-modal-4" className="modal-toggle" />
-            <label
-              htmlFor="my-modal-4"
-              className="cursor-pointer modal"
-              style={{ background: 'rgb(25, 29, 32, 0.75)' }}
-            >
-              <label className="relative bg-dark-gray border-2 border-plumbus-20 modal-box">
-                <Procedures
-                  selectedModal={selectedModal}
-                  contractAddress={contractAddress}
-                />
+          {executeModal && (
+            <div>
+              <input
+                type="checkbox"
+                id="my-modal-4"
+                className="absolute top-0 left-0 w-full h-full opacity-0"
+                onChange={(e) => {
+                  setExecuteModal(!executeModal)
+                }}
+              />
+              <label
+                htmlFor="my-modal-4"
+                className="cursor-pointer modal"
+                style={{ background: 'rgb(25, 29, 32, 0.75)' }}
+              >
+                <label className="relative bg-dark-gray border-2 border-plumbus-20 modal-box">
+                  <Procedures
+                    selectedModal={selectedModal}
+                    contractAddress={contractAddress}
+                  />
+                </label>
               </label>
-            </label>
-          </div>
+            </div>
+          )}
           <br />
           <hr className="mx-10" />
           {(timelock.admins.length > 0 || timelock.proposers.length > 0) && (
