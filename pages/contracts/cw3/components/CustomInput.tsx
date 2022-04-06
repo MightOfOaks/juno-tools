@@ -90,7 +90,9 @@ const CustomInput = (props: {
           </div>
           <input
             type="text"
-            className="py-2 px-1 w-full text-black rounded"
+            className="py-2 px-1 w-full bg-white/10 rounded border-2 border-white/20 focus:ring
+            focus:ring-plumbus-20
+            form-input, placeholder:text-white/50,"
             value={input}
             onChange={handleChange}
             placeholder={props.placeholder}
