@@ -89,7 +89,7 @@ const UpdateDelayModal = (props: { contractAddress: string }) => {
             <input
               type="text"
               onChange={handleChangeMinDelay}
-              className="py-2 px-1 mx-3 text-black text-gray-900 dark:text-gray-300 rounded"
+              className="py-2 px-1 mx-3 text-gray-900 dark:text-gray-300 rounded"
               placeholder=" Minimum Delay"
             />
           </div>

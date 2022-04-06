@@ -63,7 +63,7 @@ const InstantiateTimelock = (props: {
   }
   useEffect(() => {
     setInitMsg({
-      admins: admins,
+      admins: admins.length > 0 ? admins : null,
       proposers: proposers,
       min_delay: { time: Number(getMinDelayInSeconds(minDelay)) },
     })
