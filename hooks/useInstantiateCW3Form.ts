@@ -60,7 +60,7 @@ export const useInstantiateCW3Form = () => {
       console.log('Message: ' + msg)
 
       const response = await contract.instantiate(
-        702,
+        712,
         {
           admins: msg.admins,
           proposers: msg.proposers,

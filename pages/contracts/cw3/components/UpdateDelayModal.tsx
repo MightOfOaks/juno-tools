@@ -26,18 +26,18 @@ const UpdateDelayModal = (props: { contractAddress: string }) => {
     setMinDelayUnit(event.target.value)
   }
 
-  const getMinDelayInNanoSeconds = (arg: number): String => {
+  const getMinDelayInSeconds = (arg: number): String => {
     if (minDelayUnit === 'seconds') {
-      return String(arg * 1000000000)
+      return String(arg)
     }
     if (minDelayUnit === 'minutes') {
-      return String(arg * 60000000000)
+      return String(arg * 60)
     }
     if (minDelayUnit === 'hours') {
-      return String(arg * 3600000000000)
+      return String(arg * 3600)
     }
     if (minDelayUnit === 'days') {
-      return String(arg * 86400000000000)
+      return String(arg * 86400)
     } else {
       return String(arg)
     }
@@ -52,7 +52,7 @@ const UpdateDelayModal = (props: { contractAddress: string }) => {
       if (!(isNaN(minDelay) || Number(minDelay) < 1)) {
         setSpinnerFlag(true)
         const res = await client?.updateMinDelay(
-          getMinDelayInNanoSeconds(minDelay).toString(),
+          Number(getMinDelayInSeconds(minDelay)),
           wallet.address
         )
         setSpinnerFlag(false)

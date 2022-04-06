@@ -18,7 +18,7 @@ import OperationsTable from './components/OperationsTable'
 const QueryTab: NextPage = () => {
   const theme = useTheme()
   const [contractAddress, setContractAddress] = useState(
-    'juno1cspathx3ex9hud98vt6qpsujj9gnefkjphzm4f83shue5q5u8suq7me0lc'
+    'juno1x5rr3ke2rffm3zxecxvlqjhv7ggyd0jtdsdz02kzxupzl3g48dlqqlxs9z'
   )
   const decode = (str: string): string =>
     Buffer.from(str, 'base64').toString('binary')
@@ -29,24 +29,24 @@ const QueryTab: NextPage = () => {
   const contract = useContracts().cw3Timelock
   const wallet = useWallet()
 
-  function dhms(nanosecs: number) {
+  function dhms(secs: number) {
     let result = ''
-    const days = Math.floor(nanosecs / (24 * 60 * 60 * 1000000000))
+    const days = Math.floor(secs / (24 * 60 * 60))
     if (days > 0) result += days + ' day(s) '
-    const days_ns = nanosecs % (24 * 60 * 60 * 1000000000)
-    const hours = Math.floor(days_ns / (60 * 60 * 1000000000))
+    const days_s = secs % (24 * 60 * 60)
+    const hours = Math.floor(days_s / (60 * 60))
     if (hours > 0) {
       if (result.length > 0) result += ' : '
       result += hours + ' hour(s) '
     }
-    const hours_ns = nanosecs % (60 * 60 * 1000000000)
-    const minutes = Math.floor(hours_ns / (60 * 1000000000))
+    const hours_s = secs % (60 * 60)
+    const minutes = Math.floor(hours_s / 60)
     if (minutes > 0) {
       if (result.length > 0) result += ' : '
       result += minutes + ' minute(s) '
     }
-    const minutes_ns = nanosecs % (60 * 1000000000)
-    const sec = Math.floor(minutes_ns / 1000000000)
+    const minutes_s = secs % 60
+    const sec = Math.floor(minutes_s)
     if (sec > 0) {
       if (result.length > 0) result += ' : '
       result += sec + ' second(s) '
@@ -75,8 +75,11 @@ const QueryTab: NextPage = () => {
           const res = await client?.getOperations()
           const operationList = res.operationList
           console.log(operationList)
+          console.log(minDelay.substring(5))
 
-          setTimelock(new Timelock(admins, proposers, minDelay))
+          setTimelock(
+            new Timelock(admins, proposers, Number(minDelay.substring(5)))
+          )
           setData([])
           for (let i = 0; i < operationList.length; i++) {
             setData((prevData) =>
@@ -84,13 +87,15 @@ const QueryTab: NextPage = () => {
                 new Operation(
                   operationList[i].id,
                   new Date().getTime() * 1000000 >
-                    Number(operationList[i].execution_time) &&
+                    Number(operationList[i].execution_time.at_time) &&
                   operationList[i].status === 'Pending'
                     ? 'Ready'
                     : operationList[i].status,
                   operationList[i].proposer,
                   operationList[i].executors,
-                  new Date(Number(operationList[i].execution_time) / 1000000)
+                  new Date(
+                    Number(operationList[i].execution_time.at_time) / 1000000
+                  )
                     .toString()
                     .slice(0, 33),
                   operationList[i].target,

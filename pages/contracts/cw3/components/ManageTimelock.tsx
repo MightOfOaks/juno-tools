@@ -13,7 +13,7 @@ import Procedures from './Procedures'
 const ManageTimelock = () => {
   const theme = useTheme()
   const [contractAddress, setContractAddress] = useState(
-    'juno1cspathx3ex9hud98vt6qpsujj9gnefkjphzm4f83shue5q5u8suq7me0lc'
+    'juno1x5rr3ke2rffm3zxecxvlqjhv7ggyd0jtdsdz02kzxupzl3g48dlqqlxs9z'
   )
   // 'juno1ptxjpktyrus6g8xn9yd98ewzahyhhvc56ddg6c8ln2hk6qhlesxqy43240'
 
@@ -64,25 +64,25 @@ const ManageTimelock = () => {
               <option value="" disabled selected hidden>
                 Execute Action
               </option>
-              <option className="" value="schedule">
+              <option className="bg-[#3a3535]" value="schedule">
                 Schedule
               </option>
-              <option className="" value="cancel">
+              <option className="bg-[#3a3535]" value="cancel">
                 Cancel
               </option>
-              <option className="" value="execute">
+              <option className="bg-[#3a3535]" value="execute">
                 Execute
               </option>
-              <option className="" value="revoke">
+              <option className="bg-[#3a3535]" value="revoke">
                 Revoke Admin
               </option>
-              <option className="" value="add">
+              <option className="bg-[#3a3535]" value="add">
                 Add Proposer
               </option>
-              <option className="" value="remove">
+              <option className="bg-[#3a3535]" value="remove">
                 Remove Proposer
               </option>
-              <option className="" value="min-delay">
+              <option className="bg-[#3a3535]" value="min-delay">
                 Update Minimum Delay
               </option>
               ))
