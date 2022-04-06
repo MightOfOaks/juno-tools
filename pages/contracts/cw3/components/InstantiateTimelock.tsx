@@ -66,7 +66,7 @@ const InstantiateTimelock = (props: {
     setInitMsg({
       admins: admins,
       proposers: proposers,
-      min_delay: { time: Number(getMinDelayInNanoSeconds(minDelay)) },
+      min_delay: getMinDelayInNanoSeconds(minDelay).toString(),
     })
   }, [admins, proposers, minDelay, minDelayUnit])
 
