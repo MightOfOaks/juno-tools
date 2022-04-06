@@ -45,28 +45,11 @@ const InstantiateTimelock = (props: {
     setMinDelayUnit(event.target.value)
   }
 
-  const getMinDelayInNanoSeconds = (arg: number): String => {
-    if (minDelayUnit === 'seconds') {
-      return String(arg * 1000000000)
-    }
-    if (minDelayUnit === 'minutes') {
-      return String(arg * 60000000000)
-    }
-    if (minDelayUnit === 'hours') {
-      return String(arg * 3600000000000)
-    }
-    if (minDelayUnit === 'days') {
-      return String(arg * 86400000000000)
-    } else {
-      return String(arg)
-    }
-  }
-
   useEffect(() => {
     setInitMsg({
       admins: admins,
       proposers: proposers,
-      min_delay: getMinDelayInNanoSeconds(minDelay).toString(),
+      min_delay: { time: minDelay },
     })
   }, [admins, proposers, minDelay, minDelayUnit])
 

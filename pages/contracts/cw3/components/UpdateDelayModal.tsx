@@ -26,23 +26,6 @@ const UpdateDelayModal = (props: { contractAddress: string }) => {
     setMinDelayUnit(event.target.value)
   }
 
-  const getMinDelayInNanoSeconds = (arg: number): String => {
-    if (minDelayUnit === 'seconds') {
-      return String(arg * 1000000000)
-    }
-    if (minDelayUnit === 'minutes') {
-      return String(arg * 60000000000)
-    }
-    if (minDelayUnit === 'hours') {
-      return String(arg * 3600000000000)
-    }
-    if (minDelayUnit === 'days') {
-      return String(arg * 86400000000000)
-    } else {
-      return String(arg)
-    }
-  }
-
   const updateMinDelay = async () => {
     try {
       const client = contract?.use(contractAddress)
@@ -51,10 +34,7 @@ const UpdateDelayModal = (props: { contractAddress: string }) => {
       }
       if (!(isNaN(minDelay) || Number(minDelay) < 1)) {
         setSpinnerFlag(true)
-        const res = await client?.updateMinDelay(
-          getMinDelayInNanoSeconds(minDelay).toString(),
-          wallet.address
-        )
+        const res = await client?.updateMinDelay(minDelay, wallet.address)
         setSpinnerFlag(false)
         toast.success('Successfully updated the minimum delay.', {
           style: { maxWidth: 'none' },
@@ -133,7 +113,10 @@ const UpdateDelayModal = (props: { contractAddress: string }) => {
       <div className="flex">
         <div className="basis-3/4 pl-2 mt-8">
           <button
-            onClick={updateMinDelay}
+            onClick={(e) => {
+              e.preventDefault()
+              updateMinDelay()
+            }}
             className="p-2 hover:text-juno rounded-lg border-2"
           >
             Update Minimum Delay

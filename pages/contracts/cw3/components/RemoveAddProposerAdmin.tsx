@@ -118,7 +118,10 @@ const RemoveAddProposerAdminModal = (props: {
             className="p-2 mt-3 hover:text-juno rounded-lg border-2"
             id="options-menu"
             disabled={address === ''}
-            onClick={() => onClick()}
+            onClick={(e) => {
+              e.preventDefault()
+              onClick()
+            }}
           >
             {functionType + ' ' + userType}
           </button>

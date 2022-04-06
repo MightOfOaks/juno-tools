@@ -244,7 +244,10 @@ const ScheduleModal = (props: { contractAddress: string }) => {
             </div>
             <div className="basis-1/4 px-2">
               <button
-                onClick={execute}
+                onClick={(e) => {
+                  e.preventDefault()
+                  execute()
+                }}
                 className="p-2 hover:text-juno rounded-lg border-2"
               >
                 Schedule

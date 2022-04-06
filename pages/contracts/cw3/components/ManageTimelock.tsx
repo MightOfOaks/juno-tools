@@ -12,7 +12,7 @@ import Procedures from './Procedures'
 const ManageTimelock = () => {
   const theme = useTheme()
   const [contractAddress, setContractAddress] = useState(
-    'juno1cspathx3ex9hud98vt6qpsujj9gnefkjphzm4f83shue5q5u8suq7me0lc'
+    'juno15gd96dca9klnkg8zzj0wuj7vcxza40p7gykk7x8qatpn03grs8gqj9vhav'
   )
   // 'juno1ptxjpktyrus6g8xn9yd98ewzahyhhvc56ddg6c8ln2hk6qhlesxqy43240'
 
