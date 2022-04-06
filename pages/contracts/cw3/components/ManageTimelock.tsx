@@ -324,7 +324,7 @@ const ManageTimelock = () => {
       <div className="justify-center w-full">
         <div className="flex-col">
           {executeModal && (
-            <div>
+            <div className="absolute top-0 left-0 z-10 w-full h-full">
               <input
                 type="checkbox"
                 id="my-modal-4"
@@ -333,18 +333,14 @@ const ManageTimelock = () => {
                   setExecuteModal(!executeModal)
                 }}
               />
-              <label
-                htmlFor="my-modal-4"
-                className="cursor-pointer modal"
-                style={{ background: 'rgb(25, 29, 32, 0.75)' }}
-              >
-                <label className="relative bg-dark-gray border-2 border-plumbus-20 modal-box">
+              <div className="absolute top-1/2 left-1/4 w-1/2">
+                <label className="relative bg-dark-gray border-2 border-plumbus-20 z-2 modal-box">
                   <Procedures
                     selectedModal={selectedModal}
                     contractAddress={contractAddress}
                   />
                 </label>
-              </label>
+              </div>
             </div>
           )}
           <br />
