@@ -24,6 +24,7 @@ const OperationsTable = ({
 }: OperationsTableProps) => {
   const wallet = useWallet()
   const [selectedOperation, setSelectedOperation] = useState<Operation>()
+  const [detailsModal, setDetailsModal] = useState(false)
 
   const IterateExecutors = () => {
     console.log(selectedOperation?.executors)
@@ -48,7 +49,7 @@ const OperationsTable = ({
           <div className="basis-1/4 flex-col my-2">
             <label
               htmlFor="small-input"
-              className="block mx-3 mb-1 font-normal text-gray-900 dark:text-gray-300"
+              className="block mx-3 mb-1 font-normal text-white dark:text-gray-300"
             >
               Any address can execute this operation.
             </label>
@@ -61,90 +62,103 @@ const OperationsTable = ({
   }
 
   return (
-    <table className={clsx('min-w-full', className)} {...rest}>
-      <thead className="sticky inset-x-0 top-0 bg-plumbus-dark/50 backdrop-blur-sm">
-        <tr className="text-left text-plumbus-matte">
-          <th className="p-3">ID</th>
-          <th className="p-3 text-right">Execution Time</th>
-          <th className="p-3 text-right">Proposer</th>
-          <th className="p-3 text-right">Target</th>
-          <th className="p-3 text-right">Data</th>
-          <th className="p-3">Status</th>
-          <th className={clsx('p-3', { hidden: !wallet.address })}></th>
-        </tr>
-      </thead>
+    <div>
+      <table className={clsx('min-w-full', className)} {...rest}>
+        <thead className="sticky inset-x-0 top-0 bg-plumbus-dark/50 backdrop-blur-sm">
+          <tr className="text-left text-plumbus-matte">
+            <th className="p-3">ID</th>
+            <th className="p-3 text-right">Execution Time</th>
+            <th className="p-3 text-right">Proposer</th>
+            <th className="p-3 text-right">Target</th>
+            <th className="p-3 text-right">Data</th>
+            <th className="p-3">Status</th>
+            <th className={clsx('p-3', { hidden: !wallet.address })}></th>
+          </tr>
+        </thead>
 
-      <tbody className="divide-y divide-white/20">
-        {data?.length > 0 ? (
-          data.map((operation, i) => (
-            <tr
-              key={`operation-${i}`}
-              className="hover:bg-white/5 "
-              id={operation.id.toString()}
-            >
-              <td className="p-4">
-                <div className="flex items-center space-x-4 font-medium">
-                  <div className="w-8 min-w-max h-8 min-h-max">
-                    <img
-                      src={'/juno_logo.png'}
-                      alt={operation.id.toString()}
-                      className="overflow-hidden w-8 h-8 bg-plumbus rounded-full"
-                    />
+        <tbody className="divide-y divide-white/20">
+          {data?.length > 0 ? (
+            data.map((operation, i) => (
+              <tr
+                key={`operation-${i}`}
+                className="hover:bg-white/5 "
+                id={operation.id.toString()}
+              >
+                <td className="p-4">
+                  <div className="flex items-center space-x-4 font-medium">
+                    <div className="w-8 min-w-max h-8 min-h-max">
+                      <img
+                        src={'/juno_logo.png'}
+                        alt={operation.id.toString()}
+                        className="overflow-hidden w-8 h-8 bg-plumbus rounded-full"
+                      />
+                    </div>
+                    <div>
+                      <div>{operation.id}</div>
+                    </div>
                   </div>
-                  <div>
-                    <div>{operation.id}</div>
-                  </div>
-                </div>
-              </td>
-              <td className="p-4 text-right">{operation.execution_time}</td>
-              <td
-                className="p-4 text-right hover:text-juno cursor-pointer"
-                onClick={async () => {
-                  copy(operation.proposer)
-                }}
-              >
-                <Tooltip label={operation.proposer}>
-                  <span>{truncateMiddle(operation.proposer, 13)}</span>
-                </Tooltip>
-              </td>
-              <td
-                className="p-4 text-right hover:text-juno cursor-pointer"
-                onClick={async () => {
-                  copy(operation.proposer)
-                }}
-              >
-                <Tooltip label={operation.target}>
-                  <span>{truncateMiddle(operation.target, 13)}</span>
-                </Tooltip>
-              </td>
-              <td className="p-4 text-right">{operation.data}</td>
-              <td className="p-4">{operation.status}</td>
-              <td
-                onClick={() => {
-                  setSelectedOperation(operation)
-                }}
-                className="cursor-pointer"
-              >
-                <label
-                  htmlFor="my-modal-5"
-                  className="pr-1 pl-2 hover:text-juno border-l cursor-pointer"
+                </td>
+                <td className="p-4 text-right">{operation.execution_time}</td>
+                <td
+                  className="p-4 text-right hover:text-juno cursor-pointer"
+                  onClick={async () => {
+                    copy(operation.proposer)
+                  }}
                 >
-                  details
-                </label>
+                  <Tooltip label={operation.proposer}>
+                    <span>{truncateMiddle(operation.proposer, 13)}</span>
+                  </Tooltip>
+                </td>
+                <td
+                  className="p-4 text-right hover:text-juno cursor-pointer"
+                  onClick={async () => {
+                    copy(operation.proposer)
+                  }}
+                >
+                  <Tooltip label={operation.target}>
+                    <span>{truncateMiddle(operation.target, 13)}</span>
+                  </Tooltip>
+                </td>
+                <td className="p-4 text-right">{operation.data}</td>
+                <td className="p-4">{operation.status}</td>
+                <td
+                  onClick={(e) => {
+                    e.preventDefault()
+                    setSelectedOperation(operation)
+                    setDetailsModal(!detailsModal)
+                  }}
+                  className="cursor-pointer"
+                >
+                  <label
+                    htmlFor="my-modal-5"
+                    className="pr-1 pl-2 hover:text-juno border-l cursor-pointer"
+                  >
+                    details
+                  </label>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={6} className="p-4 text-center text-white/50">
+                No opereations available :(
               </td>
             </tr>
-          ))
-        ) : (
-          <tr>
-            <td colSpan={6} className="p-4 text-center text-white/50">
-              No opereations available :(
-            </td>
-          </tr>
-        )}
-        {/* RENDER OPERATION MODAL WHEN CLICKED  */}
-        <tr>
-          <td>
-            <input type="checkbox" id="my-modal-5" className="modal-toggle" />
+          )}
+        </tbody>
+      </table>
+      {/* RENDER OPERATION MODAL WHEN CLICKED  */}
+      {detailsModal && (
+        <div className="absolute top-0 left-0 w-full h-full">
+          <input
+            type="checkbox"
+            id="my-modal-5"
+            className="w-full h-full opacity-0"
+            onChange={(e) => {
+              setDetailsModal(!detailsModal)
+            }}
+          />
+          <div className="absolute top-1/2 left-1/4">
             <label
               htmlFor="my-modal-5"
               className="cursor-pointer modal"
@@ -176,10 +190,10 @@ const OperationsTable = ({
                 </div>
               </label>
             </label>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          </div>
+        </div>
+      )}
+    </div>
   )
 }
 
