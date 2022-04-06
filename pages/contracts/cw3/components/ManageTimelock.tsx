@@ -351,7 +351,7 @@ const ManageTimelock = () => {
           <hr className="mx-10" />
           {(timelock.admins.length > 0 || timelock.proposers.length > 0) && (
             <div className="flex mt-10">
-              <ul className="mr-3 ml-10 w-full h-full text-sm font-medium text-gray-900 dark:text-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
+              <ul className="mr-3 ml-10 w-full h-full text-sm font-medium text-white dark:text-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
                 <li className="py-2 px-4 w-full font-bold rounded-t-lg border-b border-gray-200 dark:border-gray-600">
                   <span className="text-plumbus-matte">Administrators</span>
                 </li>
@@ -370,7 +370,7 @@ const ManageTimelock = () => {
                   </li>
                 ))}
               </ul>
-              <ul className="mr-3 ml-2 w-full h-full text-sm font-medium text-gray-900 dark:text-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
+              <ul className="mr-3 ml-2 w-full h-full text-sm font-medium text-white dark:text-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
                 <li className="py-2 px-4 w-full font-bold rounded-t-lg border-b border-gray-200 dark:border-gray-600">
                   <span className="text-plumbus-matte">Proposers</span>
                 </li>
@@ -389,7 +389,7 @@ const ManageTimelock = () => {
                   </li>
                 ))}
               </ul>
-              <ul className="mr-10 ml-2 w-1/3 h-1/3 text-sm font-medium text-gray-900 dark:text-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
+              <ul className="mr-10 ml-2 w-1/3 h-1/3 text-sm font-medium text-white dark:text-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
                 <li className="py-2 px-4 w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600">
                   <span className="text-plumbus-matte">Minimum Delay</span>
                 </li>
