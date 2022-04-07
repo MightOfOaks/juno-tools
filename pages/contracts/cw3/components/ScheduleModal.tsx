@@ -108,6 +108,13 @@ const ScheduleModal = (props: { contractAddress: string }) => {
         toast.error('Invalid target contract address.', {
           style: { maxWidth: 'none' },
         })
+      } else if (
+        error.message.includes('bech32') ||
+        error.message.includes('Invalid type')
+      ) {
+        toast.error('Please specify a valid Timelock contract address.', {
+          style: { maxWidth: 'none' },
+        })
       } else {
         toast.error(error.message, { style: { maxWidth: 'none' } })
       }
@@ -116,7 +123,7 @@ const ScheduleModal = (props: { contractAddress: string }) => {
 
   return (
     <div className="px-8">
-      <div className="basis-1/4 flex-col my-1">
+      <div className="basis-1/4 flex-col mb-1">
         <div className="flex">
           <label
             htmlFor="small-input"
@@ -143,10 +150,10 @@ const ScheduleModal = (props: { contractAddress: string }) => {
           onChange={(e) => {
             setData(e.target.value)
           }}
-          className="overflow-auto py-2 px-1 mx-3 mb-1 w-64 h-48 placeholder:text-white/50 bg-white/10
-          rounded
-          border-2 border-white/20 focus:ring focus:ring-plumbus-20 form-input,"
-          placeholder="Data"
+          className="overflow-auto py-2 px-1 mx-3 mb-1 w-4/5 placeholder:text-white/50 bg-white/10 rounded
+          border-2
+          border-white/20 focus:ring focus:ring-plumbus-20 h-1/8 form-input,"
+          placeholder="{ }"
         />
       </div>
 
@@ -182,7 +189,7 @@ const ScheduleModal = (props: { contractAddress: string }) => {
           setTargetAddress(e.target.value)
         }}
         placeholder="Target Address"
-        className="py-2 px-1 mx-3 mb-3 w-4/5 bg-white/10 rounded border-2 border-white/20 focus:ring
+        className="py-2 px-1 mx-3 mb-2 w-4/5 bg-white/10 rounded border-2 border-white/20 focus:ring
         focus:ring-plumbus-20
         form-input, placeholder:text-white/50,"
       />

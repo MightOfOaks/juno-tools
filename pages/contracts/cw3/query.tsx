@@ -25,11 +25,11 @@ const QueryTab: NextPage = () => {
   const [timelock, setTimelock] = useState<Timelock>(new Timelock([], [], 0))
   const [clientFound, setClientFound] = useState(false)
   const [data, setData] = useState<Operation[]>([])
-  const [pageNumber, setPageNumber] = useState(1)
+  const [pageNumber, setPageNumber] = useState(0)
   const [topList, setTopList] = useState([0])
   const [nextPage, setNextPage] = useState(false)
 
-  const operationCountonPage = 5
+  const operationCountOnPage = 2
 
   const contract = useContracts().cw3Timelock
   const wallet = useWallet()
@@ -81,21 +81,21 @@ const QueryTab: NextPage = () => {
           const minDelay = await client?.getMinDelay()
 
           const res = await client?.getOperations(
-            Number(topList[pageNumber].toString()),
-            operationCountonPage + 1
+            Number(topList[pageNumber]?.toString()),
+            operationCountOnPage + 1
           )
           const operationList = res.operationList
 
           await setNextPage(
-            operationCountonPage + 1 > operationList.length ? true : false
+            operationCountOnPage + 1 > operationList.length ? true : false
           )
 
           let list = topList
 
           if (list.length > pageNumber + 1) {
-            list[pageNumber + 1] = operationList[operationList.length - 2].id
+            list[pageNumber + 1] = operationList[operationList.length - 2]?.id
           } else {
-            list.push(operationList[operationList.length - 2].id)
+            list.push(operationList[operationList.length - 2]?.id)
           }
           await setTopList(list)
           console.log(operationList)
@@ -105,11 +105,11 @@ const QueryTab: NextPage = () => {
             new Timelock(admins, proposers, Number(minDelay.substring(5)))
           )
           setData([])
-          let indexmax =
-            operationCountonPage < operationList.length
-              ? operationCountonPage
+          let indexMax =
+            operationCountOnPage < operationList.length
+              ? operationCountOnPage
               : operationList.length
-          for (let i = 0; i < indexmax; i++) {
+          for (let i = 0; i < indexMax; i++) {
             setData((prevData) =>
               prevData.concat(
                 new Operation(
@@ -188,6 +188,7 @@ const QueryTab: NextPage = () => {
                   rightIcon={<FaAsterisk />}
                   onClick={(e) => {
                     setPageNumber(0)
+                    query()
                   }}
                 >
                   Search
