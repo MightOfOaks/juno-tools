@@ -6,7 +6,7 @@ import { useTheme } from 'contexts/theme'
 import { useWallet } from 'contexts/wallet'
 import { NextPage } from 'next'
 import { NextSeo } from 'next-seo'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { FaAsterisk } from 'react-icons/fa'
 import { isValidAddress } from 'utils/isValidAddress'
@@ -26,6 +26,9 @@ const QueryTab: NextPage = () => {
   const [clientFound, setClientFound] = useState(false)
   const [data, setData] = useState<Operation[]>([])
   const [pageNumber, setPageNumber] = useState(1)
+  const [topList, setTopList] = useState([0])
+  const [nextPage, setNextPage] = useState(false)
+  const operationCountonPage = 2
 
   const contract = useContracts().cw3Timelock
   const wallet = useWallet()
@@ -76,8 +79,24 @@ const QueryTab: NextPage = () => {
           const proposers = await client?.getProposers()
           const minDelay = await client?.getMinDelay()
 
-          const res = await client?.getOperations((pageNumber - 1) * 2, 2)
+          const res = await client?.getOperations(
+            Number(topList[pageNumber].toString()),
+            operationCountonPage
+          )
           const operationList = res.operationList
+
+          await setNextPage(
+            operationCountonPage > operationList.length ? true : false
+          )
+
+          let list = topList
+
+          if (list.length > pageNumber + 1) {
+            list[pageNumber + 1] = operationList[operationList.length - 1].id
+          } else {
+            list.push(operationList[operationList.length - 1].id)
+          }
+          await setTopList(list)
           console.log(operationList)
           console.log(minDelay.substring(5))
 
@@ -126,9 +145,9 @@ const QueryTab: NextPage = () => {
     }
   }
 
-  function handlePageChange() {
+  useEffect(() => {
     query()
-  }
+  }, [pageNumber])
 
   return (
     <div>
@@ -163,8 +182,7 @@ const QueryTab: NextPage = () => {
                   isWide
                   rightIcon={<FaAsterisk />}
                   onClick={(e) => {
-                    setPageNumber(1)
-                    handlePageChange()
+                    setPageNumber(0)
                   }}
                 >
                   Search
@@ -237,9 +255,8 @@ const QueryTab: NextPage = () => {
                   <Button
                     onClick={(e) => {
                       setPageNumber(pageNumber - 1)
-                      handlePageChange()
                     }}
-                    isDisabled={pageNumber === 1}
+                    isDisabled={pageNumber === 0}
                   >
                     Previous Page
                   </Button>
@@ -249,8 +266,8 @@ const QueryTab: NextPage = () => {
                     isWide
                     onClick={(e) => {
                       setPageNumber(pageNumber + 1)
-                      handlePageChange()
                     }}
+                    isDisabled={nextPage}
                   >
                     Next Page
                   </Button>
