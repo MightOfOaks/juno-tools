@@ -65,7 +65,7 @@ const ScheduleModal = (props: { contractAddress: string }) => {
 
   const execute = async () => {
     if (!isJson(data)) {
-      toast.error('Data is not valid JSON')
+      toast.error('Data is not in JSON format.')
       return
     }
 
