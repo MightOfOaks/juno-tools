@@ -214,7 +214,7 @@ export const CW3Timelock = (
       const res = await client.execute(
         senderAddress,
         contractAddress,
-        { update_min_delay: { time } },
+        { update_min_delay: { new_delay: { time } } },
         'auto'
       )
       console.log('update min delay ', res)
