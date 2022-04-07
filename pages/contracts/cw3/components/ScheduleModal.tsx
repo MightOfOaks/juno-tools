@@ -139,14 +139,13 @@ const ScheduleModal = (props: { contractAddress: string }) => {
             </svg>
           </Tooltip>
         </div>
-        <input
-          type="text"
+        <textarea
           onChange={(e) => {
             setData(e.target.value)
           }}
-          className="py-2 px-1 mx-3 mb-1 bg-white/10 rounded border-2 border-white/20 focus:ring
-          focus:ring-plumbus-20
-          form-input, placeholder:text-white/50,"
+          className="overflow-auto py-2 px-1 mx-3 mb-1 w-96 h-96 placeholder:text-white/50 bg-white/10
+          rounded
+          border-2 border-white/20 focus:ring focus:ring-plumbus-20 form-input,"
           placeholder="Data"
         />
       </div>
