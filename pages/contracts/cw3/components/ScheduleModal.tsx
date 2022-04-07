@@ -54,7 +54,21 @@ const ScheduleModal = (props: { contractAddress: string }) => {
     )
   }
 
+  const isJson = (str: any) => {
+    try {
+      JSON.parse(str)
+    } catch (e) {
+      return false
+    }
+    return true
+  }
+
   const execute = async () => {
+    if (!isJson(data)) {
+      toast.error('Data is not valid JSON')
+      return
+    }
+
     try {
       console.log(getExecutionTimeInNanosecs().toString())
       const client = contract?.use(contractAddress)
