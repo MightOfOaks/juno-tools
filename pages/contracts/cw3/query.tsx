@@ -6,7 +6,7 @@ import { useTheme } from 'contexts/theme'
 import { useWallet } from 'contexts/wallet'
 import { NextPage } from 'next'
 import { NextSeo } from 'next-seo'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import { FaAsterisk } from 'react-icons/fa'
 import { isValidAddress } from 'utils/isValidAddress'
@@ -29,7 +29,7 @@ const QueryTab: NextPage = () => {
   const [topList, setTopList] = useState([0])
   const [nextPage, setNextPage] = useState(false)
 
-  const operationCountOnPage = 2
+  const operationCountOnPage = 5
 
   const contract = useContracts().cw3Timelock
   const wallet = useWallet()
@@ -150,8 +150,13 @@ const QueryTab: NextPage = () => {
     }
   }
 
+  const firstUpdate = useRef(false)
   useEffect(() => {
-    query()
+    if (firstUpdate.current) {
+      query()
+    } else {
+      firstUpdate.current = true
+    }
   }, [pageNumber])
 
   return (
