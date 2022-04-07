@@ -1,3 +1,4 @@
+import Button from 'components/Button'
 import LinkTabs from 'components/LinkTabs'
 import PageHeaderCW3 from 'components/timelock/PageHeaderCW3'
 import { useContracts } from 'contexts/contracts'
@@ -7,6 +8,7 @@ import { NextPage } from 'next'
 import { NextSeo } from 'next-seo'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
+import { FaAsterisk } from 'react-icons/fa'
 import { isValidAddress } from 'utils/isValidAddress'
 import { withMetadata } from 'utils/layout'
 import { Operation, Timelock } from 'utils/models'
@@ -137,10 +139,12 @@ const QueryTab: NextPage = () => {
             Timelock Contract Address
           </label>
           <div className="flex-row">
-            <div>
+            <div className="flex">
               <input
                 type="text"
-                className="py-2 px-1 w-2/3 text-black rounded"
+                className="py-2 px-1 w-2/3 bg-white/10 rounded border-2 border-white/20 focus:ring
+                focus:ring-plumbus-20
+                form-input, placeholder:text-white/50,"
                 placeholder={contractAddress || 'Please enter contract address'}
                 value={contractAddress}
                 onChange={(e) => {
@@ -148,12 +152,11 @@ const QueryTab: NextPage = () => {
                   setContractAddress(e.target.value)
                 }}
               />
-              <button
-                onClick={query}
-                className="p-2 mx-5 hover:text-juno rounded-lg border-2"
-              >
-                Search
-              </button>
+              <div className="mt-1 ml-3">
+                <Button isWide rightIcon={<FaAsterisk />} onClick={query}>
+                  Search
+                </Button>
+              </div>
             </div>
           </div>
         </div>

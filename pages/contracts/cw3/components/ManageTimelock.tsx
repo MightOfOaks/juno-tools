@@ -54,7 +54,7 @@ const ManageTimelock = () => {
       <hr className="m-10" />
       <div className="justify-center p-3 pl-10">
         <div className="grid grid-cols-2">
-          <div className="mt-5 mb-1">
+          <div className="mb-1">
             <select
               id="contract-query-type"
               name="query-type"
