@@ -28,7 +28,8 @@ const QueryTab: NextPage = () => {
   const [pageNumber, setPageNumber] = useState(1)
   const [topList, setTopList] = useState([0])
   const [nextPage, setNextPage] = useState(false)
-  const operationCountonPage = 2
+
+  const operationCountonPage = 5
 
   const contract = useContracts().cw3Timelock
   const wallet = useWallet()
@@ -81,20 +82,20 @@ const QueryTab: NextPage = () => {
 
           const res = await client?.getOperations(
             Number(topList[pageNumber].toString()),
-            operationCountonPage
+            operationCountonPage + 1
           )
           const operationList = res.operationList
 
           await setNextPage(
-            operationCountonPage > operationList.length ? true : false
+            operationCountonPage + 1 > operationList.length ? true : false
           )
 
           let list = topList
 
           if (list.length > pageNumber + 1) {
-            list[pageNumber + 1] = operationList[operationList.length - 1].id
+            list[pageNumber + 1] = operationList[operationList.length - 2].id
           } else {
-            list.push(operationList[operationList.length - 1].id)
+            list.push(operationList[operationList.length - 2].id)
           }
           await setTopList(list)
           console.log(operationList)
@@ -104,7 +105,11 @@ const QueryTab: NextPage = () => {
             new Timelock(admins, proposers, Number(minDelay.substring(5)))
           )
           setData([])
-          for (let i = 0; i < operationList.length; i++) {
+          let indexmax =
+            operationCountonPage < operationList.length
+              ? operationCountonPage
+              : operationList.length
+          for (let i = 0; i < indexmax; i++) {
             setData((prevData) =>
               prevData.concat(
                 new Operation(
