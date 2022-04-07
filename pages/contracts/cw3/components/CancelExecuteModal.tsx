@@ -120,9 +120,9 @@ const CancelExecuteModal = (props: {
           onChange={(e) => {
             setOperationId(e.target.value)
           }}
-          className="py-2 px-1 mx-3 bg-white/10 rounded border-2 border-white/20 focus:ring
-              focus:ring-plumbus-20
-              form-input, placeholder:text-white/50,"
+          className="py-2 px-1 mx-3 mt-3 placeholder:text-white/50 bg-white/10 rounded border-2
+              border-white/20
+              focus:ring focus:ring-plumbus-20 form-input,"
           placeholder="Operation ID"
         />
       </div>
