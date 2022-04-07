@@ -17,9 +17,6 @@ import OperationsTable from './components/OperationsTable'
 
 const QueryTab: NextPage = () => {
   const theme = useTheme()
-  const [contractAddress, setContractAddress] = useState(
-    'juno1x5rr3ke2rffm3zxecxvlqjhv7ggyd0jtdsdz02kzxupzl3g48dlqqlxs9z'
-  )
   const decode = (str: string): string =>
     Buffer.from(str, 'base64').toString('binary')
 
@@ -28,6 +25,9 @@ const QueryTab: NextPage = () => {
   const [data, setData] = useState<Operation[]>([])
   const contract = useContracts().cw3Timelock
   const wallet = useWallet()
+  const [contractAddress, setContractAddress] = useState(
+    contract?.getContractAddress() || ''
+  )
 
   function dhms(secs: number) {
     let result = ''
@@ -63,7 +63,7 @@ const QueryTab: NextPage = () => {
       }
 
       if (isValidAddress(contractAddress)) {
-        const client = contract?.use(contractAddress)
+        const client = contract?.use('')
 
         if (client) {
           setClientFound(true)
@@ -143,7 +143,10 @@ const QueryTab: NextPage = () => {
                 className="py-2 px-1 w-2/3 text-black rounded"
                 placeholder={contractAddress || 'Please enter contract address'}
                 value={contractAddress}
-                onChange={(e) => setContractAddress(e.target.value)}
+                onChange={(e) => {
+                  contract?.updateContractAddress(e.target.value)
+                  setContractAddress(e.target.value)
+                }}
               />
               <button
                 onClick={query}

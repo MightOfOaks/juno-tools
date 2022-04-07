@@ -21,6 +21,7 @@ export interface UseCW3TimelockContractProps {
   ) => Promise<InstantiateResponse>
   use: (customAddress: string) => CW3TimelockInstance | undefined
   updateContractAddress: (contractAddress: string) => void
+  getContractAddress: () => string | undefined
 }
 
 export function useCW3TimelockContract(): UseCW3TimelockContractProps {
@@ -67,10 +68,14 @@ export function useCW3TimelockContract(): UseCW3TimelockContractProps {
     },
     [CW3Timelock, address]
   )
+  const getContractAddress = (): string | undefined => {
+    return address
+  }
 
   return {
     instantiate,
     use,
     updateContractAddress,
+    getContractAddress,
   }
 }

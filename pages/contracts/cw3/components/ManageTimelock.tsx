@@ -12,9 +12,7 @@ import Procedures from './Procedures'
 
 const ManageTimelock = () => {
   const theme = useTheme()
-  const [contractAddress, setContractAddress] = useState(
-    'juno1x5rr3ke2rffm3zxecxvlqjhv7ggyd0jtdsdz02kzxupzl3g48dlqqlxs9z'
-  )
+
   // 'juno1ptxjpktyrus6g8xn9yd98ewzahyhhvc56ddg6c8ln2hk6qhlesxqy43240'
 
   const decode = (str: string): string =>
@@ -26,6 +24,9 @@ const ManageTimelock = () => {
   const [data, setData] = useState<Operation[]>([])
   const contract = useContracts().cw3Timelock
   const wallet = useWallet()
+  const [contractAddress, setContractAddress] = useState(
+    contract?.getContractAddress() || ''
+  )
 
   return (
     <div className="px-6">
@@ -42,7 +43,10 @@ const ManageTimelock = () => {
               form-input, placeholder:text-white/50,"
               placeholder={contractAddress || 'Please enter contract address'}
               value={contractAddress}
-              onChange={(e) => setContractAddress(e.target.value)}
+              onChange={(e) => {
+                contract?.updateContractAddress(e.target.value)
+                setContractAddress(e.target.value)
+              }}
             />
           </div>
         </div>

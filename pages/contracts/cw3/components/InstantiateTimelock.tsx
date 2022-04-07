@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import Button from 'components/Button'
+import { useContracts } from 'contexts/contracts'
 import React, { useEffect, useState } from 'react'
 import toast, { resolveValue } from 'react-hot-toast'
 import { FaAsterisk } from 'react-icons/fa'

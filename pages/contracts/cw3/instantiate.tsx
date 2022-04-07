@@ -54,6 +54,7 @@ const TimeLockInstantiatePage: NextPage = () => {
       )
       setInitSpinnerFlag(false)
       setInitResponse(response)
+      contract.updateContractAddress(response.contractAddress)
       toast.success('Timelock contract instantiation successful.', {
         style: { maxWidth: 'none' },
       })
