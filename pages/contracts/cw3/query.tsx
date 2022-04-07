@@ -25,6 +25,8 @@ const QueryTab: NextPage = () => {
   const [timelock, setTimelock] = useState<Timelock>(new Timelock([], [], 0))
   const [clientFound, setClientFound] = useState(false)
   const [data, setData] = useState<Operation[]>([])
+  const [pageNumber, setPageNumber] = useState(1)
+
   const contract = useContracts().cw3Timelock
   const wallet = useWallet()
   const [contractAddress, setContractAddress] = useState(
@@ -74,7 +76,7 @@ const QueryTab: NextPage = () => {
           const proposers = await client?.getProposers()
           const minDelay = await client?.getMinDelay()
 
-          const res = await client?.getOperations()
+          const res = await client?.getOperations((pageNumber - 1) * 2, 2)
           const operationList = res.operationList
           console.log(operationList)
           console.log(minDelay.substring(5))
@@ -124,6 +126,10 @@ const QueryTab: NextPage = () => {
     }
   }
 
+  function handlePageChange() {
+    query()
+  }
+
   return (
     <div>
       <form className="py-6 px-12 space-y-4">
@@ -153,7 +159,14 @@ const QueryTab: NextPage = () => {
                 }}
               />
               <div className="mt-1 ml-3">
-                <Button isWide rightIcon={<FaAsterisk />} onClick={query}>
+                <Button
+                  isWide
+                  rightIcon={<FaAsterisk />}
+                  onClick={(e) => {
+                    setPageNumber(1)
+                    handlePageChange()
+                  }}
+                >
                   Search
                 </Button>
               </div>
@@ -216,7 +229,35 @@ const QueryTab: NextPage = () => {
           className="overflow-auto px-10 my-10 no-scrollbar"
           style={{ maxHeight: '525px' }}
         >
-          {data.length > 0 && <OperationsTable data={data} />}
+          {data.length > 0 && (
+            <div>
+              <OperationsTable data={data} />
+              <div className="flex mt-3">
+                <div className="mr-3 disabled">
+                  <Button
+                    onClick={(e) => {
+                      setPageNumber(pageNumber - 1)
+                      handlePageChange()
+                    }}
+                    isDisabled={pageNumber === 1}
+                  >
+                    Previous Page
+                  </Button>
+                </div>
+                <div>
+                  <Button
+                    isWide
+                    onClick={(e) => {
+                      setPageNumber(pageNumber + 1)
+                      handlePageChange()
+                    }}
+                  >
+                    Next Page
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {clientFound && data.length === 0 && (

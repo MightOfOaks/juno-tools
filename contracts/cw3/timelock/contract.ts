@@ -15,7 +15,7 @@ export interface CW3TimelockInstance {
 
   //Query
   getAdmins: () => Promise<any>
-  getOperations: () => Promise<any>
+  getOperations: (start_after?: number, limit?: number) => Promise<any>
   getMinDelay: () => Promise<any>
   getExecutionTime: (operation_id: string) => Promise<any>
   getOperationStatus: (operation_id: string) => Promise<any>
@@ -62,9 +62,12 @@ export const CW3Timelock = (
       Buffer.from(str, 'binary').toString('base64')
 
     //QUERY
-    const getOperations = async (): Promise<any> => {
+    const getOperations = async (
+      start_after?: number,
+      limit?: number
+    ): Promise<any> => {
       const res = await client.queryContractSmart(contractAddress, {
-        get_operations: {},
+        get_operations: { start_after, limit },
       })
       return res
     }
