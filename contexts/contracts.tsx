@@ -1,4 +1,8 @@
 import {
+  useCW1LockboxContract,
+  UseCW1LockboxContractProps,
+} from 'contracts/cw1/lockbox'
+import {
   useCW1SubkeysContract,
   UseCW1SubkeysContractProps,
 } from 'contracts/cw1/subkeys'
@@ -30,6 +34,7 @@ export interface ContractsStore extends State {
   cw20Staking: UseCW20StakingContractProps | null
   cw20MerkleAirdrop: UseCW20MerkleAirdropContractProps | null
   cw1Subkeys: UseCW1SubkeysContractProps | null
+  cw1Lockbox: UseCW1LockboxContractProps | null
 }
 
 /**
@@ -41,6 +46,7 @@ export const defaultValues: ContractsStore = {
   cw20Staking: null,
   cw20MerkleAirdrop: null,
   cw1Subkeys: null,
+  cw1Lockbox: null,
 }
 
 /**
@@ -74,6 +80,7 @@ const ContractsSubscription: VFC = () => {
   const cw20Staking = useCW20StakingContract()
   const cw20MerkleAirdrop = useCW20MerkleAirdropContract()
   const cw1Subkeys = useCW1SubkeysContract()
+  const cw1Lockbox = useCW1LockboxContract()
 
   useEffect(() => {
     useContracts.setState({
@@ -82,6 +89,7 @@ const ContractsSubscription: VFC = () => {
       cw20Staking,
       cw20MerkleAirdrop,
       cw1Subkeys,
+      cw1Lockbox,
     })
   }, [
     cw20Base,
@@ -89,6 +97,7 @@ const ContractsSubscription: VFC = () => {
     cw20Staking,
     cw20MerkleAirdrop,
     cw1Subkeys,
+    cw1Lockbox,
     //
   ])
 
