@@ -19,6 +19,7 @@ export interface CW1LockboxInstance {
 
   //Execute
   claim: (senderAddress: string, lockbox_id: number) => Promise<string>
+  reset: (senderAddress: string, lockbox_id: number) => Promise<string>
 }
 
 export interface CW1LockboxContract {
@@ -76,11 +77,27 @@ export const CW1Lockbox = (
       return res.transactionHash
     }
 
+    const reset = async (
+      senderAddress: string,
+      lockbox_id: number
+    ): Promise<string> => {
+      const res = await client.execute(
+        senderAddress,
+        contractAddress,
+        {
+          reset: { lockbox_id },
+        },
+        'auto'
+      )
+      return res.transactionHash
+    }
+
     return {
       contractAddress,
       getLockbox,
       getLockboxes,
       claim,
+      reset,
     }
   }
 
