@@ -20,6 +20,7 @@ import { FaAsterisk } from 'react-icons/fa'
 import { withMetadata } from 'utils/layout'
 
 import { cw1LockboxLinkTabs } from '../../../../components/lockbox/LinkTabs.data'
+import InstantiateLockbox from './components/InstantiateLockbox'
 
 const LockboxInstantiatePage: NextPage = () => {
   const form = useInstantiateCW1LockboxForm()
@@ -81,6 +82,12 @@ const LockboxInstantiatePage: NextPage = () => {
 
         <LinkTabs data={cw1LockboxLinkTabs} activeIndex={0} />
       </form>
+      <InstantiateLockbox
+        spinnerFlag={initSpinnerFlag}
+        initFlag={initResponseFlag}
+        initResponse={initResponse}
+        function={instantiate}
+      />
     </div>
   )
 }
