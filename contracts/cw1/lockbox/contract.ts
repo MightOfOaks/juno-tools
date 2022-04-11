@@ -1,3 +1,4 @@
+import { coin } from '@cosmjs/amino'
 import { SigningCosmWasmClient } from '@cosmjs/cosmwasm-stargate'
 
 export interface InstantiateResponse {
@@ -20,6 +21,12 @@ export interface CW1LockboxInstance {
   //Execute
   claim: (senderAddress: string, lockbox_id: number) => Promise<string>
   reset: (senderAddress: string, lockbox_id: number) => Promise<string>
+  deposit_native: (
+    senderAddress: string,
+    lockbox_id: number,
+    amount: number,
+    denom: string
+  ) => Promise<string>
 }
 
 export interface CW1LockboxContract {
@@ -92,12 +99,32 @@ export const CW1Lockbox = (
       return res.transactionHash
     }
 
+    const deposit_native = async (
+      senderAddress: string,
+      lockbox_id: number,
+      amount: number,
+      denom: string
+    ): Promise<string> => {
+      const res = await client.execute(
+        senderAddress,
+        contractAddress,
+        {
+          deposit: { lockbox_id },
+        },
+        'auto',
+        '',
+        [coin(amount, denom)]
+      )
+      return res.transactionHash
+    }
+
     return {
       contractAddress,
       getLockbox,
       getLockboxes,
       claim,
       reset,
+      deposit_native,
     }
   }
 

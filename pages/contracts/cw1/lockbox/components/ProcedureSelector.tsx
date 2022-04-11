@@ -7,6 +7,7 @@ import toast from 'react-hot-toast'
 
 import { isValidAddress } from '../../../../../utils/isValidAddress'
 import Claim from './Claim'
+import Deposit from './Deposit'
 import Reset from './Reset'
 
 const ProcedureSelector = (props: {
@@ -23,8 +24,7 @@ const ProcedureSelector = (props: {
         return <Claim contractAddress={contractAddress} />
 
       case 'deposit':
-        return 'Deposit'
-      //   <Deposit contractAddress={contractAddress}/>
+        return <Deposit contractAddress={contractAddress} />
 
       case 'reset':
         return <Reset contractAddress={contractAddress} />
