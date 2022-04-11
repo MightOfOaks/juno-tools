@@ -7,6 +7,7 @@ import FormGroup from 'components/FormGroup'
 import Input from 'components/Input'
 import JsonPreview from 'components/JsonPreview'
 import LinkTabs from 'components/LinkTabs'
+import PageHeaderCW1Lockbox from 'components/lockbox/PageHeaderCW1Lockbox'
 import PageHeaderCW3 from 'components/lockbox/PageHeaderCW1Lockbox'
 import { useContracts } from 'contexts/contracts'
 import { useWallet } from 'contexts/wallet'
@@ -76,7 +77,7 @@ const LockboxInstantiatePage: NextPage = () => {
       <form className="py-6 px-12 space-y-4">
         <NextSeo title="Instantiate Lockbox Contract" />
 
-        <PageHeaderCW3 />
+        <PageHeaderCW1Lockbox />
 
         <LinkTabs data={cw1LockboxLinkTabs} activeIndex={0} />
       </form>

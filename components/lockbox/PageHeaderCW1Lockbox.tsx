@@ -8,7 +8,7 @@ const PageHeaderCW1Lockbox = () => {
     <PageHeader title="CW1 Lockbox">
       Learn more in the{' '}
       <Anchor
-        href={links['Docs CW20']}
+        href={links['Docs CW1Lockbox']}
         className="font-bold text-plumbus hover:underline"
       >
         documentation
