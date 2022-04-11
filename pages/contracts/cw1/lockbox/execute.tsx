@@ -29,7 +29,7 @@ const ExecuteTab = () => {
       <div className="px-6">
         <div className="py-2 px-10">
           <label className="block mb-2 font-bold text-left text-white dark:text-gray-300 text-md">
-            Timelock Contract Address
+            Lockbox Contract Address
           </label>
           <div className="flex-row">
             <div>

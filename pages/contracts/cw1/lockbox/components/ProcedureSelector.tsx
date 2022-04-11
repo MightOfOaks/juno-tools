@@ -6,6 +6,7 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 
 import { isValidAddress } from '../../../../../utils/isValidAddress'
+import Claim from './Claim'
 
 const ProcedureSelector = (props: {
   selectedProcedure: string
@@ -18,8 +19,7 @@ const ProcedureSelector = (props: {
   const renderProcedure = () => {
     switch (selectedProcedure) {
       case 'claim':
-        return <div>Claim</div>
-      //   <Claim contractAddress={contractAddress} />
+        return <Claim contractAddress={contractAddress} />
 
       case 'deposit':
         return 'Deposit'
