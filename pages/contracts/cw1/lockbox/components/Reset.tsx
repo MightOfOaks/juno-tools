@@ -34,7 +34,7 @@ const Reset = (props: { contractAddress: string }) => {
         toast.success('Successfully reset the lockbox.', {
           style: { maxWidth: 'none' },
         })
-        console.log('update min delay res: ', res)
+        console.log(res)
       } else {
         toast.error('You need to specify a valid Lockbox ID.', {
           style: { maxWidth: 'none' },

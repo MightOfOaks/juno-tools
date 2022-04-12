@@ -50,6 +50,10 @@ const Claim = (props: { contractAddress: string }) => {
         toast.error('You need to specify a valid Lockbox contract address.', {
           style: { maxWidth: 'none' },
         })
+      } else if (error.message.includes('LockBox not expired')) {
+        toast.error('The Lockbox with the specified ID is not expired yet.', {
+          style: { maxWidth: 'none' },
+        })
       } else {
         toast.error(error.message, { style: { maxWidth: 'none' } })
       }
