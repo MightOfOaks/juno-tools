@@ -87,7 +87,8 @@ export const CW1Lockbox = (
         {
           claim: { id },
         },
-        'auto'
+        'auto',
+        ''
       )
       return res.transactionHash
     }
@@ -102,7 +103,8 @@ export const CW1Lockbox = (
         {
           reset: { id },
         },
-        'auto'
+        'auto',
+        ''
       )
       return res.transactionHash
     }
