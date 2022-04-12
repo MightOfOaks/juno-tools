@@ -6,10 +6,15 @@ import { isValidAddress } from 'utils/isValidAddress'
 import { copy } from '../../../../../utils/clipboard'
 import Tooltip from '../../../../../utils/OperationsTableHelpers/Tooltip'
 
-const ClaimsInput = (props: { function: (arg0: string[]) => void }) => {
+type Claim = {
+  address: string
+  amount: Number
+}
+
+const ClaimsInput = (props: { function: (arg0: Claim[]) => void }) => {
   const [address, setAddress] = useState('')
   const [amount, setAmount] = useState(0)
-  const [items, setItems] = useState([])
+  const [claims, setClaims] = useState<Claim[]>([])
 
   const handleAddressChange = (event: {
     target: { value: React.SetStateAction<string> }
@@ -23,9 +28,16 @@ const ClaimsInput = (props: { function: (arg0: string[]) => void }) => {
     setAmount(Number(event.target.value))
   }
 
+  const contain = (): boolean => {
+    for (let i = 0; i < claims.length; i++) {
+      if (claims[i].address === address) return true
+    }
+    return false
+  }
+
   const addClicked = () => {
-    let tempArray: React.SetStateAction<never[]> = []
-    if (items.includes(address.toString() as never)) {
+    let tempArray: Claim[] = []
+    if (contain()) {
       toast.error('The address already exists.', {
         style: { maxWidth: 'none' },
       })
@@ -42,26 +54,30 @@ const ClaimsInput = (props: { function: (arg0: string[]) => void }) => {
         style: { maxWidth: 'none' },
       })
     } else {
-      tempArray = [...items, [address, amount]] as never
-      setItems(tempArray)
+      const nc: Claim = {
+        address,
+        amount,
+      }
+      tempArray = [...claims, nc] as never
+      setClaims(tempArray)
       setAddress('')
       setAmount(0)
     }
   }
 
-  const removeClicked = (item: string) => {
-    let tempArray: React.SetStateAction<never[]> = []
-    for (let i = 0; i < items.length; i++) {
-      if (items[i] !== item) {
-        tempArray.push(items[i])
+  const removeClicked = (address: string) => {
+    let tempArray: Claim[] = []
+    for (let i = 0; i < claims.length; i++) {
+      if (claims[i].address !== address) {
+        tempArray.push(claims[i])
       }
     }
-    setItems(tempArray)
+    setClaims(tempArray)
   }
 
   useEffect(() => {
-    props.function(items)
-  }, [items])
+    props.function(claims)
+  }, [claims])
 
   return (
     <div className="px-3 mt-2">
@@ -120,32 +136,31 @@ const ClaimsInput = (props: { function: (arg0: string[]) => void }) => {
           </span>
         </button>
       </div>
-      <div className="grid grid-cols-2 w-3/4">
-        {items.map((item: string) => {
+      <div className="w-full">
+        {claims.map((value: Claim, index: Number, array: Claim[]) => {
           return (
-            <div key={item}>
-              <div className="grid grid-cols-2 col-span-1 p-2 hover:text-juno bg-black bg-opacity-10 rounded">
-                <Tooltip label={item}>
+            <div key={value.address}>
+              <div className="p-2 hover:text-juno bg-black bg-opacity-10 rounded">
+                <label>{1 + (index as number) + ' | '}</label>
+                <Tooltip label={value.address}>
                   <button
                     type="button"
-                    onClick={() => copy(item)}
-                    className="text-sm"
+                    onClick={() => copy(value.address)}
+                    className="mx-10 text-m"
                   >
-                    {item.slice(0, 5) +
-                      '...' +
-                      item.slice(item.length - 5, item.length)}
+                    {value.address + ' | ' + value.amount}
                   </button>
                 </Tooltip>
-                <div
-                  className="ml-5"
+
+                <button
+                  type="button"
+                  className="pl-2 hover:text-juno"
                   onClick={() => {
-                    removeClicked(item)
+                    removeClicked(value.address)
                   }}
                 >
-                  <button type="button" className="pl-2 hover:text-juno">
-                    x
-                  </button>
-                </div>
+                  x
+                </button>
               </div>
             </div>
           )

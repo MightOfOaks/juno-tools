@@ -20,12 +20,12 @@ import { FaAsterisk } from 'react-icons/fa'
 import { withMetadata } from 'utils/layout'
 
 import { cw1LockboxLinkTabs } from '../../../../components/lockbox/LinkTabs.data'
+import CreateLockbox from './components/CreateLockbox'
 import InstantiateLockbox from './components/InstantiateLockbox'
 
 const LockboxInstantiatePage: NextPage = () => {
   const form = useInstantiateCW1LockboxForm()
   const { formState, register, result, submitHandler } = form
-  const [minDelayUnit, setMinDelayUnit] = useState<string>('seconds')
   const [initResponse, setInitResponse] = useState<any>()
   const [initResponseFlag, setInitResponseFlag] = useState(false)
   const [initSpinnerFlag, setInitSpinnerFlag] = useState(false)
@@ -48,8 +48,48 @@ const LockboxInstantiatePage: NextPage = () => {
       console.log(initMsg)
       setInitSpinnerFlag(true)
       const response = await contract.instantiate(
-        712,
+        725,
         initMsg,
+        'Lockbox Test',
+        wallet.address
+      )
+      setInitSpinnerFlag(false)
+      setInitResponse(response)
+      contract.updateContractAddress(response.contractAddress)
+      toast.success('Lockbox contract instantiation successful.', {
+        style: { maxWidth: 'none' },
+      })
+      setInitResponseFlag(true)
+      console.log(response)
+    } catch (error: any) {
+      setInitSpinnerFlag(false)
+      if (error.message.includes('invalid digit found')) {
+        toast.error('Minimum time delay is too large for any practical use.', {
+          style: { maxWidth: 'none' },
+        })
+      } else {
+        toast.error(error.message, { style: { maxWidth: 'none' } })
+      }
+    }
+  }
+
+  const create = async (createMsg: Record<string, unknown>) => {
+    setInitResponseFlag(false)
+    try {
+      if (!contract) {
+        return toast.error('Smart contract connection failed.')
+      }
+      if (!wallet.initialized) {
+        return toast.error('Oops! Need to connect your Keplr Wallet first.', {
+          style: { maxWidth: 'none' },
+        })
+      }
+
+      console.log(createMsg)
+      setInitSpinnerFlag(true)
+      const response = await contract.instantiate(
+        725,
+        createMsg,
         'Lockbox Test',
         wallet.address
       )
@@ -87,6 +127,12 @@ const LockboxInstantiatePage: NextPage = () => {
         initFlag={initResponseFlag}
         initResponse={initResponse}
         function={instantiate}
+      />
+      <CreateLockbox
+        spinnerFlag={initSpinnerFlag}
+        initFlag={initResponseFlag}
+        initResponse={initResponse}
+        function={create}
       />
     </div>
   )
