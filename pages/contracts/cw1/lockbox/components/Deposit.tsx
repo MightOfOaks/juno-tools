@@ -14,9 +14,11 @@ const Deposit = (props: { contractAddress: string }) => {
   const [amount, setAmount] = useState(0)
   const [spinnerFlag, setSpinnerFlag] = useState(false)
   const [nativeCoinFlag, setNativeCoinFlag] = useState(true)
+  const [CW20ContractAddress, setCW20ContractAddress] = useState('')
   const contract = useContracts().cw1Lockbox
   const wallet = useWallet()
-
+  const cw20Contract = useContracts().cw20Base
+  const cw20Client = cw20Contract?.use(CW20ContractAddress)
   const handleChangeLockboxId = (event: {
     target: { value: React.SetStateAction<string> }
   }) => {
@@ -29,11 +31,10 @@ const Deposit = (props: { contractAddress: string }) => {
     setAmount(Number(event.target.value))
   }
 
-  const handleChangeDepositType = (event: {
+  const handleChangeCW20ContractAddress = (event: {
     target: { value: React.SetStateAction<string> }
   }) => {
-    //setNativeCoinFlag(event.target.value ===)
-    console.log(event.target.value)
+    setCW20ContractAddress(event.target.value)
   }
 
   const deposit = async () => {
@@ -44,17 +45,27 @@ const Deposit = (props: { contractAddress: string }) => {
       }
       if (!(isNaN(lockboxId) || Number(lockboxId) < 1)) {
         setSpinnerFlag(true)
-        const res = await client?.deposit_native(
-          wallet.address,
-          lockboxId,
-          amount,
-          'ujunox'
-        )
+        if (nativeCoinFlag) {
+          const res = await client?.deposit_native(
+            wallet.address,
+            lockboxId.toString(),
+            amount,
+            'ujunox'
+          )
+          console.log(res)
+        } else {
+          const res = await client?.deposit_cw20(
+            wallet.address,
+            lockboxId.toString(),
+            amount,
+            cw20Client
+          )
+          console.log(res)
+        }
         setSpinnerFlag(false)
         toast.success('Successfully made a claim.', {
           style: { maxWidth: 'none' },
         })
-        console.log('update min delay res: ', res)
       } else {
         toast.error('You need to specify a valid Lockbox ID.', {
           style: { maxWidth: 'none' },
@@ -77,41 +88,50 @@ const Deposit = (props: { contractAddress: string }) => {
   }
 
   return (
-    <div className="p-8 pt-0 ml-10 w-3/5">
-      <div className="flex justify-between mb-3 ml-3">
+    <div className="p-8 pt-0 ml-10 w-3/4">
+      <div className="flex justify-items-start mb-3 ml-3">
         <div className="form-check form-check-inline">
           <input
             className="float-none mr-2 mb-1 w-4 h-4 align-middle bg-white checked:bg-juno bg-center bg-no-repeat bg-contain rounded-full border border-gray-300 checked:border-white focus:outline-none transition duration-200 appearance-none cursor-pointer form-check-input"
             type="radio"
             name="inlineRadioOptions"
             id="inlineRadio1"
-            value="option1"
-            checked
+            value="native"
+            onClick={() => {
+              setNativeCoinFlag(true)
+              console.log('native')
+            }}
+            checked={nativeCoinFlag}
           />
           <label
-            className="inline-block text-white form-check-label"
+            className="inline-block text-white cursor-pointer form-check-label"
             htmlFor="inlineRadio1"
           >
             Native Coin
           </label>
         </div>
-        <div className="form-check form-check-inline">
+        <div className="ml-4 form-check form-check-inline">
           <input
             className="float-none mr-2 mb-1 w-4 h-4 align-middle bg-white checked:bg-juno bg-center bg-no-repeat bg-contain rounded-full border border-gray-300 checked:border-white focus:outline-none transition duration-200 appearance-none cursor-pointer form-check-input"
             type="radio"
             name="inlineRadioOptions"
             id="inlineRadio2"
-            value="option2"
+            value="cw20"
+            onClick={() => {
+              setNativeCoinFlag(false)
+              console.log('CW20')
+            }}
+            checked={!nativeCoinFlag}
           />
           <label
-            className="inline-block text-white form-check-label"
+            className="inline-block text-white cursor-pointer form-check-label"
             htmlFor="inlineRadio2"
           >
             CW20 Token
           </label>
         </div>
       </div>
-      <div className="basis-1/4 flex-col my-0">
+      <div className="basis-1/2 flex-col my-0">
         <div className="flex">
           <label
             htmlFor="small-input"
@@ -147,6 +167,47 @@ const Deposit = (props: { contractAddress: string }) => {
             />
           </div>
         </div>
+
+        {!nativeCoinFlag && (
+          <div>
+            <div className="flex mt-2">
+              <label
+                htmlFor="small-input"
+                className="block mr-2 ml-3 font-bold text-white dark:text-gray-300 text-md"
+              >
+                CW20 Contract Address
+              </label>
+              <Tooltip label="The CW20 Contract Address from which the tokens will be transferred.">
+                <svg
+                  className="mt-1 w-4 h-4"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                    clipRule="evenodd"
+                  ></path>
+                </svg>
+              </Tooltip>
+            </div>
+
+            <div className="flex mt-1 w-full">
+              <div>
+                <input
+                  type="text"
+                  onChange={handleChangeCW20ContractAddress}
+                  className="py-2 px-1 mx-3 w-full bg-white/10 rounded border-2 border-white/20 focus:ring
+              focus:ring-plumbus-20
+              form-input, placeholder:text-white/50,"
+                  placeholder="CW20 Contract Address"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="flex mt-2">
           <label
             htmlFor="small-input"
@@ -154,7 +215,7 @@ const Deposit = (props: { contractAddress: string }) => {
           >
             Deposit Amount
           </label>
-          <Tooltip label="The Lockbox ID to which the coins will be deposited.">
+          <Tooltip label="The amount of coins/tokens to be deposited.">
             <svg
               className="mt-1 w-4 h-4"
               fill="currentColor"

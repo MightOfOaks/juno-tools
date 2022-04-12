@@ -1,5 +1,7 @@
 import { coin } from '@cosmjs/amino'
 import { SigningCosmWasmClient } from '@cosmjs/cosmwasm-stargate'
+import { useContracts } from 'contexts/contracts'
+import { CW20BaseInstance } from 'contracts/cw20/base/contract'
 
 export interface InstantiateResponse {
   readonly contractAddress: string
@@ -19,13 +21,19 @@ export interface CW1LockboxInstance {
   getLockboxes: (start_after?: number, limit?: number) => Promise<any>
 
   //Execute
-  claim: (senderAddress: string, lockbox_id: number) => Promise<string>
-  reset: (senderAddress: string, lockbox_id: number) => Promise<string>
+  claim: (senderAddress: string, id: string) => Promise<string>
+  reset: (senderAddress: string, id: string) => Promise<string>
   deposit_native: (
     senderAddress: string,
-    lockbox_id: number,
+    id: string,
     amount: number,
     denom: string
+  ) => Promise<string>
+  deposit_cw20: (
+    senderAddress: string,
+    id: string,
+    amount: number,
+    cw20Client: CW20BaseInstance | undefined
   ) => Promise<string>
 }
 
@@ -71,13 +79,13 @@ export const CW1Lockbox = (
 
     const claim = async (
       senderAddress: string,
-      lockbox_id: number
+      id: string
     ): Promise<string> => {
       const res = await client.execute(
         senderAddress,
         contractAddress,
         {
-          claim: { lockbox_id },
+          claim: { id },
         },
         'auto'
       )
@@ -86,13 +94,13 @@ export const CW1Lockbox = (
 
     const reset = async (
       senderAddress: string,
-      lockbox_id: number
+      id: string
     ): Promise<string> => {
       const res = await client.execute(
         senderAddress,
         contractAddress,
         {
-          reset: { lockbox_id },
+          reset: { id },
         },
         'auto'
       )
@@ -101,21 +109,40 @@ export const CW1Lockbox = (
 
     const deposit_native = async (
       senderAddress: string,
-      lockbox_id: number,
+      id: string,
       amount: number,
       denom: string
     ): Promise<string> => {
+      console.log('here')
       const res = await client.execute(
         senderAddress,
         contractAddress,
         {
-          deposit: { lockbox_id },
+          deposit: { id },
         },
         'auto',
         '',
         [coin(amount, denom)]
       )
       return res.transactionHash
+    }
+
+    const deposit_cw20 = async (
+      senderAddress: string,
+      id: string,
+      amount: number,
+      cw20Client: CW20BaseInstance | undefined
+    ): Promise<string> => {
+      const response = await cw20Client?.send(
+        senderAddress,
+        contractAddress,
+        amount.toString(),
+        {
+          deposit: { id },
+        }
+      )
+      console.log(response)
+      return response || ''
     }
 
     return {
@@ -125,6 +152,7 @@ export const CW1Lockbox = (
       claim,
       reset,
       deposit_native,
+      deposit_cw20,
     }
   }
 

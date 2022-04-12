@@ -29,7 +29,7 @@ const Claim = (props: { contractAddress: string }) => {
       }
       if (!(isNaN(lockboxId) || Number(lockboxId) < 1)) {
         setSpinnerFlag(true)
-        const res = await client?.claim(wallet.address, lockboxId)
+        const res = await client?.claim(wallet.address, lockboxId.toString())
         setSpinnerFlag(false)
         toast.success('Successfully made a claim.', {
           style: { maxWidth: 'none' },

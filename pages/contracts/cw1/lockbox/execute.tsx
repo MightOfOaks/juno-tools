@@ -53,8 +53,8 @@ const ExecuteTab = () => {
           <div className="grid grid-cols-2">
             <div className="mb-1">
               <select
-                id="contract-query-type"
-                name="query-type"
+                id="contract-execution-type"
+                name="execution-type"
                 className={clsx(
                   'text-white bg-white/10 rounded border-2 border-white/20 form-select',
                   'placeholder:text-white/50',

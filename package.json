@@ -3,7 +3,7 @@
   "version": "0.1.0-beta",
   "scripts": {
     "build": "next build",
-    "dev": "next dev",
+    "dev": "NODE_OPTIONS='--inspect' next dev",
     "generate:favicons": "npx favicons-compiled-cli -i ./public/icon.png -c ./config/favicons.json -o ./public/assets/",
     "lint": "eslint --fix \"**/*.{js,jsx,ts,tsx}\" && prettier --write \"**/*.{css,json,md}\"",
     "prepare": "husky install",

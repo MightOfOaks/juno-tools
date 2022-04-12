@@ -29,7 +29,7 @@ const Reset = (props: { contractAddress: string }) => {
       }
       if (!(isNaN(lockboxId) || Number(lockboxId) < 1)) {
         setSpinnerFlag(true)
-        const res = await client?.reset(wallet.address, lockboxId)
+        const res = await client?.reset(wallet.address, lockboxId.toString())
         setSpinnerFlag(false)
         toast.success('Successfully reset the lockbox.', {
           style: { maxWidth: 'none' },
