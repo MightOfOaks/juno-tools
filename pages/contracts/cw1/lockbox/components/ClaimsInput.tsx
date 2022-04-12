@@ -8,12 +8,12 @@ import Tooltip from '../../../../../utils/OperationsTableHelpers/Tooltip'
 
 type Claim = {
   address: string
-  amount: Number
+  amount: string
 }
 
 const ClaimsInput = (props: { function: (arg0: Claim[]) => void }) => {
   const [address, setAddress] = useState('')
-  const [amount, setAmount] = useState(0)
+  const [amount, setAmount] = useState('')
   const [claims, setClaims] = useState<Claim[]>([])
 
   const handleAddressChange = (event: {
@@ -25,7 +25,7 @@ const ClaimsInput = (props: { function: (arg0: Claim[]) => void }) => {
   const handleAmountChange = (event: {
     target: { value: React.SetStateAction<string> }
   }) => {
-    setAmount(Number(event.target.value))
+    setAmount(event.target.value)
   }
 
   const contain = (): boolean => {
@@ -45,7 +45,7 @@ const ClaimsInput = (props: { function: (arg0: Claim[]) => void }) => {
       toast.error('The address cannot be empty.', {
         style: { maxWidth: 'none' },
       })
-    } else if (amount <= 0) {
+    } else if (Number(amount) <= 0) {
       toast.error('The amount cannot be zero.', {
         style: { maxWidth: 'none' },
       })
@@ -61,7 +61,7 @@ const ClaimsInput = (props: { function: (arg0: Claim[]) => void }) => {
       tempArray = [...claims, nc] as never
       setClaims(tempArray)
       setAddress('')
-      setAmount(0)
+      setAmount('')
     }
   }
 

@@ -32,6 +32,9 @@ const LockboxInstantiatePage: NextPage = () => {
 
   const wallet = useWallet()
   const contract = useContracts().cw1Lockbox
+  const [contractAddress, setContractAddress] = useState(
+    contract?.getContractAddress() || ''
+  )
 
   const instantiate = async (initMsg: Record<string, unknown>) => {
     setInitResponseFlag(false)
@@ -73,46 +76,6 @@ const LockboxInstantiatePage: NextPage = () => {
     }
   }
 
-  const create = async (createMsg: Record<string, unknown>) => {
-    setInitResponseFlag(false)
-    try {
-      if (!contract) {
-        return toast.error('Smart contract connection failed.')
-      }
-      if (!wallet.initialized) {
-        return toast.error('Oops! Need to connect your Keplr Wallet first.', {
-          style: { maxWidth: 'none' },
-        })
-      }
-
-      console.log(createMsg)
-      setInitSpinnerFlag(true)
-      const response = await contract.instantiate(
-        725,
-        createMsg,
-        'Lockbox Test',
-        wallet.address
-      )
-      setInitSpinnerFlag(false)
-      setInitResponse(response)
-      contract.updateContractAddress(response.contractAddress)
-      toast.success('Lockbox contract instantiation successful.', {
-        style: { maxWidth: 'none' },
-      })
-      setInitResponseFlag(true)
-      console.log(response)
-    } catch (error: any) {
-      setInitSpinnerFlag(false)
-      if (error.message.includes('invalid digit found')) {
-        toast.error('Minimum time delay is too large for any practical use.', {
-          style: { maxWidth: 'none' },
-        })
-      } else {
-        toast.error(error.message, { style: { maxWidth: 'none' } })
-      }
-    }
-  }
-
   return (
     <div>
       <form className="py-6 px-12 space-y-4">
@@ -123,17 +86,13 @@ const LockboxInstantiatePage: NextPage = () => {
         <LinkTabs data={cw1LockboxLinkTabs} activeIndex={0} />
       </form>
       <InstantiateLockbox
+        contractAddress={contractAddress}
         spinnerFlag={initSpinnerFlag}
         initFlag={initResponseFlag}
         initResponse={initResponse}
         function={instantiate}
       />
-      <CreateLockbox
-        spinnerFlag={initSpinnerFlag}
-        initFlag={initResponseFlag}
-        initResponse={initResponse}
-        function={create}
-      />
+      <CreateLockbox contractAddress={contractAddress} />
     </div>
   )
 }

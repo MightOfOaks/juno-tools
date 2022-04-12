@@ -21,6 +21,10 @@ export interface CW1LockboxInstance {
   getLockboxes: (start_after?: number, limit?: number) => Promise<any>
 
   //Execute
+  create: (
+    senderAddress: string,
+    msg: Record<string, unknown>
+  ) => Promise<String>
   claim: (senderAddress: string, id: string) => Promise<string>
   reset: (senderAddress: string, id: string) => Promise<string>
   deposit_native: (
@@ -76,6 +80,20 @@ export const CW1Lockbox = (
     }
 
     /// EXECUTE
+
+    const create = async (
+      senderAddress: string,
+      msg: Record<string, unknown>
+    ): Promise<String> => {
+      const res = await client.execute(
+        senderAddress,
+        contractAddress,
+        msg,
+        'auto'
+      )
+
+      return res.transactionHash
+    }
 
     const claim = async (
       senderAddress: string,
@@ -149,6 +167,7 @@ export const CW1Lockbox = (
       contractAddress,
       getLockbox,
       getLockboxes,
+      create,
       claim,
       reset,
       deposit_native,

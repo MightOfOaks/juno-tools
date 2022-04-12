@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import Button from 'components/Button'
 import { useContracts } from 'contexts/contracts'
+import { useWallet } from 'contexts/wallet'
 import React, { useEffect, useState } from 'react'
 import toast, { resolveValue } from 'react-hot-toast'
 import { FaAsterisk } from 'react-icons/fa'
@@ -11,38 +12,50 @@ import ClaimsInput from './ClaimsInput'
 
 type Claim = {
   address: string
-  amount: Number
+  amount: string
 }
 
 type Expiration = {
-  time: number | null
-  height: string | null
+  at_time: number | null
+  at_height: string | null
 }
 
-const CreateLockbox = (props: {
-  spinnerFlag: boolean
-  initFlag: boolean
-  initResponse: any
-  function: (arg0: Record<string, unknown>) => void
-}) => {
-  const [initMsg, setInitMsg] = useState<Record<string, unknown>>({})
+const CreateLockbox = (props: { contractAddress: string }) => {
+  const [contractAddress, setContractAddress] = useState(props.contractAddress)
+
+  const contract = useContracts().cw1Lockbox
+  const wallet = useWallet()
+  const [msg, setMsg] = useState<Record<string, unknown>>({})
+  const [spinnerFlag, setSpinnerFlag] = useState(false)
   const [owner, setOwner] = useState('')
   const [claims, setClaims] = useState<Claim[]>([])
   const [expiration, setExpiration] = useState<Expiration>({
-    time: 0,
-    height: null,
+    at_time: 0,
+    at_height: null,
   })
-  const [unit, setUnit] = useState('juno')
+  const [unit, setUnit] = useState('ujunox')
   const [flag, setFlag] = useState(false)
   const [date, setDate] = useState('')
   const [time, setTime] = useState('')
   const [scheduleType, setScheduleType] = useState('atTime')
-  const [height, setHeight] = useState('')
+  const [at_height, setHeight] = useState('')
   const [native_token, setNativeToken] = useState<string | null>('juno')
   const [cw20_addr, setCw20Addr] = useState<string | null>(null)
 
   const resetFlags = () => {
     setFlag(false)
+  }
+
+  const handleChangeContractAddress = (event: {
+    target: { value: React.SetStateAction<string> }
+  }) => {
+    setContractAddress(event.target.value)
+  }
+
+  const handleChangeOwnerAddress = (event: {
+    target: { value: React.SetStateAction<string> }
+  }) => {
+    setOwner(event.target.value)
   }
 
   const handleChangeClaims = (arg0: Claim[]) => {
@@ -103,57 +116,95 @@ const CreateLockbox = (props: {
 
   useEffect(() => {
     setExpiration({
-      time: getExecutionTimeInNanosecs(),
-      height: null,
+      at_time: getExecutionTimeInNanosecs(),
+      at_height: null,
     })
   }, [date, time])
 
   useEffect(() => {
     setExpiration({
-      time: null,
-      height,
+      at_time: null,
+      at_height,
     })
-  }, [height])
+  }, [at_height])
 
   useEffect(() => {
-    if (unit === 'juno') {
+    if (unit === 'ujunox') {
       setCw20Addr(null)
-      setNativeToken('juno')
+      setNativeToken('ujunox')
     }
   }, [unit])
 
   useEffect(() => {
-    setInitMsg({
-      owner,
-      claims,
-      expiration,
-      native_token,
-      cw20_addr,
+    setMsg({
+      create_lockbox: {
+        owner,
+        claims,
+        expiration,
+        native_token,
+        cw20_addr,
+      },
     })
   }, [owner, claims, expiration, native_token, cw20_addr])
 
-  const instantiate = () => {
-    /*if (!initMsg) {
-                setFlag(true)
-                setTimeout(resetFlags, 3000)
-            } else if (isNaN(minDelay) || Number(minDelay) < 1) {
-                toast.error('You need to specify a valid minimum delay.', {
+  const create = async () => {
+    try {
+      setSpinnerFlag(true)
+      const client = contract?.use(contractAddress)
+      if (!client || !wallet) {
+        toast.error('Wallet Or Client Error', { style: { maxWidth: 'none' } })
+      }
+      console.log(msg)
+      const res = await client?.create(wallet.address, msg)
+      console.log(res)
+      /*if (!(isNaN(lockboxId) || Number(lockboxId) < 1)) {
+                setSpinnerFlag(true)
+                if (nativeCoinFlag) {
+                    const res = await client?.deposit_native(
+                        wallet.address,
+                        lockboxId.toString(),
+                        amount,
+                        'ujunox'
+                    )
+                    console.log(res)
+                } else {
+                    const res = await client?.deposit_cw20(
+                        wallet.address,
+                        lockboxId.toString(),
+                        amount,
+                        cw20Client
+                    )
+                    console.log(res)
+                }
+                setSpinnerFlag(false)
+                toast.success('Successfully made a claim.', {
                     style: { maxWidth: 'none' },
                 })
-            } else if (proposers.length === 0) {
-                toast.error(
-                    'You need to specify at least one proposer to instantiate a Timelock contract.',
-                    { style: { maxWidth: 'none' } }
-                )
             } else {
-                props.function(initMsg)
+                toast.error('You need to specify a valid Lockbox ID.', {
+                    style: { maxWidth: 'none' },
+                })
             }*/
+    } catch (error: any) {
+      setSpinnerFlag(false)
+      if (error.message.includes('Unauthorized')) {
+        toast.error('You are not authorized to make a claim.', {
+          style: { maxWidth: 'none' },
+        })
+      } else if (error.message.includes('bech32')) {
+        toast.error('You need to specify a valid Lockbox contract address.', {
+          style: { maxWidth: 'none' },
+        })
+      } else {
+        toast.error(error.message, { style: { maxWidth: 'none' } })
+      }
+    }
   }
 
   return (
     <div className="relative flex-col px-10 mt-5">
       <div className="px-3">
-        <label className="block mb-2 text-5xl font-bold text-left text-white dark:text-gray-300">
+        <label className="block mb-2 text-4xl font-bold text-left text-white dark:text-gray-300">
           Create Lockbox
         </label>
         <div className="py-2 ">
@@ -164,6 +215,7 @@ const CreateLockbox = (props: {
             <div className="flex">
               <input
                 type="text"
+                onChange={handleChangeContractAddress}
                 className="py-2 px-1 w-2/3 bg-white/10 rounded border-2 border-white/20 focus:ring
             focus:ring-plumbus-20
             form-input, placeholder:text-white/50,"
@@ -183,6 +235,7 @@ const CreateLockbox = (props: {
             <div className="flex">
               <input
                 type="text"
+                onChange={handleChangeOwnerAddress}
                 className="py-2 px-1 w-2/3 bg-white/10 rounded border-2 border-white/20 focus:ring
             focus:ring-plumbus-20
             form-input, placeholder:text-white/50,"
@@ -218,13 +271,13 @@ const CreateLockbox = (props: {
             <div>
               <select
                 onChange={handleChangeUnit}
-                defaultValue="juno"
+                defaultValue="ujunox"
                 name="time"
                 id="time"
                 className="float-left px-1 mt-7 h-11 text-white bg-white/10 options:bg-white/50 rounded border-2 border-white/20 basis-1/8"
               >
-                <option className="bg-[#3a3535]" value="juno">
-                  juno
+                <option className="bg-[#3a3535]" value="ujunox">
+                  ujunox
                 </option>
                 <option className="bg-[#3a3535]" value="cw20">
                   cw20
@@ -307,57 +360,13 @@ const CreateLockbox = (props: {
 
       <div className="basis-1/4 px-3 mt-6">
         <Button
-          isLoading={props.spinnerFlag}
+          isLoading={spinnerFlag}
           isWide
           rightIcon={<FaAsterisk />}
-          onClick={(e) => {
-            e.preventDefault()
-            instantiate()
-          }}
+          onClick={create}
         >
           Create Lockbox
         </Button>
-
-        {props.initFlag && (
-          <div className="float-right basis-1/3 mr-2 ml-3 h-10">
-            <label
-              htmlFor="small-input"
-              className="block mx-1 font-bold text-white dark:text-gray-300 underline underline-offset-1 text-md"
-            >
-              Timelock Contract Address
-            </label>
-            <Tooltip label="Click to copy">
-              <label
-                htmlFor="small-input"
-                className="block mx-1 font-normal text-center text-white hover:text-juno dark:text-gray-300 bg-white/10 rounded cursor-pointer text-md"
-                onClick={async () => {
-                  copy(props.initResponse.contractAddress)
-                }}
-              >
-                {props.initResponse.contractAddress}
-              </label>
-            </Tooltip>
-
-            <label
-              htmlFor="small-input"
-              className="block mx-1 mt-2 font-bold text-white dark:text-gray-300 underline underline-offset-1 text-md"
-            >
-              TxHash
-            </label>
-
-            <Tooltip label="Click to copy">
-              <label
-                htmlFor="small-input"
-                className="block mx-1 text-sm font-normal text-white hover:text-juno dark:text-gray-300 bg-white/10 rounded cursor-pointer"
-                onClick={async () => {
-                  copy(props.initResponse.transactionHash)
-                }}
-              >
-                {props.initResponse.transactionHash}
-              </label>
-            </Tooltip>
-          </div>
-        )}
       </div>
     </div>
   )

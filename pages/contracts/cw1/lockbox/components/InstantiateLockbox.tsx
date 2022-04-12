@@ -10,6 +10,7 @@ import { copy } from '../../../../../utils/clipboard'
 import Tooltip from '../../../../../utils/OperationsTableHelpers/Tooltip'
 
 const InstantiateLockbox = (props: {
+  contractAddress: string
   spinnerFlag: boolean
   initFlag: boolean
   initResponse: any
@@ -18,6 +19,7 @@ const InstantiateLockbox = (props: {
   const [initMsg, setInitMsg] = useState<Record<string, unknown>>({})
   const [admin, setAdmin] = useState('')
   const [flag, setFlag] = useState(false)
+  const { contractAddress } = props
 
   const resetFlags = () => {
     setFlag(false)
@@ -49,7 +51,7 @@ const InstantiateLockbox = (props: {
   return (
     <div className="relative flex-col px-10 mt-5">
       <div className="px-3">
-        <label className="block mb-2 text-5xl font-bold text-left text-white dark:text-gray-300">
+        <label className="block mb-2 text-4xl font-bold text-left text-white dark:text-gray-300">
           Instantiate
         </label>
         <div className="py-2 ">
