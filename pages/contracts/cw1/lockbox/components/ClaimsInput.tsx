@@ -7,19 +7,19 @@ import { copy } from '../../../../../utils/clipboard'
 import Tooltip from '../../../../../utils/OperationsTableHelpers/Tooltip'
 
 type Claim = {
-  address: string
+  addr: string
   amount: string
 }
 
 const ClaimsInput = (props: { function: (arg0: Claim[]) => void }) => {
-  const [address, setAddress] = useState('')
+  const [addr, setAddr] = useState('')
   const [amount, setAmount] = useState('')
   const [claims, setClaims] = useState<Claim[]>([])
 
   const handleAddressChange = (event: {
     target: { value: React.SetStateAction<string> }
   }) => {
-    setAddress(event.target.value)
+    setAddr(event.target.value)
   }
 
   const handleAmountChange = (event: {
@@ -30,7 +30,7 @@ const ClaimsInput = (props: { function: (arg0: Claim[]) => void }) => {
 
   const contain = (): boolean => {
     for (let i = 0; i < claims.length; i++) {
-      if (claims[i].address === address) return true
+      if (claims[i].addr === addr) return true
     }
     return false
   }
@@ -41,7 +41,7 @@ const ClaimsInput = (props: { function: (arg0: Claim[]) => void }) => {
       toast.error('The address already exists.', {
         style: { maxWidth: 'none' },
       })
-    } else if (address.length === 0) {
+    } else if (addr.length === 0) {
       toast.error('The address cannot be empty.', {
         style: { maxWidth: 'none' },
       })
@@ -49,18 +49,18 @@ const ClaimsInput = (props: { function: (arg0: Claim[]) => void }) => {
       toast.error('The amount cannot be zero.', {
         style: { maxWidth: 'none' },
       })
-    } else if (!isValidAddress(address.toString())) {
+    } else if (!isValidAddress(addr.toString())) {
       toast.error('The specified address is not valid.', {
         style: { maxWidth: 'none' },
       })
     } else {
       const nc: Claim = {
-        address,
+        addr,
         amount,
       }
       tempArray = [...claims, nc] as never
       setClaims(tempArray)
-      setAddress('')
+      setAddr('')
       setAmount('')
     }
   }
@@ -68,7 +68,7 @@ const ClaimsInput = (props: { function: (arg0: Claim[]) => void }) => {
   const removeClicked = (address: string) => {
     let tempArray: Claim[] = []
     for (let i = 0; i < claims.length; i++) {
-      if (claims[i].address !== address) {
+      if (claims[i].addr !== address) {
         tempArray.push(claims[i])
       }
     }
@@ -111,7 +111,7 @@ const ClaimsInput = (props: { function: (arg0: Claim[]) => void }) => {
               className="py-2 px-1 w-1/3 bg-white/10 rounded border-2 border-white/20 focus:ring
             focus:ring-plumbus-20
             form-input, placeholder:text-white/50,"
-              value={address}
+              value={addr}
               onChange={handleAddressChange}
               placeholder="Claim Address"
             />
@@ -139,16 +139,16 @@ const ClaimsInput = (props: { function: (arg0: Claim[]) => void }) => {
       <div className="w-full">
         {claims.map((value: Claim, index: Number, array: Claim[]) => {
           return (
-            <div key={value.address}>
+            <div key={value.addr}>
               <div className="p-2 hover:text-juno bg-black bg-opacity-10 rounded">
                 <label>{1 + (index as number) + ' | '}</label>
-                <Tooltip label={value.address}>
+                <Tooltip label={value.addr}>
                   <button
                     type="button"
-                    onClick={() => copy(value.address)}
+                    onClick={() => copy(value.addr)}
                     className="mx-10 text-m"
                   >
-                    {value.address + ' | ' + value.amount}
+                    {value.addr + ' | ' + value.amount}
                   </button>
                 </Tooltip>
 
@@ -156,7 +156,7 @@ const ClaimsInput = (props: { function: (arg0: Claim[]) => void }) => {
                   type="button"
                   className="pl-2 hover:text-juno"
                   onClick={() => {
-                    removeClicked(value.address)
+                    removeClicked(value.addr)
                   }}
                 >
                   x

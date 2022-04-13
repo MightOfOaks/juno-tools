@@ -11,14 +11,17 @@ import Tooltip from '../../../../../utils/OperationsTableHelpers/Tooltip'
 import ClaimsInput from './ClaimsInput'
 
 type Claim = {
-  address: string
+  addr: string
   amount: string
 }
 
-type Expiration = {
-  at_time: number | null
-  at_height: string | null
-}
+type Expiration =
+  | {
+      at_time: string
+    }
+  | {
+      at_height: number
+    }
 
 const CreateLockbox = (props: { contractAddress: string }) => {
   const [contractAddress, setContractAddress] = useState(props.contractAddress)
@@ -30,15 +33,14 @@ const CreateLockbox = (props: { contractAddress: string }) => {
   const [owner, setOwner] = useState('')
   const [claims, setClaims] = useState<Claim[]>([])
   const [expiration, setExpiration] = useState<Expiration>({
-    at_time: 0,
-    at_height: null,
+    at_time: '0',
   })
   const [unit, setUnit] = useState('ujunox')
   const [flag, setFlag] = useState(false)
   const [date, setDate] = useState('')
   const [time, setTime] = useState('')
   const [scheduleType, setScheduleType] = useState('atTime')
-  const [at_height, setHeight] = useState('')
+  const [at_height, setHeight] = useState(0)
   const [native_token, setNativeToken] = useState<string | null>('juno')
   const [cw20_addr, setCw20Addr] = useState<string | null>(null)
 
@@ -77,7 +79,7 @@ const CreateLockbox = (props: { contractAddress: string }) => {
   const handleChangeExecutionHeight = (event: {
     target: { value: React.SetStateAction<string> }
   }) => {
-    setHeight(event.target.value)
+    setHeight(Number(event.target.value))
   }
 
   const handleChangeExecutionDate = (event: {
@@ -116,14 +118,12 @@ const CreateLockbox = (props: { contractAddress: string }) => {
 
   useEffect(() => {
     setExpiration({
-      at_time: getExecutionTimeInNanosecs(),
-      at_height: null,
+      at_time: getExecutionTimeInNanosecs().toString(),
     })
   }, [date, time])
 
   useEffect(() => {
     setExpiration({
-      at_time: null,
       at_height,
     })
   }, [at_height])
