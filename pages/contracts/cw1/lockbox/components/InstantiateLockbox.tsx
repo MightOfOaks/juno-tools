@@ -51,23 +51,40 @@ const InstantiateLockbox = (props: {
   return (
     <div className="relative flex-col px-10 mt-5">
       <div className="px-3">
-        <label className="block mb-2 text-4xl font-bold text-left text-white dark:text-gray-300">
-          Instantiate
-        </label>
-        <div className="py-2 ">
-          <label className="block mb-2 font-bold text-left text-white dark:text-gray-300 text-md">
-            Admin Address
-          </label>
-          <div className="flex-row">
-            <div className="flex">
-              <input
-                type="text"
-                onChange={handleChangeAdmin}
-                className="py-2 px-1 w-2/3 bg-white/10 rounded border-2 border-white/20 focus:ring
+        <div className="flex flex-row">
+          <div className="w-2/5">
+            <label className="block mb-2 text-4xl font-bold text-left text-white dark:text-gray-300">
+              Instantiate
+            </label>
+          </div>
+          <div className="w-2/3">
+            <label className="block mb-2 font-bold text-left text-white dark:text-gray-300 text-md">
+              Admin Address
+            </label>
+            <div className="flex-row">
+              <div className="flex">
+                <input
+                  type="text"
+                  onChange={handleChangeAdmin}
+                  className="py-2 px-1 w-full bg-white/10 rounded border-2 border-white/20 focus:ring
             focus:ring-plumbus-20
             form-input, placeholder:text-white/50,"
-                placeholder="Please enter admin address"
-              />
+                  placeholder="Please enter admin address"
+                />
+              </div>
+              <div className="float-right mt-3">
+                <Button
+                  isLoading={props.spinnerFlag}
+                  isWide
+                  rightIcon={<FaAsterisk />}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    instantiate()
+                  }}
+                >
+                  Instantiate Contract
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -76,18 +93,6 @@ const InstantiateLockbox = (props: {
       <hr className="my-5 mx-3" />
 
       <div className="basis-1/4 px-3 mt-6">
-        <Button
-          isLoading={props.spinnerFlag}
-          isWide
-          rightIcon={<FaAsterisk />}
-          onClick={(e) => {
-            e.preventDefault()
-            instantiate()
-          }}
-        >
-          Instantiate Contract
-        </Button>
-
         {props.initFlag && (
           <div className="float-right basis-1/3 mr-2 ml-3 h-10">
             <label
