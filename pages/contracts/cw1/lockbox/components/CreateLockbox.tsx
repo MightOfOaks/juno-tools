@@ -211,7 +211,7 @@ const CreateLockbox = (props: { contractAddress: string }) => {
             </label>
           </div>
           <div className="w-2/3">
-            <div className="py-2">
+            <div className="py-2 pl-2">
               <label className="block mb-2 font-bold text-left text-white dark:text-gray-300 text-md">
                 Contract Address
               </label>
@@ -228,7 +228,7 @@ const CreateLockbox = (props: { contractAddress: string }) => {
                 </div>
               </div>
             </div>
-            <div className="py-2 ">
+            <div className="py-2 pl-2">
               <label className="block mb-2 font-bold text-left text-white dark:text-gray-300 text-md">
                 Owner Address
               </label>
@@ -245,116 +245,96 @@ const CreateLockbox = (props: { contractAddress: string }) => {
                 </div>
               </div>
             </div>
-            <div className="py-2 ">
-              <div className="flex flex-row">
-                <div className="mr-5 w-1/3">
-                  <label className="block mb-2 font-bold text-left text-white dark:text-gray-300 text-md">
-                    Type
-                  </label>
-                  {unit == 'cw20' && (
-                    <div className="flex-row">
-                      <div className="flex">
-                        <input
-                          type="text"
-                          onChange={handleChangeCw20}
-                          className="py-2 px-1 w-full bg-white/10 rounded border-2 border-white/20 focus:ring
+            {/* Type section */}
+            <div className="grid grid-rows-2 pl-2">
+              <label className="mt-2 font-bold text-left text-white dark:text-gray-300 text-md">
+                Type
+              </label>
+              <select
+                onChange={handleChangeUnit}
+                defaultValue="ujunox"
+                name="time"
+                id="time"
+                className="px-1 h-11 text-white bg-white/10 options:bg-white/50 rounded border-2 border-white/20"
+              >
+                <option className="bg-[#3a3535]" value="ujunox">
+                  ujunox
+                </option>
+                <option className="bg-[#3a3535]" value="cw20">
+                  cw20
+                </option>
+              </select>
+            </div>
+            {/* End of type section */}
+            {/* Scheduled Section */}
+            <div className="grid grid-rows-2 pt-3 pl-2">
+              <div className="mt-4">
+                <label className="block mb-2 font-bold text-left text-white dark:text-gray-300 text-md">
+                  Scheduled
+                </label>
+                {scheduleType == 'atHeight' && (
+                  <div className="flex-row">
+                    <div className="flex">
+                      <input
+                        type="number"
+                        onChange={handleChangeExecutionHeight}
+                        className="py-2 px-1 w-full bg-white/10 rounded border-2 border-white/20 focus:ring
             focus:ring-plumbus-20
             form-input, placeholder:text-white/50,"
-                          placeholder="Please enter cw20 contract address"
+                        placeholder="Please enter execution height"
+                      />
+                    </div>
+                  </div>
+                )}
+                {scheduleType == 'atTime' && (
+                  <div className="flex-row">
+                    <div className="flex">
+                      <div>
+                        <input
+                          type="date"
+                          onChange={handleChangeExecutionDate}
+                          className="py-2 mr-1 bg-white/10 rounded border-2 border-white/20 focus:ring
+        focus:ring-plumbus-20
+        form-input, placeholder:text-white/50,"
+                          placeholder=" Execution Date"
+                        />
+                      </div>
+                      <div>
+                        <input
+                          type="time"
+                          onChange={handleChangeExecutionTime}
+                          className="py-2 mr-2 bg-white/10 rounded border-2 border-white/20 focus:ring
+        focus:ring-plumbus-20
+        form-input, placeholder:text-white/50,"
+                          placeholder=" Execution Time"
                         />
                       </div>
                     </div>
-                  )}
-                </div>
-                <div>
-                  <select
-                    onChange={handleChangeUnit}
-                    defaultValue="ujunox"
-                    name="time"
-                    id="time"
-                    className="float-left px-1 mt-7 h-11 text-white bg-white/10 options:bg-white/50 rounded border-2 border-white/20 basis-1/8"
-                  >
-                    <option className="bg-[#3a3535]" value="ujunox">
-                      ujunox
-                    </option>
-                    <option className="bg-[#3a3535]" value="cw20">
-                      cw20
-                    </option>
-                  </select>
-                </div>
+                  </div>
+                )}
+              </div>
+              <div>
+                <select
+                  onChange={handleChangeScheduleType}
+                  defaultValue="atTime"
+                  name="time"
+                  id="time"
+                  className="float-left px-1 mt-4 h-11 text-white bg-white/10 options:bg-white/50 rounded border-2 border-white/20 basis-1/8"
+                >
+                  <option className="bg-[#3a3535]" value="atTime">
+                    at Time
+                  </option>
+                  <option className="bg-[#3a3535]" value="atHeight">
+                    at Height
+                  </option>
+                </select>
               </div>
             </div>
-            <div className="py-2 ">
-              <div className="flex flex-row">
-                <div className="mr-5 w-1/3">
-                  <div className="ml-10 w-1/3">
-                    <label className="block mb-2 font-bold text-left text-white dark:text-gray-300 text-md">
-                      Scheduled
-                    </label>
-                    {scheduleType == 'atHeight' && (
-                      <div className="flex-row">
-                        <div className="flex">
-                          <input
-                            type="number"
-                            onChange={handleChangeExecutionHeight}
-                            className="py-2 px-1 w-full bg-white/10 rounded border-2 border-white/20 focus:ring
-            focus:ring-plumbus-20
-            form-input, placeholder:text-white/50,"
-                            placeholder="Please enter execution height"
-                          />
-                        </div>
-                      </div>
-                    )}
-                    {scheduleType == 'atTime' && (
-                      <div className="flex-row">
-                        <div className="flex">
-                          <div>
-                            <input
-                              type="date"
-                              onChange={handleChangeExecutionDate}
-                              className="py-2 px-1 mr-1 ml-3 bg-white/10 rounded border-2 border-white/20 focus:ring
-        focus:ring-plumbus-20
-        form-input, placeholder:text-white/50,"
-                              placeholder=" Execution Date"
-                            />
-                          </div>
-                          <div>
-                            <input
-                              type="time"
-                              onChange={handleChangeExecutionTime}
-                              className="py-2 px-1 mr-2 ml-1 bg-white/10 rounded border-2 border-white/20 focus:ring
-        focus:ring-plumbus-20
-        form-input, placeholder:text-white/50,"
-                              placeholder=" Execution Time"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                  <div>
-                    <select
-                      onChange={handleChangeScheduleType}
-                      defaultValue="atTime"
-                      name="time"
-                      id="time"
-                      className="float-left px-1 mt-7 h-11 text-white bg-white/10 options:bg-white/50 rounded border-2 border-white/20 basis-1/8"
-                    >
-                      <option className="bg-[#3a3535]" value="atTime">
-                        at Time
-                      </option>
-                      <option className="bg-[#3a3535]" value="atHeight">
-                        at Height
-                      </option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="py-2 ">
+            {/* End of scheduled */}
+            <div className="">
               <ClaimsInput function={handleChangeClaims} />
             </div>
-            <hr className="my-5 mx-3" />
+            <hr className="my-2 mx-3" />
             <div className="basis-1/4 px-3 mt-6">
               <Button
                 isLoading={spinnerFlag}
