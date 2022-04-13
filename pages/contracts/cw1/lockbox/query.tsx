@@ -83,7 +83,7 @@ const QueryTab: NextPage = () => {
               name="cw20"
               type="text"
               placeholder="juno1234567890abcdefghijklmnopqrstuvwxyz..."
-              value={address}
+              value={contractAddress}
               onChange={(e) => setAddress(e.target.value)}
             />
           </FormControl>

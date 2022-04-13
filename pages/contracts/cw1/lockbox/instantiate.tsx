@@ -51,7 +51,7 @@ const LockboxInstantiatePage: NextPage = () => {
       console.log(initMsg)
       setInitSpinnerFlag(true)
       const response = await contract.instantiate(
-        725,
+        730,
         initMsg,
         'Lockbox Test',
         wallet.address
@@ -59,6 +59,7 @@ const LockboxInstantiatePage: NextPage = () => {
       setInitSpinnerFlag(false)
       setInitResponse(response)
       contract.updateContractAddress(response.contractAddress)
+      setContractAddress(response.contractAddress)
       toast.success('Lockbox contract instantiation successful.', {
         style: { maxWidth: 'none' },
       })
@@ -86,13 +87,14 @@ const LockboxInstantiatePage: NextPage = () => {
         <LinkTabs data={cw1LockboxLinkTabs} activeIndex={0} />
       </form>
       <InstantiateLockbox
-        contractAddress={contractAddress}
         spinnerFlag={initSpinnerFlag}
         initFlag={initResponseFlag}
         initResponse={initResponse}
         function={instantiate}
       />
-      <CreateLockbox contractAddress={contractAddress} />
+
+      <hr className="my-5 mx-3" />
+      <CreateLockbox />
     </div>
   )
 }

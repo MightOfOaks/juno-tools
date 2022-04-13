@@ -23,10 +23,11 @@ type Expiration =
       at_height: number
     }
 
-const CreateLockbox = (props: { contractAddress: string }) => {
-  const [contractAddress, setContractAddress] = useState(props.contractAddress)
-
+const CreateLockbox = () => {
   const contract = useContracts().cw1Lockbox
+  const [contractAddress, setContractAddress] = useState(
+    contract?.getContractAddress() || ''
+  )
   const wallet = useWallet()
   const [msg, setMsg] = useState<Record<string, unknown>>({})
   const [spinnerFlag, setSpinnerFlag] = useState(false)
@@ -218,6 +219,7 @@ const CreateLockbox = (props: { contractAddress: string }) => {
             focus:ring-plumbus-20
             form-input, placeholder:text-white/50,"
                     placeholder="Please enter contract address"
+                    value={contractAddress}
                   />
                 </div>
               </div>
