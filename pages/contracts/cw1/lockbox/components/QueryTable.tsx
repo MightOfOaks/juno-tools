@@ -115,7 +115,7 @@ const LockBoxTable = ({ data, className, ...rest }: LockBoxTableProps) => {
                 <td className="p-4 text-right">{lockbox.total_amount}</td>
 
                 <td className="p-4 text-right">
-                  {lockbox.native_denom.toLocaleUpperCase()}
+                  {lockbox.native_denom?.toLocaleUpperCase()}
                 </td>
                 <td className="p-4">{lockbox.reset ? 'TRUE' : 'FALSE'}</td>
                 <td

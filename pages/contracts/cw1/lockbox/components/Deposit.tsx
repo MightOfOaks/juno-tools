@@ -63,7 +63,7 @@ const Deposit = (props: { contractAddress: string }) => {
           console.log(res)
         }
         setSpinnerFlag(false)
-        toast.success('Successfully made a claim.', {
+        toast.success('Successfully made a deposit.', {
           style: { maxWidth: 'none' },
         })
       } else {
@@ -74,7 +74,7 @@ const Deposit = (props: { contractAddress: string }) => {
     } catch (error: any) {
       setSpinnerFlag(false)
       if (error.message.includes('Unauthorized')) {
-        toast.error('You are not authorized to make a claim.', {
+        toast.error('You are not authorized to make a deposit.', {
           style: { maxWidth: 'none' },
         })
       } else if (error.message.includes('bech32')) {

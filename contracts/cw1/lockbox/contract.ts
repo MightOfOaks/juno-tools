@@ -171,7 +171,6 @@ export const CW1Lockbox = (
           deposit: { id },
         }
       )
-      console.log(response)
       return response || ''
     }
 
