@@ -9,16 +9,16 @@ export const QUERY_ENTRIES: {
   name: string
   description?: string
 }[] = [
-  { id: 'id', name: 'Query with ID', description: 'View specific lockbox' },
   {
     id: 'all',
     name: 'Query List',
     description: 'View list of all lockboxes',
   },
+  { id: 'id', name: 'Query with ID', description: 'View specific lockbox' },
 ]
 
 export interface DispatchQueryProps {
-  id: string
+  id: number
   messages: CW1LockboxInstance | undefined
   type: QueryType
 }

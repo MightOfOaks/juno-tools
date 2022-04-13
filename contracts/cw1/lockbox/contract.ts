@@ -17,7 +17,7 @@ export interface CW1LockboxInstance {
   readonly contractAddress: string
 
   //Query
-  getLockbox: (lockbox_id: string) => Promise<any>
+  getLockbox: (lockbox_id: number) => Promise<any>
   getLockboxes: (start_after?: number, limit?: number) => Promise<any>
 
   //Execute
@@ -66,18 +66,28 @@ export const CW1Lockbox = (
       limit?: number
     ): Promise<any> => {
       const res = await client.queryContractSmart(contractAddress, {
-        List_lock_boxes: { start_after, limit },
+        list_lock_boxes: { start_after, limit },
       })
       return res
     }
 
-    const getLockbox = async (id: string): Promise<any> => {
+    const getLockbox = async (id: number): Promise<any> => {
       const res = await client.queryContractSmart(contractAddress, {
-        get_executors: { id },
+        get_lock_box: { id: id.toString() },
       })
+      console.log(res)
 
       return res
     }
+
+    // const getLockbox = async (id: number): Promise<any> => {
+    //   const res = await client.queryContractSmart(contractAddress, {
+    //     get_lock_box: { id },
+    //   })
+    //   console.log(res)
+
+    //   return res
+    // }
 
     /// EXECUTE
 
