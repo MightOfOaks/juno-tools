@@ -39,7 +39,7 @@ const CreateLockbox = (props: { contractAddress: string }) => {
   const [flag, setFlag] = useState(false)
   const [date, setDate] = useState('')
   const [time, setTime] = useState('')
-  const [scheduleType, setScheduleType] = useState('atTime')
+  const [scheduleType, setScheduleType] = useState('at_time')
   const [at_height, setHeight] = useState(0)
   const [native_token, setNativeToken] = useState<string | null>('juno')
   const [cw20_addr, setCw20Addr] = useState<string | null>(null)
@@ -68,12 +68,6 @@ const CreateLockbox = (props: { contractAddress: string }) => {
     target: { value: React.SetStateAction<string> }
   }) => {
     setUnit(event.target.value)
-  }
-
-  const handleChangeScheduleType = (event: {
-    target: { value: React.SetStateAction<string> }
-  }) => {
-    setScheduleType(event.target.value)
   }
 
   const handleChangeExecutionHeight = (event: {
@@ -250,92 +244,127 @@ const CreateLockbox = (props: { contractAddress: string }) => {
               <label className="mt-2 font-bold text-left text-white dark:text-gray-300 text-md">
                 Type
               </label>
-              <select
-                onChange={handleChangeUnit}
-                defaultValue="ujunox"
-                name="time"
-                id="time"
-                className="px-1 h-11 text-white bg-white/10 options:bg-white/50 rounded border-2 border-white/20"
-              >
-                <option className="bg-[#3a3535]" value="ujunox">
-                  ujunox
-                </option>
-                <option className="bg-[#3a3535]" value="cw20">
-                  cw20
-                </option>
-              </select>
+              <div className="flex flex-row">
+                <select
+                  onChange={handleChangeUnit}
+                  defaultValue="ujunox"
+                  name="type"
+                  id="type"
+                  className="px-1 w-1/5 h-11 text-white bg-white/10 options:bg-white/50 rounded border-2 border-white/20"
+                >
+                  <option className="bg-[#3a3535]" value="ujunox">
+                    ujunox
+                  </option>
+                  <option className="bg-[#3a3535]" value="juno">
+                    juno
+                  </option>
+                  <option className="bg-[#3a3535]" value="cw20">
+                    cw20
+                  </option>
+                </select>
+
+                {unit === 'cw20' && (
+                  <input
+                    type="text"
+                    onChange={handleChangeCw20}
+                    className="py-2 px-1 ml-5 w-full bg-white/10 rounded border-2 border-white/20 focus:ring
+                focus:ring-plumbus-20
+                form-input, placeholder:text-white/50,"
+                    placeholder="Please enter cw20 address"
+                  />
+                )}
+
+                {unit !== 'cw20' && (
+                  <input
+                    type="text"
+                    disabled={true}
+                    className="py-2 px-1 ml-5 w-full bg-white/10 rounded border-2 border-white/20 focus:ring
+                focus:ring-plumbus-10
+                form-input, placeholder:text-white/50,"
+                    placeholder={unit}
+                  />
+                )}
+              </div>
             </div>
             {/* End of type section */}
             {/* Scheduled Section */}
             <div className="grid grid-rows-2 pt-3 pl-2">
-              <div className="mt-4">
-                <label className="block mb-2 font-bold text-left text-white dark:text-gray-300 text-md">
+              <div className="flex flex-row mt-2">
+                <label className="block mb-2 w-1/3 font-bold text-left text-white dark:text-gray-300 text-md">
                   Scheduled
                 </label>
-                {scheduleType == 'atHeight' && (
-                  <div className="flex-row">
-                    <div className="flex">
-                      <input
-                        type="number"
-                        onChange={handleChangeExecutionHeight}
-                        className="py-2 px-1 w-full bg-white/10 rounded border-2 border-white/20 focus:ring
-            focus:ring-plumbus-20
-            form-input, placeholder:text-white/50,"
-                        placeholder="Please enter execution height"
-                      />
-                    </div>
+                {scheduleType === 'at_height' && (
+                  <div className="flex flex-row w-full">
+                    <button className="w-full border border-gray">
+                      At Height
+                    </button>
+
+                    <button
+                      className="ml-20 w-full border border-black"
+                      onClick={() => {
+                        setScheduleType('at_time')
+                        setExpiration({
+                          at_time: getExecutionTimeInNanosecs().toString(),
+                        })
+                      }}
+                    >
+                      At Time
+                    </button>
                   </div>
                 )}
-                {scheduleType == 'atTime' && (
-                  <div className="flex-row">
-                    <div className="flex">
-                      <div>
-                        <input
-                          type="date"
-                          onChange={handleChangeExecutionDate}
-                          className="py-2 mr-1 bg-white/10 rounded border-2 border-white/20 focus:ring
-        focus:ring-plumbus-20
-        form-input, placeholder:text-white/50,"
-                          placeholder=" Execution Date"
-                        />
-                      </div>
-                      <div>
-                        <input
-                          type="time"
-                          onChange={handleChangeExecutionTime}
-                          className="py-2 mr-2 bg-white/10 rounded border-2 border-white/20 focus:ring
-        focus:ring-plumbus-20
-        form-input, placeholder:text-white/50,"
-                          placeholder=" Execution Time"
-                        />
-                      </div>
-                    </div>
+                {scheduleType !== 'at_height' && (
+                  <div className="flex flex-row w-full">
+                    <button
+                      className="w-full border border-black"
+                      onClick={() => {
+                        setScheduleType('at_height')
+                        setExpiration({
+                          at_height,
+                        })
+                      }}
+                    >
+                      At Height
+                    </button>
+                    <button className="ml-20 w-full border border-gray">
+                      {' '}
+                      At Time{' '}
+                    </button>
                   </div>
                 )}
               </div>
-              <div>
-                <select
-                  onChange={handleChangeScheduleType}
-                  defaultValue="atTime"
-                  name="time"
-                  id="time"
-                  className="float-left px-1 mt-4 h-11 text-white bg-white/10 options:bg-white/50 rounded border-2 border-white/20 basis-1/8"
-                >
-                  <option className="bg-[#3a3535]" value="atTime">
-                    at Time
-                  </option>
-                  <option className="bg-[#3a3535]" value="atHeight">
-                    at Height
-                  </option>
-                </select>
+              <div className="flex flex-row my-2">
+                <input
+                  type="number"
+                  disabled={scheduleType === 'at_time'}
+                  onChange={handleChangeExecutionHeight}
+                  className="py-2 px-1 w-1/2 bg-white/10 rounded border-2 border-white/20 focus:ring
+            focus:ring-plumbus-20
+            form-input, placeholder:text-white/50,"
+                  placeholder="Please enter execution height"
+                />
+                <input
+                  type="date"
+                  disabled={scheduleType === 'at_height'}
+                  onChange={handleChangeExecutionDate}
+                  className="py-2 mr-1 ml-40 bg-white/10 rounded border-2 border-white/20 focus:ring
+        focus:ring-plumbus-20
+        form-input, placeholder:text-white/50,"
+                  placeholder=" Execution Date"
+                />
+                <input
+                  type="time"
+                  disabled={scheduleType === 'at_height'}
+                  onChange={handleChangeExecutionTime}
+                  className="py-2 mr-2 ml-1 bg-white/10 rounded border-2 border-white/20 focus:ring
+        focus:ring-plumbus-20
+        form-input, placeholder:text-white/50,"
+                  placeholder=" Execution Time"
+                />
               </div>
             </div>
             {/* End of scheduled */}
-            <div className="">
-              <ClaimsInput function={handleChangeClaims} />
-            </div>
-            <hr className="my-2 mx-3" />
-            <div className="basis-1/4 px-3 mt-6">
+            <ClaimsInput function={handleChangeClaims} />
+            <div className="float-right basis-1/4 px-3 my-6">
               <Button
                 isLoading={spinnerFlag}
                 isWide

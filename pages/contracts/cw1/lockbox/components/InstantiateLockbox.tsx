@@ -59,17 +59,18 @@ const InstantiateLockbox = (props: {
           </div>
           <div className="w-2/3">
             <label className="block mb-2 font-bold text-left text-white dark:text-gray-300 text-md">
-              Admin Address
+              New Contract Info
             </label>
             <div className="flex-row">
               <div className="flex">
                 <input
-                  type="text"
+                  type="text-area"
+                  disabled={true}
                   onChange={handleChangeAdmin}
                   className="py-2 px-1 w-full bg-white/10 rounded border-2 border-white/20 focus:ring
             focus:ring-plumbus-20
             form-input, placeholder:text-white/50,"
-                  placeholder="Please enter admin address"
+                  placeholder="Contract Address: TxHash:"
                 />
               </div>
               <div className="float-right mt-3">
