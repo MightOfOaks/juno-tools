@@ -28,14 +28,14 @@ const LockBoxTable = ({ data, className, ...rest }: LockBoxTableProps) => {
         selectedLockbox.claims &&
         selectedLockbox.claims?.length > 0
       ) {
-        for (let i = 0; i < selectedLockbox.claims?.length; i++) {
+        for (let i = 0; i <= selectedLockbox.claims?.length; i++) {
           return (
             <label
               htmlFor="small-input"
-              className="block mx-3 mb-1 text-sm font-bold text-gray-900 dark:text-gray-300"
+              className="block mx-3 mb-1 text-sm font-bold text-gray-300"
             >
               {selectedLockbox.claims[i].addr +
-                ' ' +
+                ' | ' +
                 selectedLockbox.claims[i].amount}
             </label>
           )
@@ -95,8 +95,8 @@ const LockBoxTable = ({ data, className, ...rest }: LockBoxTableProps) => {
                   </div>
                 </td>
                 <td className="p-4 text-right">
-                  {lockbox.expiration.at_time == ''
-                    ? lockbox.expiration.at_height
+                  {!lockbox.expiration.at_time
+                    ? '# ' + lockbox.expiration.at_height
                     : new Date(
                         Number(lockbox.expiration.at_time) / 1000000
                       ).toLocaleString()}

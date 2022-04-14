@@ -48,6 +48,7 @@ const QueryTab: NextPage = () => {
       if (type == 'all') {
         const lockboxList = await client?.getLockboxes()
         setQueryResult(lockboxList.lockboxes)
+        console.log(queryResult)
       } else {
         const lockbox = await client?.getLockbox(queryBoxId)
         setQueryResult([lockbox])
@@ -193,7 +194,7 @@ const QueryTab: NextPage = () => {
           <div className="m-5 mx-10 text-center border-dark/20">
             <div className="flex flex-col items-center p-3 w-full h-32 rounded-xl border">
               <div className="flex items-center mb-1 text-lg font-bold">
-                {' NO OPERATIONS FOUND '}
+                {' NO LOCKBOX FOUND '}
               </div>
             </div>
           </div>
