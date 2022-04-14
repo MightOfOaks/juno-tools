@@ -32,6 +32,10 @@ const QueryTab: NextPage = () => {
   const [contractAddress, setContractAddress] = useState(
     contract?.getContractAddress() || ''
   )
+  const [topList, setTopList] = useState([0])
+  const [nextPage, setNextPage] = useState(false)
+
+  const operationCountOnPage = 5
 
   const query = async () => {
     try {
@@ -49,6 +53,40 @@ const QueryTab: NextPage = () => {
         const lockboxList = await client?.getLockboxes()
         setQueryResult(lockboxList.lockboxes)
         console.log(queryResult)
+
+        await setNextPage(
+          operationCountOnPage + 1 > lockboxList.length ? true : false
+        )
+
+        let list = topList
+
+        if (list.length > pageNumber + 1) {
+          list[pageNumber + 1] = lockboxList[lockboxList.length - 2]?.id
+        } else {
+          list.push(lockboxList[lockboxList.length - 2]?.id)
+        }
+        await setTopList(list)
+
+        let indexMax =
+          operationCountOnPage < lockboxList.length
+            ? operationCountOnPage
+            : lockboxList.length
+        for (let i = 0; i < indexMax; i++) {
+          setQueryResult((prevData) =>
+            prevData.concat(
+              new LockBox(
+                lockboxList[i].id,
+                lockboxList[i].native_denom,
+                lockboxList[i].cw20_addr,
+                lockboxList[i].owner,
+                lockboxList[i].resetted,
+                lockboxList[i].total_amount,
+                lockboxList[i].expiration,
+                lockboxList[i].claims
+              )
+            )
+          )
+        }
       } else {
         const lockbox = await client?.getLockbox(queryBoxId)
         setQueryResult([lockbox])

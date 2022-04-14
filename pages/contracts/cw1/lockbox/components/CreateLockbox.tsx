@@ -31,7 +31,7 @@ const CreateLockbox = (props: { newAddress: string }) => {
   const [msg, setMsg] = useState<Record<string, unknown>>({})
   const [spinnerFlag, setSpinnerFlag] = useState(false)
   const [owner, setOwner] = useState('')
-  const [raw_claims, setRawClaims] = useState<Claim[]>([])
+  const [rawclaims, setRawClaims] = useState<Claim[]>([])
   const [expiration, setExpiration] = useState<Expiration>({
     at_time: '0',
   })
@@ -136,13 +136,13 @@ const CreateLockbox = (props: { newAddress: string }) => {
     setMsg({
       create_lockbox: {
         owner,
-        raw_claims,
+        rawclaims,
         expiration,
         native_token,
         cw20_addr,
       },
     })
-  }, [owner, raw_claims, expiration, native_token, cw20_addr])
+  }, [owner, rawclaims, expiration, native_token, cw20_addr])
 
   const create = async () => {
     try {
@@ -187,7 +187,7 @@ const CreateLockbox = (props: { newAddress: string }) => {
         toast.error('Enter a valid date and time', {
           style: { maxWidth: 'none' },
         })
-      } else if (raw_claims.length === 0) {
+      } else if (rawclaims.length === 0) {
         toast.error('Claims list cannot be empty', {
           style: { maxWidth: 'none' },
         })
