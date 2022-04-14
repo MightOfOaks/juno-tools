@@ -303,11 +303,11 @@ const CreateLockbox = () => {
             </div>
             {/* End of type section */}
             {/* Scheduled Section */}
-            <div className="grid grid-rows-2 pt-3 pl-2">
-              <div className="flex flex-row mt-2">
-                <label className="block mb-2 w-1/3 font-bold text-left text-white dark:text-gray-300 text-md">
-                  Expiration
-                </label>
+            <div className="grid grid-rows-2 pt-7 pl-2">
+              <label className="block w-1/3 font-bold text-left text-white dark:text-gray-300 text-md">
+                Expiration
+              </label>
+              <div className="flex flex-row">
                 {scheduleType === 'at_height' && (
                   <div className="flex flex-row w-full">
                     <button className="w-full border border-gray">
@@ -315,7 +315,7 @@ const CreateLockbox = () => {
                     </button>
 
                     <button
-                      className="ml-20 w-full border border-black"
+                      className="p-3 ml-20 w-full border border-black"
                       onClick={() => {
                         setScheduleType('at_time')
                         setExpiration({
@@ -340,7 +340,7 @@ const CreateLockbox = () => {
                     >
                       At Height
                     </button>
-                    <button className="ml-20 w-full border border-gray">
+                    <button className="p-3 ml-20 w-full border border-gray">
                       {' '}
                       At Time{' '}
                     </button>
@@ -361,7 +361,7 @@ const CreateLockbox = () => {
                   type="date"
                   disabled={scheduleType === 'at_height'}
                   onChange={handleChangeExecutionDate}
-                  className="py-2 mr-1 ml-40 bg-white/10 rounded border-2 border-white/20 focus:ring
+                  className="py-2 mr-1 ml-8 bg-white/10 rounded border-2 border-white/20 focus:ring
         focus:ring-plumbus-20
         form-input, placeholder:text-white/50,"
                   placeholder=" Execution Date"
@@ -370,7 +370,7 @@ const CreateLockbox = () => {
                   type="time"
                   disabled={scheduleType === 'at_height'}
                   onChange={handleChangeExecutionTime}
-                  className="py-2 mr-2 ml-1 bg-white/10 rounded border-2 border-white/20 focus:ring
+                  className="py-2 mr-0 ml-1 bg-white/10 rounded border-2 border-white/20 focus:ring
         focus:ring-plumbus-20
         form-input, placeholder:text-white/50,"
                   placeholder=" Execution Time"
