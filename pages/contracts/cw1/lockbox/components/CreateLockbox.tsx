@@ -350,7 +350,7 @@ const CreateLockbox = (props: { newAddress: string }) => {
                   onChange={handleChangeExecutionHeight}
                   className="py-2 px-1 w-2/3 bg-white/10 rounded border-2 border-white/20 focus:ring
             focus:ring-plumbus-20
-            form-input, placeholder:text-white/50,"
+            disabled:opacity-40 form-input, placeholder:text-white/50,"
                   placeholder="Please specify a block height"
                 />
                 <input
@@ -359,7 +359,7 @@ const CreateLockbox = (props: { newAddress: string }) => {
                   onChange={handleChangeExecutionDate}
                   className="py-2 mr-3 ml-20 w-1/2 bg-white/10 rounded border-2 border-white/20 focus:ring
         focus:ring-plumbus-20
-        form-input, placeholder:text-white/50,"
+        disabled:opacity-40 form-input, placeholder:text-white/50,"
                   placeholder=" Execution Date"
                 />
                 <input
@@ -368,7 +368,7 @@ const CreateLockbox = (props: { newAddress: string }) => {
                   onChange={handleChangeExecutionTime}
                   className="py-2 mr-0 ml-1 bg-white/10 rounded border-2 border-white/20 focus:ring
         focus:ring-plumbus-20
-        form-input, placeholder:text-white/50,"
+        disabled:opacity-40 form-input, placeholder:text-white/50,"
                   placeholder=" Execution Time"
                 />
               </div>
