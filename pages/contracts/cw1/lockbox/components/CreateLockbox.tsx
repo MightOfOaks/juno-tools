@@ -291,17 +291,6 @@ const CreateLockbox = (props: { newAddress: string }) => {
                     placeholder="Please enter cw20 address"
                   />
                 )}
-
-                {unit !== 'cw20' && (
-                  <input
-                    type="text"
-                    disabled={true}
-                    className="py-2 px-1 ml-5 w-full bg-white/10 rounded border-2 border-white/20 focus:ring
-                focus:ring-plumbus-10
-                form-input, placeholder:text-white/50,"
-                    placeholder={unit}
-                  />
-                )}
               </div>
             </div>
             {/* End of type section */}
