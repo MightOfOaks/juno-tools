@@ -141,7 +141,7 @@ const LockBoxTable = ({ data, className, ...rest }: LockBoxTableProps) => {
                   <div className="basis-1/4 flex-col my-4 font-bold">
                     <div>Native Denom </div>
                     <div className="overflow-auto mx-3 font-normal h-50">
-                      {selectedLockbox?.native_denom.toLocaleUpperCase()}
+                      {selectedLockbox?.native_denom?.toLocaleUpperCase()}
                     </div>
                   </div>
                   {selectedLockbox?.cw20_addr && (
