@@ -293,7 +293,7 @@ const CreateLockbox = () => {
             <div className="grid grid-rows-2 pt-3 pl-2">
               <div className="flex flex-row mt-2">
                 <label className="block mb-2 w-1/3 font-bold text-left text-white dark:text-gray-300 text-md">
-                  Scheduled
+                  Expiration
                 </label>
                 {scheduleType === 'at_height' && (
                   <div className="flex flex-row w-full">

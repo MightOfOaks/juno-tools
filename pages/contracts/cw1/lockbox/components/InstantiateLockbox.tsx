@@ -52,7 +52,7 @@ const InstantiateLockbox = (props: {
                 <input
                   type="text"
                   disabled={true}
-                  className="py-2 px-1 w-full bg-white/10 rounded border-2 border-white/20 focus:ring
+                  className="py-2 px-1 w-full bg-white/10 rounded focus:ring
             focus:ring-plumbus-20
             form-input, placeholder:text-white/50,"
                   placeholder=""
@@ -71,7 +71,7 @@ const InstantiateLockbox = (props: {
                 <input
                   type="text"
                   disabled={true}
-                  className="py-2 px-1 w-full bg-white/10 rounded border-2 border-white/20 focus:ring
+                  className="py-2 px-1 w-full bg-white/10 rounded focus:ring
             focus:ring-plumbus-20
             form-input, placeholder:text-white/50,"
                   placeholder=""
