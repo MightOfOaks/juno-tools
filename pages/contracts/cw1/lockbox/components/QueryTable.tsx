@@ -21,42 +21,6 @@ const LockBoxTable = ({ data, className, ...rest }: LockBoxTableProps) => {
   const [selectedLockbox, setSelectedLockbox] = useState<LockBox>()
   const [detailsModal, setDetailsModal] = useState(false)
 
-  const renderClaims = () => {
-    try {
-      if (
-        selectedLockbox &&
-        selectedLockbox.claims &&
-        selectedLockbox.claims?.length > 0
-      ) {
-        for (let i = 0; i <= selectedLockbox.claims?.length; i++) {
-          return (
-            <label
-              htmlFor="small-input"
-              className="block mx-3 mb-1 text-sm font-bold text-gray-300"
-            >
-              {selectedLockbox.claims[i].addr +
-                ' | ' +
-                selectedLockbox.claims[i].amount}
-            </label>
-          )
-        }
-      } else {
-        return (
-          <div className="basis-1/4 flex-col my-1">
-            <label
-              htmlFor="small-input"
-              className="block mx-3 mb-1 font-normal text-white dark:text-gray-300"
-            >
-              No claimers provided for this lockbox
-            </label>
-          </div>
-        )
-      }
-    } catch (err: any) {
-      toast.error('Error: ' + err.message, { style: { maxWidth: 'none' } })
-    }
-  }
-
   return (
     <div>
       <table className={clsx('min-w-full', className)} {...rest}>
@@ -176,7 +140,30 @@ const LockBoxTable = ({ data, className, ...rest }: LockBoxTableProps) => {
                   </div>
                   <div className="overflow-auto basis-1/4 flex-col mt-3 mb-1 font-bold h-50">
                     <div>Claims</div>
-                    {renderClaims()}
+                    {selectedLockbox &&
+                    selectedLockbox.claims &&
+                    selectedLockbox.claims?.length > 0 ? (
+                      selectedLockbox.claims.map((claim, index) => {
+                        return (
+                          <label
+                            key={index}
+                            htmlFor="small-input"
+                            className="block mx-3 mb-1 text-sm font-bold text-gray-300"
+                          >
+                            {claim.addr + ' | ' + claim.amount}
+                          </label>
+                        )
+                      })
+                    ) : (
+                      <div className="basis-1/4 flex-col my-1">
+                        <label
+                          htmlFor="small-input"
+                          className="block mx-3 mb-1 font-normal text-white dark:text-gray-300"
+                        >
+                          No claimers provided for this lockbox
+                        </label>
+                      </div>
+                    )}
                   </div>
                 </div>
               </label>
