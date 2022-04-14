@@ -54,7 +54,6 @@ const InstantiateLockbox = (props: {
               >
                 <input
                   type="text"
-                  disabled={true}
                   className="py-2 px-1 w-full placeholder:text-white/50 bg-white/10 rounded
             focus:ring
             focus:ring-plumbus-20 cursor-pointer form-input,"
@@ -64,8 +63,7 @@ const InstantiateLockbox = (props: {
                       : 'Contract address will be here after instantiation'
                   }
                   onClick={async () => {
-                    if (props.initFlag)
-                      await copy(props.initResponse.contractAddress)
+                    if (props.initFlag) copy(props.initResponse.contractAddress)
                   }}
                   value={
                     props.initFlag ? props.initResponse.contractAddress : ''
@@ -83,7 +81,6 @@ const InstantiateLockbox = (props: {
               >
                 <input
                   type="text"
-                  disabled={true}
                   className="py-2 px-1 w-full bg-white/10 rounded focus:ring focus:ring-plumbus-20
             cursor-pointer
             form-input, placeholder:text-white/50,"
