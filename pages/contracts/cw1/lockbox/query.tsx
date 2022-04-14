@@ -126,13 +126,13 @@ const QueryTab: NextPage = () => {
       <div className="grid p-4 space-x-8">
         <div className="space-y-8">
           <FormControl
-            title="CW20 Address"
-            subtitle="Address of the CW20 token"
+            title="Lockbox Address"
+            subtitle="Address of the Lockbox"
             htmlId="contract-address"
           >
             <Input
               id="contract-address"
-              name="cw20"
+              name="lockbox"
               type="text"
               placeholder="juno1234567890abcdefghijklmnopqrstuvwxyz..."
               value={contractAddress}
