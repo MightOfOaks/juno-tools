@@ -136,7 +136,7 @@ const Deposit = (props: { contractAddress: string }) => {
   }
 
   return (
-    <div className="p-8 pt-0 ml-10 w-3/4">
+    <div className="p-8 pt-0 ml-10 w-4/5">
       <div className="flex justify-items-start mb-3 ml-3">
         <div className="form-check form-check-inline">
           <input
@@ -179,7 +179,7 @@ const Deposit = (props: { contractAddress: string }) => {
           </label>
         </div>
       </div>
-      <div className="basis-1/2 flex-col my-0">
+      <div className="flex-col my-0">
         <div className="flex">
           <label
             htmlFor="small-input"
@@ -241,12 +241,12 @@ const Deposit = (props: { contractAddress: string }) => {
               </Tooltip>
             </div>
 
-            <div className="flex mt-1 w-full">
+            <div className="flex relative mt-1 mb-12 w-full">
               <div>
                 <input
                   type="text"
                   onChange={handleChangeCW20ContractAddress}
-                  className="py-2 px-1 mx-3 w-full bg-white/10 rounded border-2 border-white/20 focus:ring
+                  className="absolute py-2 px-1 mx-3 w-[130%] text-sm bg-white/10 rounded border-2 border-white/20 focus:ring
               focus:ring-plumbus-20
               form-input, placeholder:text-white/50,"
                   placeholder="CW20 Contract Address"
