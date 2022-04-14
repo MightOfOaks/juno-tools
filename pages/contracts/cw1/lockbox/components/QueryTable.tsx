@@ -139,13 +139,20 @@ const LockBoxTable = ({ data, className, ...rest }: LockBoxTableProps) => {
                     {' Lockbox ID: ' + selectedLockbox?.id}
                   </div>
                   <div className="basis-1/4 flex-col my-4 font-bold">
-                    <div>cw20 Address</div>
+                    <div>Native Denom </div>
                     <div className="overflow-auto mx-3 font-normal h-50">
-                      {selectedLockbox?.cw20_addr
-                        ? selectedLockbox.cw20_addr
-                        : 'No data provided.'}
+                      {selectedLockbox?.native_denom.toLocaleUpperCase()}
                     </div>
                   </div>
+                  {selectedLockbox?.cw20_addr && (
+                    <div className="basis-1/4 flex-col my-4 font-bold">
+                      <div>cw20 Address</div>(
+                      <div className="overflow-auto mx-3 font-normal h-50">
+                        {selectedLockbox?.cw20_addr}
+                      </div>
+                      )
+                    </div>
+                  )}
                   <div className="overflow-auto basis-1/4 flex-col mt-3 mb-1 font-bold h-50">
                     <div>Claims</div>
                     {selectedLockbox &&
