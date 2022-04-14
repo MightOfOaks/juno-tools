@@ -5,9 +5,8 @@ import { useWallet } from 'contexts/wallet'
 import React, { useEffect, useState } from 'react'
 import toast, { resolveValue } from 'react-hot-toast'
 import { FaAsterisk } from 'react-icons/fa'
+import { isValidAddress } from 'utils/isValidAddress'
 
-import { copy } from '../../../../../utils/clipboard'
-import Tooltip from '../../../../../utils/OperationsTableHelpers/Tooltip'
 import ClaimsInput from './ClaimsInput'
 
 type Claim = {
@@ -144,49 +143,63 @@ const CreateLockbox = () => {
 
   const create = async () => {
     try {
-      setSpinnerFlag(true)
       const client = contract?.use(contractAddress)
       if (!client || !wallet) {
         toast.error('Wallet Or Client Error', { style: { maxWidth: 'none' } })
       }
-      console.log(msg)
-      const res = await client?.create(wallet.address, msg)
-      console.log(res)
-      /*if (!(isNaN(lockboxId) || Number(lockboxId) < 1)) {
-                setSpinnerFlag(true)
-                if (nativeCoinFlag) {
-                    const res = await client?.deposit_native(
-                        wallet.address,
-                        lockboxId.toString(),
-                        amount,
-                        'ujunox'
-                    )
-                    console.log(res)
-                } else {
-                    const res = await client?.deposit_cw20(
-                        wallet.address,
-                        lockboxId.toString(),
-                        amount,
-                        cw20Client
-                    )
-                    console.log(res)
-                }
-                setSpinnerFlag(false)
-                toast.success('Successfully made a claim.', {
-                    style: { maxWidth: 'none' },
-                })
-            } else {
-                toast.error('You need to specify a valid Lockbox ID.', {
-                    style: { maxWidth: 'none' },
-                })
-            }*/
-    } catch (error: any) {
-      setSpinnerFlag(false)
-      if (error.message.includes('Unauthorized')) {
-        toast.error('You are not authorized to make a claim.', {
+      if (contractAddress.length === 0) {
+        toast.error('Contract Address can not be empty', {
           style: { maxWidth: 'none' },
         })
-      } else if (error.message.includes('bech32')) {
+      } else if (!isValidAddress(contractAddress.toString())) {
+        toast.error('Contract address is not valid.', {
+          style: { maxWidth: 'none' },
+        })
+      } else if (owner.length === 0) {
+        toast.error('Owner Address can not be empty', {
+          style: { maxWidth: 'none' },
+        })
+      } else if (!isValidAddress(owner.toString())) {
+        toast.error('Owner address is not valid.', {
+          style: { maxWidth: 'none' },
+        })
+      } else if (unit === 'cw20' && (!cw20_addr || cw20_addr?.length === 0)) {
+        toast.error('Cw20 Address can not be empty', {
+          style: { maxWidth: 'none' },
+        })
+      } else if (
+        unit === 'cw20' &&
+        cw20_addr &&
+        !isValidAddress(cw20_addr.toString())
+      ) {
+        toast.error('Cw20 address is not valid.', {
+          style: { maxWidth: 'none' },
+        })
+      } else if (scheduleType === 'at_height' && at_height <= 0) {
+        toast.error('Enter a valid height', { style: { maxWidth: 'none' } })
+      } else if (
+        scheduleType === 'at_height' &&
+        (date.length === 0 || time.length === 0)
+      ) {
+        toast.error('Enter a valid date and time', {
+          style: { maxWidth: 'none' },
+        })
+      } else if (claims.length === 0) {
+        toast.error('Claims list cannot be empty', {
+          style: { maxWidth: 'none' },
+        })
+      } else {
+        setSpinnerFlag(true)
+        const res = await client?.create(wallet.address, msg)
+        setSpinnerFlag(false)
+        toast.success('Successfully created new lockbox.', {
+          style: { maxWidth: 'none' },
+        })
+        contract?.updateContractAddress(contractAddress)
+      }
+    } catch (error: any) {
+      setSpinnerFlag(false)
+      if (error.message.includes('bech32')) {
         toast.error('You need to specify a valid Lockbox contract address.', {
           style: { maxWidth: 'none' },
         })
