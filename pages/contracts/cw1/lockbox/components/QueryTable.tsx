@@ -1,7 +1,6 @@
 import clsx from 'clsx'
 import { useWallet } from 'contexts/wallet'
 import { DetailedHTMLProps, TableHTMLAttributes, useState } from 'react'
-import toast from 'react-hot-toast'
 import { copy } from 'utils/clipboard'
 import { LockBox } from 'utils/models'
 import Tooltip from 'utils/OperationsTableHelpers/Tooltip'
@@ -21,6 +20,13 @@ const LockBoxTable = ({ data, className, ...rest }: LockBoxTableProps) => {
   const [selectedLockbox, setSelectedLockbox] = useState<LockBox>()
   const [detailsModal, setDetailsModal] = useState(false)
 
+  const calculateTotalClaim = (lockbox: LockBox) => {
+    const totalClaim = lockbox.claims.reduce(
+      (acc, claim) => acc + Number(claim.amount),
+      0
+    )
+    return totalClaim
+  }
   return (
     <div>
       <table className={clsx('min-w-full', className)} {...rest}>
@@ -29,8 +35,8 @@ const LockBoxTable = ({ data, className, ...rest }: LockBoxTableProps) => {
             <th className="p-3 text-center">ID</th>
             <th className="p-3 text-center">Deadline</th>
             <th className="p-3 text-center">Owner</th>
-            <th className="p-3 text-center">Total Amount</th>
-            <th className="p-3 text-center">Native Denom</th>
+            <th className="p-3 text-center">Total Desposit</th>
+            <th className="p-3 text-center">Total Claim</th>
             <th className="p-3 text-center">Reset?</th>
             <th className={clsx('p-3', { hidden: !wallet.address })}></th>
           </tr>
@@ -76,10 +82,12 @@ const LockBoxTable = ({ data, className, ...rest }: LockBoxTableProps) => {
                   </Tooltip>
                 </td>
 
-                <td className="p-4 text-right">{lockbox.total_amount}</td>
+                <td className="p-4 text-right">
+                  {Number(lockbox.total_amount) - calculateTotalClaim(lockbox)}
+                </td>
 
                 <td className="p-4 text-right">
-                  {lockbox.native_denom?.toLocaleUpperCase()}
+                  {calculateTotalClaim(lockbox)}
                 </td>
                 <td className="p-4">{lockbox.reset ? 'TRUE' : 'FALSE'}</td>
                 <td
