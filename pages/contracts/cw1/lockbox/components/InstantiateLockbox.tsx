@@ -48,20 +48,24 @@ const InstantiateLockbox = (props: {
               <label className="block mx-1 font-bold text-white dark:text-gray-300 underline underline-offset-1 text-md">
                 Lockbox Contract Address
               </label>
-              <Tooltip label="Click to copy">
+              <Tooltip
+                label="Click to copy"
+                style={{ display: props.initFlag ? 'block' : 'none' }}
+              >
                 <input
                   type="text"
                   disabled={true}
-                  className="py-2 px-1 w-full bg-white/10 rounded focus:ring
-            focus:ring-plumbus-20
-            form-input, placeholder:text-white/50,"
+                  className="py-2 px-1 w-full placeholder:text-white/50 bg-white/10 rounded
+            focus:ring
+            focus:ring-plumbus-20 cursor-pointer form-input,"
                   placeholder={
                     props.initFlag
                       ? ''
                       : 'Contract address will be here after instantiation'
                   }
                   onClick={async () => {
-                    if (props.initFlag) copy(props.initResponse.contractAddress)
+                    if (props.initFlag)
+                      await copy(props.initResponse.contractAddress)
                   }}
                   value={
                     props.initFlag ? props.initResponse.contractAddress : ''
@@ -73,12 +77,15 @@ const InstantiateLockbox = (props: {
                 TxHash
               </label>
 
-              <Tooltip label="Click to copy">
+              <Tooltip
+                label="Click to copy"
+                style={{ display: props.initFlag ? 'block' : 'none' }}
+              >
                 <input
                   type="text"
                   disabled={true}
-                  className="py-2 px-1 w-full bg-white/10 rounded focus:ring
-            focus:ring-plumbus-20
+                  className="py-2 px-1 w-full bg-white/10 rounded focus:ring focus:ring-plumbus-20
+            cursor-pointer
             form-input, placeholder:text-white/50,"
                   placeholder={
                     props.initFlag
