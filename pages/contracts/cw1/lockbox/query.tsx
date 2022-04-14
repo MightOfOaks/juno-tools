@@ -104,6 +104,7 @@ const QueryTab: NextPage = () => {
             name="query-type"
             className={clsx(
               'bg-white/10 rounded border-2 border-white/20 form-select',
+              'options:bg-yellow',
               'placeholder:text-white/50',
               'focus:ring focus:ring-plumbus-20'
             )}

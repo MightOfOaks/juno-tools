@@ -181,7 +181,7 @@ const CreateLockbox = (props: { newAddress: string }) => {
       } else if (scheduleType === 'at_height' && at_height <= 0) {
         toast.error('Enter a valid height', { style: { maxWidth: 'none' } })
       } else if (
-        scheduleType === 'at_height' &&
+        scheduleType === 'at_time' &&
         (date.length === 0 || time.length === 0)
       ) {
         toast.error('Enter a valid date and time', {
