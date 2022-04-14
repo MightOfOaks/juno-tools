@@ -35,7 +35,7 @@ const QueryTab: NextPage = () => {
   const [topList, setTopList] = useState([0])
   const [nextPage, setNextPage] = useState(false)
 
-  const operationCountOnPage = 10
+  const lockboxCountOnPage = 10
 
   const query = async () => {
     try {
@@ -52,14 +52,14 @@ const QueryTab: NextPage = () => {
       if (type == 'all') {
         const lockboxLists = await client?.getLockboxes(
           Number(topList[pageNumber]?.toString()),
-          operationCountOnPage + 1
+          lockboxCountOnPage + 1
         )
 
         const lockboxList = lockboxLists.lockboxes
         console.log(queryResult)
 
         await setNextPage(
-          operationCountOnPage + 1 > lockboxList.length ? true : false
+          lockboxCountOnPage + 1 > lockboxList.length ? true : false
         )
 
         let list = topList
@@ -72,8 +72,8 @@ const QueryTab: NextPage = () => {
         await setTopList(list)
 
         let indexMax =
-          operationCountOnPage < lockboxList.length
-            ? operationCountOnPage
+          lockboxCountOnPage < lockboxList.length
+            ? lockboxCountOnPage
             : lockboxList.length
         for (let i = 0; i < indexMax; i++) {
           setQueryResult((prevData) =>
@@ -99,7 +99,10 @@ const QueryTab: NextPage = () => {
       setIsLoading(false)
     } catch (error: any) {
       setIsLoading(false)
-      if (error.message.includes('bech32 failed')) {
+      if (
+        error.message.includes('bech32 failed') ||
+        error.message.includes('empty address string is not allowed')
+      ) {
         toast.error('You need to specify a valid Lockbox contract address.', {
           style: { maxWidth: 'none' },
         })

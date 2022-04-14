@@ -35,9 +35,10 @@ const LockBoxTable = ({ data, className, ...rest }: LockBoxTableProps) => {
             <th className="p-3 text-center">ID</th>
             <th className="p-3 text-center">Deadline</th>
             <th className="p-3 text-center">Owner</th>
-            <th className="p-3 text-center">Total Desposit</th>
+            <th className="p-3 text-center">Total Deposit</th>
             <th className="p-3 text-center">Total Claim</th>
             <th className="p-3 text-center">Reset?</th>
+            <th className="p-3 text-center">Expired?</th>
             <th className={clsx('p-3', { hidden: !wallet.address })}></th>
           </tr>
         </thead>
@@ -64,15 +65,15 @@ const LockBoxTable = ({ data, className, ...rest }: LockBoxTableProps) => {
                     </div>
                   </div>
                 </td>
-                <td className="p-4 text-right">
+                <td className="p-2 text-center">
                   {!lockbox.expiration.at_time
-                    ? '# ' + lockbox.expiration.at_height
+                    ? 'Block Height #' + lockbox.expiration.at_height
                     : new Date(
                         Number(lockbox.expiration.at_time) / 1000000
                       ).toLocaleString()}
                 </td>
                 <td
-                  className="p-4 text-right hover:text-juno cursor-pointer"
+                  className="p-4 text-center hover:text-juno cursor-pointer"
                   onClick={async () => {
                     copy(lockbox.owner)
                   }}
@@ -82,14 +83,24 @@ const LockBoxTable = ({ data, className, ...rest }: LockBoxTableProps) => {
                   </Tooltip>
                 </td>
 
-                <td className="p-4 text-right">
+                <td className="p-4 text-center">
                   {calculateTotalClaim(lockbox) - Number(lockbox.total_amount)}
                 </td>
 
-                <td className="p-4 text-right">
+                <td className="p-4 text-center">
                   {calculateTotalClaim(lockbox)}
                 </td>
-                <td className="p-4">{lockbox.reset ? 'TRUE' : 'FALSE'}</td>
+                <td className="p-4 text-center">
+                  {lockbox.reset ? 'True' : 'False'}
+                </td>
+                <td className="p-4 text-center">
+                  {lockbox.expiration.at_time
+                    ? Number(lockbox.expiration.at_time) / 1000000 > Date.now()
+                      ? 'False'
+                      : 'True'
+                    : ''}
+                </td>
+
                 <td
                   onClick={(e) => {
                     e.preventDefault()
@@ -110,7 +121,7 @@ const LockBoxTable = ({ data, className, ...rest }: LockBoxTableProps) => {
           ) : (
             <tr>
               <td colSpan={6} className="p-4 text-center text-white/50">
-                No lockboxs available :(
+                No lockboxes available :(
               </td>
             </tr>
           )}
@@ -138,19 +149,20 @@ const LockBoxTable = ({ data, className, ...rest }: LockBoxTableProps) => {
                   <div className="text-lg font-bold">
                     {' Lockbox ID: ' + selectedLockbox?.id}
                   </div>
-                  <div className="basis-1/4 flex-col my-4 font-bold">
-                    <div>Native Denom </div>
-                    <div className="overflow-auto mx-3 font-normal h-50">
-                      {selectedLockbox?.native_denom?.toLocaleUpperCase()}
+                  {selectedLockbox?.native_denom && (
+                    <div className="basis-1/4 flex-col my-4 font-bold">
+                      <div>Native Denom </div>
+                      <div className="overflow-auto mx-3 font-normal h-50">
+                        {selectedLockbox?.native_denom?.toLocaleUpperCase()}
+                      </div>
                     </div>
-                  </div>
+                  )}
                   {selectedLockbox?.cw20_addr && (
                     <div className="basis-1/4 flex-col my-4 font-bold">
-                      <div>cw20 Address</div>(
+                      <div>CW20 Contract Address</div>
                       <div className="overflow-auto mx-3 font-normal h-50">
                         {selectedLockbox?.cw20_addr}
                       </div>
-                      )
                     </div>
                   )}
                   <div className="overflow-auto basis-1/4 flex-col mt-3 mb-1 font-bold h-50">
@@ -175,7 +187,7 @@ const LockBoxTable = ({ data, className, ...rest }: LockBoxTableProps) => {
                           htmlFor="small-input"
                           className="block mx-3 mb-1 font-normal text-white dark:text-gray-300"
                         >
-                          No claimers provided for this lockbox
+                          No claimers provided for this lockbox.
                         </label>
                       </div>
                     )}
