@@ -52,7 +52,11 @@ const InstantiateLockbox = (props: {
                 <input
                   type="text"
                   className={`${
-                    props.initFlag ? 'cursor-pointer' : 'cursor-default'
+                    props.initFlag
+                      ? 'cursor-pointer'
+                      : props.spinnerFlag
+                      ? 'cursor-wait'
+                      : 'cursor-default'
                   } py-2 px-1 w-full placeholder:text-white/50 bg-white/10 rounded
             focus:ring
             focus:ring-plumbus-20 form-input,"`}
@@ -81,7 +85,11 @@ const InstantiateLockbox = (props: {
                 <input
                   type="text"
                   className={`${
-                    props.initFlag ? 'cursor-pointer' : 'cursor-default'
+                    props.initFlag
+                      ? 'cursor-pointer'
+                      : props.spinnerFlag
+                      ? 'cursor-wait'
+                      : 'cursor-default'
                   } py-2 px-1 w-full bg-white/10 rounded focus:ring focus:ring-plumbus-20 
                   form-input, placeholder:text-white/50,"`}
                   placeholder={

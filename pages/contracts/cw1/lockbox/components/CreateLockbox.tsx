@@ -274,7 +274,7 @@ const CreateLockbox = (props: { newAddress: string }) => {
                   name="type"
                   id="type"
                   className={`${
-                    unit == 'ujunox' ? 'w-1/8' : 'w-1/4'
+                    unit == 'ujunox' ? 'w-[12%]' : 'w-1/4'
                   } "px-1  h-11 text-white bg-white/10 options:bg-white/50 rounded border-2 border-white/20"`}
                 >
                   <option className="bg-[#3a3535]" value="ujunox">
