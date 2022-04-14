@@ -88,7 +88,7 @@ const ClaimsInput = (props: { function: (arg0: Claim[]) => void }) => {
         >
           Claims
         </label>
-        <Tooltip label="asd">
+        {/* <Tooltip label="">
           <svg
             className="mt-1 ml-1 w-4 h-4"
             fill="currentColor"
@@ -101,7 +101,7 @@ const ClaimsInput = (props: { function: (arg0: Claim[]) => void }) => {
               clipRule="evenodd"
             ></path>
           </svg>
-        </Tooltip>
+        </Tooltip> */}
       </div>
       <div className="flex flex-row">
         <input

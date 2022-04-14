@@ -51,13 +51,15 @@ const InstantiateLockbox = (props: {
               >
                 <input
                   type="text"
-                  className="py-2 px-1 w-full placeholder:text-white/50 bg-white/10 rounded
+                  className={`${
+                    props.initFlag ? 'cursor-pointer' : 'cursor-default'
+                  } py-2 px-1 w-full placeholder:text-white/50 bg-white/10 rounded
             focus:ring
-            focus:ring-plumbus-20 cursor-pointer form-input,"
+            focus:ring-plumbus-20 form-input,"`}
                   placeholder={
                     props.initFlag
                       ? ''
-                      : 'Contract address will be here after instantiation'
+                      : 'The Lockbox contract address will be displayed here after instantiation'
                   }
                   onClick={async () => {
                     if (props.initFlag) copy(props.initResponse.contractAddress)
@@ -78,13 +80,14 @@ const InstantiateLockbox = (props: {
               >
                 <input
                   type="text"
-                  className="py-2 px-1 w-full bg-white/10 rounded focus:ring focus:ring-plumbus-20
-            cursor-pointer
-            form-input, placeholder:text-white/50,"
+                  className={`${
+                    props.initFlag ? 'cursor-pointer' : 'cursor-default'
+                  } py-2 px-1 w-full bg-white/10 rounded focus:ring focus:ring-plumbus-20 
+                  form-input, placeholder:text-white/50,"`}
                   placeholder={
                     props.initFlag
                       ? ''
-                      : 'TxHash will be here after instantiation'
+                      : 'The TxHash will be displayed here after instantiation'
                   }
                   onClick={async () => {
                     if (props.initFlag) copy(props.initResponse.transactionHash)

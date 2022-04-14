@@ -151,23 +151,23 @@ const CreateLockbox = (props: { newAddress: string }) => {
         toast.error('Wallet Or Client Error', { style: { maxWidth: 'none' } })
       }
       if (contractAddress.length === 0) {
-        toast.error('Contract Address can not be empty', {
+        toast.error('Lockbox contract address can not be left empty.', {
           style: { maxWidth: 'none' },
         })
       } else if (!isValidAddress(contractAddress.toString())) {
-        toast.error('Contract address is not valid.', {
+        toast.error('Please specify a valid Lockbox contract address.', {
           style: { maxWidth: 'none' },
         })
       } else if (owner.length === 0) {
-        toast.error('Owner Address can not be empty', {
+        toast.error('Owner address can not be left empty.', {
           style: { maxWidth: 'none' },
         })
       } else if (!isValidAddress(owner.toString())) {
-        toast.error('Owner address is not valid.', {
+        toast.error('Please specify a valid owner address.', {
           style: { maxWidth: 'none' },
         })
       } else if (unit === 'cw20' && (!cw20_addr || cw20_addr?.length === 0)) {
-        toast.error('Cw20 Address can not be empty', {
+        toast.error('CW20 contract address can not be left empty.', {
           style: { maxWidth: 'none' },
         })
       } else if (
@@ -175,34 +175,39 @@ const CreateLockbox = (props: { newAddress: string }) => {
         cw20_addr &&
         !isValidAddress(cw20_addr.toString())
       ) {
-        toast.error('Cw20 address is not valid.', {
+        toast.error('Please specify a valid CW20 contract address.', {
           style: { maxWidth: 'none' },
         })
       } else if (scheduleType === 'at_height' && at_height <= 0) {
-        toast.error('Enter a valid height', { style: { maxWidth: 'none' } })
+        toast.error('Please specify a valid block height.', {
+          style: { maxWidth: 'none' },
+        })
       } else if (
         scheduleType === 'at_time' &&
         (date.length === 0 || time.length === 0)
       ) {
-        toast.error('Enter a valid date and time', {
+        toast.error('Please specify a valid date and time.', {
           style: { maxWidth: 'none' },
         })
       } else if (rawclaims.length === 0) {
-        toast.error('Claims list cannot be empty', {
+        toast.error('Claims list cannot be empty.', {
           style: { maxWidth: 'none' },
         })
       } else {
         setSpinnerFlag(true)
         const res = await client?.create(wallet.address, msg)
         setSpinnerFlag(false)
-        toast.success('Successfully created new lockbox.', {
+        toast.success('Successfully created a new Lockbox.', {
           style: { maxWidth: 'none' },
         })
         contract?.updateContractAddress(contractAddress)
       }
     } catch (error: any) {
       setSpinnerFlag(false)
-      if (error.message.includes('bech32')) {
+      if (
+        error.message.includes('bech32') ||
+        error.message.includes('contract: empty address string is not allowed')
+      ) {
         toast.error('You need to specify a valid Lockbox contract address.', {
           style: { maxWidth: 'none' },
         })
@@ -234,7 +239,7 @@ const CreateLockbox = (props: { newAddress: string }) => {
                     className="py-2 px-1 w-full bg-white/10 rounded border-2 border-white/20 focus:ring
             focus:ring-plumbus-20
             form-input, placeholder:text-white/50,"
-                    placeholder="Please enter contract address"
+                    placeholder="Please enter a Lockbox contract address"
                     value={contractAddress}
                   />
                 </div>
@@ -252,7 +257,7 @@ const CreateLockbox = (props: { newAddress: string }) => {
                     className="py-2 px-1 w-full bg-white/10 rounded border-2 border-white/20 focus:ring
             focus:ring-plumbus-20
             form-input, placeholder:text-white/50,"
-                    placeholder="Please enter owners address"
+                    placeholder="Please enter the Lockbox owner's address"
                   />
                 </div>
               </div>
@@ -268,16 +273,15 @@ const CreateLockbox = (props: { newAddress: string }) => {
                   defaultValue="ujunox"
                   name="type"
                   id="type"
-                  className="px-1 w-1/5 h-11 text-white bg-white/10 options:bg-white/50 rounded border-2 border-white/20"
+                  className={`${
+                    unit == 'ujunox' ? 'w-1/8' : 'w-1/4'
+                  } "px-1  h-11 text-white bg-white/10 options:bg-white/50 rounded border-2 border-white/20"`}
                 >
                   <option className="bg-[#3a3535]" value="ujunox">
                     ujunox
                   </option>
-                  <option className="bg-[#3a3535]" value="juno">
-                    juno
-                  </option>
                   <option className="bg-[#3a3535]" value="cw20">
-                    cw20
+                    CW20 Token
                   </option>
                 </select>
 
@@ -288,7 +292,7 @@ const CreateLockbox = (props: { newAddress: string }) => {
                     className="py-2 px-1 ml-5 w-full bg-white/10 rounded border-2 border-white/20 focus:ring
                 focus:ring-plumbus-20
                 form-input, placeholder:text-white/50,"
-                    placeholder="Please enter cw20 address"
+                    placeholder="Please enter a CW20 contract address"
                   />
                 )}
               </div>
@@ -344,16 +348,16 @@ const CreateLockbox = (props: { newAddress: string }) => {
                   type="number"
                   disabled={scheduleType === 'at_time'}
                   onChange={handleChangeExecutionHeight}
-                  className="py-2 px-1 w-1/2 bg-white/10 rounded border-2 border-white/20 focus:ring
+                  className="py-2 px-1 w-2/3 bg-white/10 rounded border-2 border-white/20 focus:ring
             focus:ring-plumbus-20
             form-input, placeholder:text-white/50,"
-                  placeholder="Please enter execution height"
+                  placeholder="Please specify a block height"
                 />
                 <input
                   type="date"
                   disabled={scheduleType === 'at_height'}
                   onChange={handleChangeExecutionDate}
-                  className="py-2 mr-1 ml-8 bg-white/10 rounded border-2 border-white/20 focus:ring
+                  className="py-2 mr-3 ml-20 w-1/2 bg-white/10 rounded border-2 border-white/20 focus:ring
         focus:ring-plumbus-20
         form-input, placeholder:text-white/50,"
                   placeholder=" Execution Date"
@@ -371,7 +375,7 @@ const CreateLockbox = (props: { newAddress: string }) => {
             </div>
             {/* End of scheduled */}
             <ClaimsInput function={handleChangeClaims} />
-            <div className="float-right basis-1/4 px-3 my-6">
+            <div className="float-right basis-1/4 pl-3 my-8">
               <Button
                 isLoading={spinnerFlag}
                 isWide
