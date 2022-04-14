@@ -55,11 +55,17 @@ const InstantiateLockbox = (props: {
                   className="py-2 px-1 w-full bg-white/10 rounded focus:ring
             focus:ring-plumbus-20
             form-input, placeholder:text-white/50,"
-                  placeholder=""
+                  placeholder={
+                    props.initFlag
+                      ? ''
+                      : 'Contract address will be here after instantiation'
+                  }
                   onClick={async () => {
                     if (props.initFlag) copy(props.initResponse.contractAddress)
                   }}
-                  value={props.initFlag && props.initResponse.contractAddress}
+                  value={
+                    props.initFlag ? props.initResponse.contractAddress : ''
+                  }
                 />
               </Tooltip>
 
@@ -74,11 +80,17 @@ const InstantiateLockbox = (props: {
                   className="py-2 px-1 w-full bg-white/10 rounded focus:ring
             focus:ring-plumbus-20
             form-input, placeholder:text-white/50,"
-                  placeholder=""
+                  placeholder={
+                    props.initFlag
+                      ? ''
+                      : 'TxHash will be here after instantiation'
+                  }
                   onClick={async () => {
                     if (props.initFlag) copy(props.initResponse.transactionHash)
                   }}
-                  value={props.initFlag && props.initResponse.transactionHash}
+                  value={
+                    props.initFlag ? props.initResponse.transactionHash : ''
+                  }
                 />
               </Tooltip>
               <div className="float-right mt-3">

@@ -56,6 +56,8 @@ const LockboxInstantiatePage: NextPage = () => {
         'Lockbox Test',
         wallet.address
       )
+      console.log(response)
+
       setInitSpinnerFlag(false)
       setInitResponse(response)
       contract.updateContractAddress(response.contractAddress)
@@ -94,7 +96,7 @@ const LockboxInstantiatePage: NextPage = () => {
       />
 
       <hr className="my-5 mx-3" />
-      <CreateLockbox />
+      <CreateLockbox newAddress={contractAddress} />
     </div>
   )
 }
