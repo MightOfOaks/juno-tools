@@ -118,6 +118,13 @@ const Deposit = (props: { contractAddress: string }) => {
             style: { maxWidth: 'none' },
           }
         )
+      } else if (error.message.includes('LockBox expired')) {
+        toast.error(
+          "The Lockbox with the specified ID is expired. Can't make a deposit.",
+          {
+            style: { maxWidth: 'none' },
+          }
+        )
       } else {
         toast.error(error.message, { style: { maxWidth: 'none' } })
       }

@@ -46,7 +46,10 @@ const Claim = (props: { contractAddress: string }) => {
         toast.error('You are not authorized to make a claim.', {
           style: { maxWidth: 'none' },
         })
-      } else if (error.message.includes('bech32')) {
+      } else if (
+        error.message.includes('bech32') ||
+        error.message.includes('contract: empty address string is not allowed')
+      ) {
         toast.error('You need to specify a valid Lockbox contract address.', {
           style: { maxWidth: 'none' },
         })
@@ -54,6 +57,26 @@ const Claim = (props: { contractAddress: string }) => {
         toast.error('The Lockbox with the specified ID is not expired yet.', {
           style: { maxWidth: 'none' },
         })
+      } else if (error.message.includes('LockBox has been reset')) {
+        toast.error(
+          'The Lockbox with the specified ID has been reset. No claims can be made.',
+          {
+            style: { maxWidth: 'none' },
+          }
+        )
+      } else if (error.message.includes('Lockbox not found')) {
+        toast.error('A Lockbox with the specified ID does not exist.', {
+          style: { maxWidth: 'none' },
+        })
+      } else if (
+        error.message.includes('The deposited amount does not cover the claims')
+      ) {
+        toast.error(
+          'The deposited amount does not cover the total amount of claims for the specified Lockbox.',
+          {
+            style: { maxWidth: 'none' },
+          }
+        )
       } else {
         toast.error(error.message, { style: { maxWidth: 'none' } })
       }
