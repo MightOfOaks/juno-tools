@@ -4,6 +4,7 @@ import { useWallet } from 'contexts/wallet'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { FaAsterisk } from 'react-icons/fa'
+import { isValidAddress } from 'utils/isValidAddress'
 
 import Tooltip from '../../../../../components/Tooltip'
 
@@ -52,15 +53,20 @@ const Deposit = (props: { contractAddress: string }) => {
             amount,
             'ujunox'
           )
-          console.log(res)
         } else {
+          if (!isValidAddress(CW20ContractAddress)) {
+            setSpinnerFlag(false)
+            toast.error('You need to specify a valid CW20 Contract Address.', {
+              style: { maxWidth: 'none' },
+            })
+            return
+          }
           const res = await client?.deposit_cw20(
             wallet.address,
             lockboxId.toString(),
             amount,
             cw20Client
           )
-          console.log(res)
         }
         setSpinnerFlag(false)
         toast.success('Successfully made a deposit.', {
@@ -74,13 +80,44 @@ const Deposit = (props: { contractAddress: string }) => {
     } catch (error: any) {
       setSpinnerFlag(false)
       if (error.message.includes('Unauthorized')) {
-        toast.error('You are not authorized to make a deposit.', {
-          style: { maxWidth: 'none' },
-        })
+        toast.error(
+          'You are not authorized to make a deposit with the current wallet address or from the specified CW20 contract.',
+          {
+            style: { maxWidth: 'none' },
+          }
+        )
       } else if (error.message.includes('bech32')) {
         toast.error('You need to specify a valid Lockbox contract address.', {
           style: { maxWidth: 'none' },
         })
+      } else if (
+        error.message.includes('contract: empty address string is not allowed')
+      ) {
+        toast.error('You need to specify a valid Lockbox contract address.', {
+          style: { maxWidth: 'none' },
+        })
+      } else if (
+        error.message.includes('Given amount is not a safe integer') ||
+        error.message.includes('sentFunds: invalid coins') ||
+        error.message.includes('Invalid zero amount')
+      ) {
+        toast.error('You need to specify a valid deposit amount.', {
+          style: { maxWidth: 'none' },
+        })
+      } else if (error.message.includes('CW20 tokens required')) {
+        toast.error(
+          'You can only deposit CW20 tokens to the Lockbox with the specified ID.',
+          {
+            style: { maxWidth: 'none' },
+          }
+        )
+      } else if (error.message.includes('submessages: Denom not supported')) {
+        toast.error(
+          'You can only deposit native coins to the Lockbox with the specified ID.',
+          {
+            style: { maxWidth: 'none' },
+          }
+        )
       } else {
         toast.error(error.message, { style: { maxWidth: 'none' } })
       }
