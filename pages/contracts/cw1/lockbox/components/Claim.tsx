@@ -34,7 +34,6 @@ const Claim = (props: { contractAddress: string }) => {
         toast.success('Successfully made a claim.', {
           style: { maxWidth: 'none' },
         })
-        console.log('update min delay res: ', res)
       } else {
         toast.error('You need to specify a valid Lockbox ID.', {
           style: { maxWidth: 'none' },

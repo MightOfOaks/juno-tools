@@ -49,8 +49,29 @@ const Reset = (props: { contractAddress: string }) => {
             style: { maxWidth: 'none' },
           }
         )
-      } else if (error.message.includes('bech32')) {
+      } else if (
+        error.message.includes('bech32') ||
+        error.message.includes('contract: empty address string is not allowed')
+      ) {
         toast.error('You need to specify a valid Lockbox contract address.', {
+          style: { maxWidth: 'none' },
+        })
+      } else if (error.message.includes('LockBox has been reset')) {
+        toast.error(
+          'The Lockbox with the specified ID has already been reset.',
+          {
+            style: { maxWidth: 'none' },
+          }
+        )
+      } else if (error.message.includes('LockBox expired')) {
+        toast.error(
+          'The Lockbox with the specified ID is expired and cannot be reset.',
+          {
+            style: { maxWidth: 'none' },
+          }
+        )
+      } else if (error.message.includes('Lockbox not found')) {
+        toast.error('A Lockbox with the specified ID does not exist.', {
           style: { maxWidth: 'none' },
         })
       } else {

@@ -125,6 +125,10 @@ const Deposit = (props: { contractAddress: string }) => {
             style: { maxWidth: 'none' },
           }
         )
+      } else if (error.message.includes('Lockbox not found')) {
+        toast.error('A Lockbox with the specified ID does not exist.', {
+          style: { maxWidth: 'none' },
+        })
       } else {
         toast.error(error.message, { style: { maxWidth: 'none' } })
       }
