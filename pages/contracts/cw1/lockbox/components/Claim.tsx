@@ -76,6 +76,10 @@ const Claim = (props: { contractAddress: string }) => {
             style: { maxWidth: 'none' },
           }
         )
+      } else if (error.message.includes('Already claimed')) {
+        toast.error('A claim has already been made with this wallet address.', {
+          style: { maxWidth: 'none' },
+        })
       } else {
         toast.error(error.message, { style: { maxWidth: 'none' } })
       }

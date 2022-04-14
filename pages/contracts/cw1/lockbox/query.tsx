@@ -167,7 +167,7 @@ const QueryTab: NextPage = () => {
             }}
           >
             {QUERY_ENTRIES.map(({ id, name }) => (
-              <option key={`query-${id}`} value={id}>
+              <option className="bg-[#3a3535]" key={`query-${id}`} value={id}>
                 {name}
               </option>
             ))}
