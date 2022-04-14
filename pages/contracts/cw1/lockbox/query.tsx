@@ -9,7 +9,7 @@ import { useContracts } from 'contexts/contracts'
 import { useWallet } from 'contexts/wallet'
 import { NextPage } from 'next'
 import { NextSeo } from 'next-seo'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import { FaAsterisk } from 'react-icons/fa'
 import { dispatchQuery, QUERY_ENTRIES, QueryType } from 'utils/cw1LockBox'
@@ -35,7 +35,7 @@ const QueryTab: NextPage = () => {
   const [topList, setTopList] = useState([0])
   const [nextPage, setNextPage] = useState(false)
 
-  const operationCountOnPage = 5
+  const operationCountOnPage = 10
 
   const query = async () => {
     try {
@@ -50,8 +50,12 @@ const QueryTab: NextPage = () => {
       const client = contract?.use(address)
 
       if (type == 'all') {
-        const lockboxList = await client?.getLockboxes()
-        setQueryResult(lockboxList.lockboxes)
+        const lockboxLists = await client?.getLockboxes(
+          Number(topList[pageNumber]?.toString()),
+          operationCountOnPage + 1
+        )
+
+        const lockboxList = lockboxLists.lockboxes
         console.log(queryResult)
 
         await setNextPage(
@@ -104,6 +108,15 @@ const QueryTab: NextPage = () => {
       }
     }
   }
+
+  const firstUpdate = useRef(false)
+  useEffect(() => {
+    if (firstUpdate.current) {
+      query()
+    } else {
+      firstUpdate.current = true
+    }
+  }, [pageNumber])
 
   return (
     <section className="py-6 px-12 space-y-4">
@@ -217,7 +230,7 @@ const QueryTab: NextPage = () => {
                       onClick={(e) => {
                         setPageNumber(pageNumber + 1)
                       }}
-                      isDisabled={true}
+                      isDisabled={nextPage}
                     >
                       Next Page
                     </Button>
