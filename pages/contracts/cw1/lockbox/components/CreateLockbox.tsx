@@ -22,7 +22,7 @@ type Expiration =
       at_height: number
     }
 
-const CreateLockbox = () => {
+const CreateLockbox = (props: { newAddress: string }) => {
   const contract = useContracts().cw1Lockbox
   const [contractAddress, setContractAddress] = useState(
     contract?.getContractAddress() || ''
@@ -114,7 +114,10 @@ const CreateLockbox = () => {
     setExpiration({
       at_time: getExecutionTimeInNanosecs().toString(),
     })
-  }, [date, time])
+    if (props.newAddress !== '') {
+      setContractAddress(props.newAddress)
+    }
+  }, [date, time, props.newAddress])
 
   useEffect(() => {
     setExpiration({
