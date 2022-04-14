@@ -83,7 +83,7 @@ const LockBoxTable = ({ data, className, ...rest }: LockBoxTableProps) => {
                 </td>
 
                 <td className="p-4 text-right">
-                  {Number(lockbox.total_amount) - calculateTotalClaim(lockbox)}
+                  {calculateTotalClaim(lockbox) - Number(lockbox.total_amount)}
                 </td>
 
                 <td className="p-4 text-right">
