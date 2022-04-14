@@ -32,7 +32,7 @@ const InstantiateLockbox = (props: {
   }
 
   return (
-    <div className="flex-col px-10 mt-5">
+    <div className="flex-col px-5 mt-5">
       <div className="px-3">
         <div className="flex flex-row">
           <div className="w-2/5">
@@ -41,11 +41,8 @@ const InstantiateLockbox = (props: {
             </label>
           </div>
           <div className="w-2/3">
-            <label className="block mb-2 font-bold text-left text-white dark:text-gray-300 text-md">
-              New Contract Info
-            </label>
             <div className="basis-1/3 mr-2 ml-3 h-10">
-              <label className="block mx-1 font-bold text-white dark:text-gray-300 underline underline-offset-1 text-md">
+              <label className="block pb-2 font-bold text-white dark:text-gray-300 text-md">
                 Lockbox Contract Address
               </label>
               <Tooltip
@@ -73,7 +70,7 @@ const InstantiateLockbox = (props: {
                 />
               </Tooltip>
 
-              <label className="block mx-1 mt-2 font-bold text-white dark:text-gray-300 underline underline-offset-1 text-md">
+              <label className="block pt-2 pb-2 mt-2 font-bold text-white dark:text-gray-300 text-md">
                 TxHash
               </label>
 
