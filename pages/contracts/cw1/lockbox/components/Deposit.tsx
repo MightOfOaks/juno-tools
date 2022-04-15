@@ -6,8 +6,6 @@ import toast from 'react-hot-toast'
 import { FaAsterisk } from 'react-icons/fa'
 import { isValidAddress } from 'utils/isValidAddress'
 
-import Tooltip from '../../../../../components/Tooltip'
-
 const Deposit = (props: { contractAddress: string }) => {
   const { contractAddress } = props
 
@@ -185,20 +183,6 @@ const Deposit = (props: { contractAddress: string }) => {
           >
             Lockbox ID
           </label>
-          <Tooltip label="The Lockbox ID to which the coins will be deposited.">
-            <svg
-              className="mt-1 w-4 h-4"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                clipRule="evenodd"
-              ></path>
-            </svg>
-          </Tooltip>
         </div>
 
         <div className="flex-row mt-1">
@@ -223,20 +207,6 @@ const Deposit = (props: { contractAddress: string }) => {
               >
                 CW20 Contract Address
               </label>
-              <Tooltip label="The CW20 Contract Address from which the tokens will be transferred.">
-                <svg
-                  className="mt-1 w-4 h-4"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                    clipRule="evenodd"
-                  ></path>
-                </svg>
-              </Tooltip>
             </div>
 
             <div className="flex relative mt-1 mb-12 w-full">
@@ -261,20 +231,6 @@ const Deposit = (props: { contractAddress: string }) => {
           >
             Deposit Amount
           </label>
-          <Tooltip label="The amount of coins/tokens to be deposited.">
-            <svg
-              className="mt-1 w-4 h-4"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                clipRule="evenodd"
-              ></path>
-            </svg>
-          </Tooltip>
         </div>
 
         <div className="flex mt-1">
