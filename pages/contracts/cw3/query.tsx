@@ -140,7 +140,10 @@ const QueryTab: NextPage = () => {
         })
       }
     } catch (error: any) {
-      if (error.message.includes('bech32 failed')) {
+      if (
+        error.message.includes('bech32 failed') ||
+        error.message.includes('unknown variant')
+      ) {
         toast.error('You need to specify a valid Timelock contract address.', {
           style: { maxWidth: 'none' },
         })

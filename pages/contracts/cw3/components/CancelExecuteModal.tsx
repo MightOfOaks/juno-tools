@@ -69,6 +69,14 @@ const CancelExecuteModal = (props: {
                 style: { maxWidth: 'none' },
               }
             )
+          } else if (
+            err.message.includes('bech32') ||
+            err.message.includes('Invalid type') ||
+            err.message.includes('unknown variant')
+          ) {
+            toast.error('Please specify a valid Timelock contract address.', {
+              style: { maxWidth: 'none' },
+            })
           } else {
             toast.error(err.message, { style: { maxWidth: 'none' } })
           }

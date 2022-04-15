@@ -110,7 +110,8 @@ const ScheduleModal = (props: { contractAddress: string }) => {
         })
       } else if (
         error.message.includes('bech32') ||
-        error.message.includes('Invalid type')
+        error.message.includes('Invalid type') ||
+        error.message.includes('unknown variant')
       ) {
         toast.error('Please specify a valid Timelock contract address.', {
           style: { maxWidth: 'none' },

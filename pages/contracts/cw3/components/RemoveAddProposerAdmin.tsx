@@ -70,7 +70,10 @@ const RemoveAddProposerAdminModal = (props: {
               style: { maxWidth: 'none' },
             }
           )
-        } else if (err.message.includes('bech32 failed')) {
+        } else if (
+          err.message.includes('bech32 failed') ||
+          err.message.includes('unknown variant')
+        ) {
           toast.error('The specified address is not valid.', {
             style: { maxWidth: 'none' },
           })
