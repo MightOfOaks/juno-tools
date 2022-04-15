@@ -31,7 +31,7 @@ const CreateLockbox = (props: { newAddress: string }) => {
   const [msg, setMsg] = useState<Record<string, unknown>>({})
   const [spinnerFlag, setSpinnerFlag] = useState(false)
   const [owner, setOwner] = useState('')
-  const [rawclaims, setRawClaims] = useState<Claim[]>([])
+  const [raw_claims, setRawClaims] = useState<Claim[]>([])
   const [expiration, setExpiration] = useState<Expiration>({
     at_time: '0',
   })
@@ -136,7 +136,7 @@ const CreateLockbox = (props: { newAddress: string }) => {
     setMsg({
       create_lockbox: {
         owner,
-        rawclaims,
+        raw_claims,
         expiration,
         native_token,
         cw20_addr,
