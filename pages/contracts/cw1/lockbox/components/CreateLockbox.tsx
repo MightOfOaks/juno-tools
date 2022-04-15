@@ -348,7 +348,7 @@ const CreateLockbox = (props: { newAddress: string }) => {
                   type="number"
                   disabled={scheduleType === 'at_time'}
                   onChange={handleChangeExecutionHeight}
-                  className="py-2 px-1 w-2/3 bg-white/10 rounded border-2 border-white/20 focus:ring
+                  className="py-2 mr-7 w-1/2 bg-white/10 rounded border-2 border-white/20 focus:ring
             focus:ring-plumbus-20
             disabled:opacity-40 form-input, placeholder:text-white/50,"
                   placeholder="Please specify a block height"
@@ -357,7 +357,7 @@ const CreateLockbox = (props: { newAddress: string }) => {
                   type="date"
                   disabled={scheduleType === 'at_height'}
                   onChange={handleChangeExecutionDate}
-                  className="py-2 mr-3 ml-20 w-1/2 bg-white/10 rounded border-2 border-white/20 focus:ring
+                  className="py-2 mr-3 ml-1 w-1/4 bg-white/10 rounded border-2 border-white/20 focus:ring
         focus:ring-plumbus-20
         disabled:opacity-40 form-input, placeholder:text-white/50,"
                   placeholder=" Execution Date"
@@ -366,7 +366,7 @@ const CreateLockbox = (props: { newAddress: string }) => {
                   type="time"
                   disabled={scheduleType === 'at_height'}
                   onChange={handleChangeExecutionTime}
-                  className="py-2 mr-0 ml-1 bg-white/10 rounded border-2 border-white/20 focus:ring
+                  className="py-2 mr-0 bg-white/10 rounded border-2 border-white/20 focus:ring
         focus:ring-plumbus-20
         disabled:opacity-40 form-input, placeholder:text-white/50,"
                   placeholder=" Execution Time"
