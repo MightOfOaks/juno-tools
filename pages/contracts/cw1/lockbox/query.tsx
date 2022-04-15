@@ -101,9 +101,14 @@ const QueryTab: NextPage = () => {
       setIsLoading(false)
       if (
         error.message.includes('bech32 failed') ||
-        error.message.includes('empty address string is not allowed')
+        error.message.includes('empty address string is not allowed') ||
+        error.message.includes('unknown variant')
       ) {
         toast.error('You need to specify a valid Lockbox contract address.', {
+          style: { maxWidth: 'none' },
+        })
+      } else if (error.message.includes('Lockbox not found')) {
+        toast.error('A Lockbox with the specified ID does not exist.', {
           style: { maxWidth: 'none' },
         })
       } else {
