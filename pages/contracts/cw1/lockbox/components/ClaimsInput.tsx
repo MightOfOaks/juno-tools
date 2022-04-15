@@ -111,7 +111,7 @@ const ClaimsInput = (props: { function: (arg0: Claim[]) => void }) => {
             form-input, placeholder:text-white/50,"
           value={addr}
           onChange={handleAddressChange}
-          placeholder="Claim Address"
+          placeholder="Claimer Address"
         />
         <input
           type="number"

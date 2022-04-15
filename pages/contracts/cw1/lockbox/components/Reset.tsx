@@ -49,7 +49,10 @@ const Reset = (props: { contractAddress: string }) => {
         )
       } else if (
         error.message.includes('bech32') ||
-        error.message.includes('contract: empty address string is not allowed')
+        error.message.includes(
+          'contract: empty address string is not allowed'
+        ) ||
+        error.message.includes('unknown variant')
       ) {
         toast.error('You need to specify a valid Lockbox contract address.', {
           style: { maxWidth: 'none' },

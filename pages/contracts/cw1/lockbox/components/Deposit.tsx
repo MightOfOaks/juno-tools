@@ -84,7 +84,10 @@ const Deposit = (props: { contractAddress: string }) => {
             style: { maxWidth: 'none' },
           }
         )
-      } else if (error.message.includes('bech32')) {
+      } else if (
+        error.message.includes('bech32') ||
+        error.message.includes('unknown variant')
+      ) {
         toast.error('You need to specify a valid Lockbox contract address.', {
           style: { maxWidth: 'none' },
         })
