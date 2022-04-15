@@ -37,7 +37,7 @@ const QueryTab: NextPage = () => {
 
   const lockboxCountOnPage = 10
 
-  const query = async () => {
+  const query = async (page: number) => {
     try {
       if (!wallet.initialized) {
         toast.error('Oops! Need to connect your Keplr Wallet first.', {
@@ -51,7 +51,7 @@ const QueryTab: NextPage = () => {
 
       if (type == 'all') {
         const lockboxLists = await client?.getLockboxes(
-          Number(topList[pageNumber]?.toString()),
+          Number(topList[page]?.toString()),
           lockboxCountOnPage + 1
         )
 
@@ -64,8 +64,8 @@ const QueryTab: NextPage = () => {
 
         let list = topList
 
-        if (list.length > pageNumber + 1) {
-          list[pageNumber + 1] = lockboxList[lockboxList.length - 2]?.id
+        if (list.length > page + 1) {
+          list[page + 1] = lockboxList[lockboxList.length - 2]?.id
         } else {
           list.push(lockboxList[lockboxList.length - 2]?.id)
         }
@@ -83,7 +83,7 @@ const QueryTab: NextPage = () => {
                 lockboxList[i].native_denom,
                 lockboxList[i].cw20_addr,
                 lockboxList[i].owner,
-                lockboxList[i].resetted,
+                lockboxList[i].reset,
                 lockboxList[i].total_amount,
                 lockboxList[i].expiration,
                 lockboxList[i].claims
@@ -114,11 +114,8 @@ const QueryTab: NextPage = () => {
 
   const firstUpdate = useRef(false)
   useEffect(() => {
-    if (firstUpdate.current) {
-      query()
-    } else {
-      firstUpdate.current = true
-    }
+    if (pageNumber === -1) query(0)
+    else query(pageNumber)
   }, [pageNumber])
 
   return (
@@ -189,7 +186,10 @@ const QueryTab: NextPage = () => {
             isLoading={isLoading}
             isWide
             rightIcon={<FaAsterisk />}
-            onClick={query}
+            onClick={() => {
+              if (pageNumber === 0) setPageNumber(-1)
+              else setPageNumber(0)
+            }}
           >
             Query
           </Button>
@@ -207,10 +207,10 @@ const QueryTab: NextPage = () => {
                 <div className="flex mt-3">
                   <div className="mr-3 disabled">
                     <Button
-                      onClick={(e) => {
+                      onClick={() => {
                         setPageNumber(pageNumber - 1)
                       }}
-                      isDisabled={pageNumber === 0}
+                      isDisabled={pageNumber <= 0}
                     >
                       Previous Page
                     </Button>
@@ -218,8 +218,9 @@ const QueryTab: NextPage = () => {
                   <div>
                     <Button
                       isWide
-                      onClick={(e) => {
-                        setPageNumber(pageNumber + 1)
+                      onClick={() => {
+                        if (pageNumber === -1) setPageNumber(pageNumber + 2)
+                        else setPageNumber(pageNumber + 1)
                       }}
                       isDisabled={nextPage}
                     >
