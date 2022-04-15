@@ -63,7 +63,7 @@ const InstantiateLockbox = (props: {
                   placeholder={
                     props.initFlag
                       ? ''
-                      : 'The Lockbox contract address will be displayed here after instantiation'
+                      : 'The Lockbox contract address will be displayed here upon instantiation'
                   }
                   onClick={async () => {
                     if (props.initFlag) copy(props.initResponse.contractAddress)
@@ -95,7 +95,7 @@ const InstantiateLockbox = (props: {
                   placeholder={
                     props.initFlag
                       ? ''
-                      : 'The TxHash will be displayed here after instantiation'
+                      : 'The TxHash will be displayed here upon instantiation'
                   }
                   onClick={async () => {
                     if (props.initFlag) copy(props.initResponse.transactionHash)

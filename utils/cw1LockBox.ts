@@ -12,9 +12,13 @@ export const QUERY_ENTRIES: {
   {
     id: 'all',
     name: 'Query List',
-    description: 'View list of all lockboxes',
+    description: 'View a list of all Lockboxes',
   },
-  { id: 'id', name: 'Query with ID', description: 'View specific lockbox' },
+  {
+    id: 'id',
+    name: 'Query by Lockbox ID',
+    description: 'View a specific Lockbox',
+  },
 ]
 
 export interface DispatchQueryProps {

@@ -128,16 +128,12 @@ const QueryTab: NextPage = () => {
       <LinkTabs data={cw1LockboxLinkTabs} activeIndex={1} />
       <div className="grid p-4 space-x-8">
         <div className="space-y-8">
-          <FormControl
-            title="Lockbox Address"
-            subtitle="Address of the Lockbox"
-            htmlId="contract-address"
-          >
+          <FormControl title="Lockbox Address" htmlId="contract-address">
             <Input
               id="contract-address"
               name="lockbox"
               type="text"
-              placeholder="juno1234567890abcdefghijklmnopqrstuvwxyz..."
+              placeholder="Please specify  a Lockbox contract address"
               value={contractAddress}
               onChange={(e) => {
                 contract?.updateContractAddress(e.target.value)
@@ -149,11 +145,7 @@ const QueryTab: NextPage = () => {
       </div>
 
       <div className="grid grid-cols-3 p-4 space-x-8">
-        <FormControl
-          title="Query Type"
-          subtitle="Type of query to be dispatched"
-          htmlId="contract-query-type"
-        >
+        <FormControl title="Query Type" htmlId="contract-query-type">
           <select
             id="contract-query-type"
             name="query-type"
@@ -177,11 +169,7 @@ const QueryTab: NextPage = () => {
           </select>
         </FormControl>
         <Conditional test={type === 'id'}>
-          <FormControl
-            title="LockBox ID"
-            subtitle="ID of the lockbox to be queried"
-            htmlId="lockbox-id"
-          >
+          <FormControl title="LockBox ID" htmlId="lockbox-id">
             <Input
               id="lockbox-id"
               name="id"
@@ -196,7 +184,7 @@ const QueryTab: NextPage = () => {
             />
           </FormControl>
         </Conditional>
-        <div className="px-6 pt-6 mt-8">
+        <div className="px-6 pt-6 mt-2">
           <Button
             isLoading={isLoading}
             isWide

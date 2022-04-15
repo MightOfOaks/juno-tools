@@ -147,7 +147,6 @@ const Deposit = (props: { contractAddress: string }) => {
             value="native"
             onClick={() => {
               setNativeCoinFlag(true)
-              console.log('native')
             }}
             checked={nativeCoinFlag}
           />
@@ -167,7 +166,6 @@ const Deposit = (props: { contractAddress: string }) => {
             value="cw20"
             onClick={() => {
               setNativeCoinFlag(false)
-              console.log('CW20')
             }}
             checked={!nativeCoinFlag}
           />
