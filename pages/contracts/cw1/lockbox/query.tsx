@@ -123,7 +123,7 @@ const QueryTab: NextPage = () => {
 
   return (
     <section className="py-6 px-12 space-y-4">
-      <NextSeo title="Query Timelock Contract" />
+      <NextSeo title="Query Lockbox Contract" />
       <PageHeaderCW1Lockbox />
       <LinkTabs data={cw1LockboxLinkTabs} activeIndex={1} />
       <div className="grid p-4 space-x-8">

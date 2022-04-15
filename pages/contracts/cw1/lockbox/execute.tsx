@@ -21,7 +21,7 @@ const ExecuteTab = () => {
   return (
     <div>
       <form className="py-6 px-12 space-y-4">
-        <NextSeo title="Execute actions for Timelock Contract" />
+        <NextSeo title="Execute actions for Lockbox Contract" />
         <PageHeaderCW3 />
         <LinkTabs data={cw1LockboxLinkTabs} activeIndex={2} />
       </form>
