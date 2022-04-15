@@ -36,7 +36,7 @@ const InstantiateLockbox = (props: {
       <div className="px-3">
         <div className="flex flex-row">
           <div className="w-2/5">
-            <label className="block mb-2 text-4xl font-bold text-left text-white dark:text-gray-300">
+            <label className="block mb-2 ml-5 text-4xl font-bold text-left text-white dark:text-gray-300">
               Instantiate
             </label>
           </div>
