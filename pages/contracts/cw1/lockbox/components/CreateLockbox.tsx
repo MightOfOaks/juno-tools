@@ -142,7 +142,7 @@ const CreateLockbox = (props: { newAddress: string }) => {
         cw20_addr,
       },
     })
-  }, [owner, rawclaims, expiration, native_token, cw20_addr])
+  }, [owner, raw_claims, expiration, native_token, cw20_addr])
 
   const create = async () => {
     try {
@@ -189,7 +189,7 @@ const CreateLockbox = (props: { newAddress: string }) => {
         toast.error('Please specify a valid date and time.', {
           style: { maxWidth: 'none' },
         })
-      } else if (rawclaims.length === 0) {
+      } else if (raw_claims.length === 0) {
         toast.error('Claims list cannot be empty.', {
           style: { maxWidth: 'none' },
         })
