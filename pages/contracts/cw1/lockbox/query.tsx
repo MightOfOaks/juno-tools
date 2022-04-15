@@ -114,8 +114,12 @@ const QueryTab: NextPage = () => {
 
   const firstUpdate = useRef(false)
   useEffect(() => {
-    if (pageNumber === -1) query(0)
-    else query(pageNumber)
+    if (firstUpdate.current) {
+      if (pageNumber === -1) query(0)
+      else query(pageNumber)
+    } else {
+      firstUpdate.current = true
+    }
   }, [pageNumber])
 
   return (
