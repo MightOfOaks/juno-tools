@@ -127,6 +127,13 @@ const Deposit = (props: { contractAddress: string }) => {
         toast.error('A Lockbox with the specified ID does not exist.', {
           style: { maxWidth: 'none' },
         })
+      } else if (error.message.includes('unreachable')) {
+        toast.error(
+          'Total deposit amount must not exceed the total amount of claims.',
+          {
+            style: { maxWidth: 'none' },
+          }
+        )
       } else {
         toast.error(error.message, { style: { maxWidth: 'none' } })
       }

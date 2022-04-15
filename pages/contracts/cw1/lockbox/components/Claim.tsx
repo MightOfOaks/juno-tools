@@ -40,9 +40,12 @@ const Claim = (props: { contractAddress: string }) => {
     } catch (error: any) {
       setSpinnerFlag(false)
       if (error.message.includes('Unauthorized')) {
-        toast.error('You are not authorized to make a claim.', {
-          style: { maxWidth: 'none' },
-        })
+        toast.error(
+          'You are not authorized to make a claim for the Lockbox with the specified ID.',
+          {
+            style: { maxWidth: 'none' },
+          }
+        )
       } else if (
         error.message.includes('bech32') ||
         error.message.includes('contract: empty address string is not allowed')
