@@ -38,7 +38,10 @@ const ExecuteTab = () => {
                 className="py-2 px-1 w-2/3 bg-white/10 rounded border-2 border-white/20 focus:ring
               focus:ring-plumbus-20
               form-input, placeholder:text-white/50,"
-                placeholder={contractAddress || 'Please enter contract address'}
+                placeholder={
+                  contractAddress ||
+                  'Please specify  a Lockbox contract address'
+                }
                 value={contractAddress}
                 onChange={(e) => {
                   contract?.updateContractAddress(e.target.value)
