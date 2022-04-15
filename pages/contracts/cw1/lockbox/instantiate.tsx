@@ -51,7 +51,7 @@ const LockboxInstantiatePage: NextPage = () => {
       console.log(initMsg)
       setInitSpinnerFlag(true)
       const response = await contract.instantiate(
-        733,
+        735,
         initMsg,
         'Lockbox Test',
         wallet.address

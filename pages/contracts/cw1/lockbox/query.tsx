@@ -23,7 +23,6 @@ const QueryTab: NextPage = () => {
   const [address, setAddress] = useState<string>('')
   const [type, setType] = useState<QueryType>('all')
   const [queryBoxId, setQueryBoxId] = useState(0)
-  const [pageNumber, setPageNumber] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
   const [searched, setSearched] = useState(false)
   const [queryResult, setQueryResult] = useState<LockBox[]>([])
@@ -35,6 +34,7 @@ const QueryTab: NextPage = () => {
   const [topList, setTopList] = useState([0])
   const [nextPage, setNextPage] = useState(false)
 
+  const pageNumber = useRef(0)
   const lockboxCountOnPage = 10
 
   const query = async (page: number) => {
@@ -112,7 +112,7 @@ const QueryTab: NextPage = () => {
     }
   }
 
-  const firstUpdate = useRef(false)
+  /*const firstUpdate = useRef(false)
   useEffect(() => {
     if (firstUpdate.current) {
       if (pageNumber === -1) query(0)
@@ -120,7 +120,7 @@ const QueryTab: NextPage = () => {
     } else {
       firstUpdate.current = true
     }
-  }, [pageNumber])
+  }, [pageNumber])*/
 
   return (
     <section className="py-6 px-12 space-y-4">
@@ -191,8 +191,8 @@ const QueryTab: NextPage = () => {
             isWide
             rightIcon={<FaAsterisk />}
             onClick={() => {
-              if (pageNumber === 0) setPageNumber(-1)
-              else setPageNumber(0)
+              pageNumber.current = 0
+              query(pageNumber.current)
             }}
           >
             Query
@@ -212,9 +212,10 @@ const QueryTab: NextPage = () => {
                   <div className="mr-3 disabled">
                     <Button
                       onClick={() => {
-                        setPageNumber(pageNumber - 1)
+                        pageNumber.current -= 1
+                        query(pageNumber.current)
                       }}
-                      isDisabled={pageNumber <= 0}
+                      isDisabled={pageNumber.current <= 0}
                     >
                       Previous Page
                     </Button>
@@ -223,8 +224,8 @@ const QueryTab: NextPage = () => {
                     <Button
                       isWide
                       onClick={() => {
-                        if (pageNumber === -1) setPageNumber(pageNumber + 2)
-                        else setPageNumber(pageNumber + 1)
+                        pageNumber.current += 1
+                        query(pageNumber.current)
                       }}
                       isDisabled={nextPage}
                     >
