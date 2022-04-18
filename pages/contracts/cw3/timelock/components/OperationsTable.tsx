@@ -67,10 +67,11 @@ const OperationsTable = ({
         <thead className="sticky inset-x-0 top-0 bg-plumbus-dark/50 backdrop-blur-sm">
           <tr className="text-left text-plumbus-matte">
             <th className="p-3">ID</th>
-            <th className="p-3 text-right">Execution Time</th>
-            <th className="p-3 text-right">Proposer</th>
-            <th className="p-3 text-right">Target</th>
-            <th className="p-3 text-right">Data</th>
+            <th className="p-3 text-center">Title</th>
+            <th className="p-3 text-center">Execution Time</th>
+            <th className="p-3 text-center">Proposer</th>
+            <th className="p-3 text-center">Target</th>
+
             <th className="p-3">Status</th>
             <th className={clsx('p-3', { hidden: !wallet.address })}></th>
           </tr>
@@ -98,6 +99,7 @@ const OperationsTable = ({
                     </div>
                   </div>
                 </td>
+                <td className="p-4">{operation.title}</td>
                 <td className="p-4 text-right">{operation.execution_time}</td>
                 <td
                   className="p-4 text-right hover:text-juno cursor-pointer"
@@ -119,7 +121,7 @@ const OperationsTable = ({
                     <span>{truncateMiddle(operation.target, 13)}</span>
                   </Tooltip>
                 </td>
-                <td className="p-4 text-right">{operation.data}</td>
+
                 <td className="p-4">{operation.status}</td>
                 <td
                   onClick={(e) => {

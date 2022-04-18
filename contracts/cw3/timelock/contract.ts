@@ -26,6 +26,7 @@ export interface CW3TimelockInstance {
     senderAddress: string,
     targetAddress: string,
     data: string,
+    title: string,
     description: string,
     executionTime: string,
     executors: string[]
@@ -117,6 +118,7 @@ export const CW3Timelock = (
       senderAddress: string,
       targetAddress: string,
       data: string,
+      title: string,
       description: string,
       executionTime: string,
       executors: string[]
@@ -128,8 +130,9 @@ export const CW3Timelock = (
           schedule: {
             target_address: targetAddress,
             data: encode(data),
-            execution_time: { at_time: executionTime },
+            title: title,
             description: description,
+            execution_time: { at_time: executionTime },
             executors: executors.length > 0 ? executors : undefined,
           },
         },

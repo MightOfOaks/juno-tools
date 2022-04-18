@@ -15,6 +15,7 @@ export class Operation {
     public execution_time: string,
     public target: string,
     public data: string,
+    public title: string,
     public description: string
   ) {}
 }

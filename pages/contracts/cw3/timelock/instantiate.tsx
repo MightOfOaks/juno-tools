@@ -47,7 +47,7 @@ const TimeLockInstantiatePage: NextPage = () => {
       console.log(initMsg)
       setInitSpinnerFlag(true)
       const response = await contract.instantiate(
-        712,
+        753,
         initMsg,
         'Timelock Test',
         wallet.address

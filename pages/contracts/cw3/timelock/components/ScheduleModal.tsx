@@ -16,6 +16,7 @@ const ScheduleModal = (props: { contractAddress: string }) => {
   const [targetAddress, setTargetAddress] = useState('')
   const [data, setData] = useState('')
   const [spinnerFlag, setSpinnerFlag] = useState(false)
+  const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
 
   const contract = useContracts().cw3Timelock
@@ -37,6 +38,21 @@ const ScheduleModal = (props: { contractAddress: string }) => {
   }) => {
     setTime(event.target.value)
     console.log(time)
+  }
+
+  const handleTitle = (event: {
+    target: { value: React.SetStateAction<string> }
+  }) => {
+    if (event.target.value.toString().length <= 40) {
+      setTitle(event.target.value.toString())
+    } else {
+      event.target.value = event.target.value.toString().substring(0, 40)
+      setTitle(event.target.value.toString().substring(0, 40))
+      toast.error('The title cannot be longer than 40 characters.', {
+        style: { maxWidth: 'none' },
+      })
+    }
+    console.log(title)
   }
 
   function getExecutionTimeInNanosecs(): number {
@@ -79,6 +95,7 @@ const ScheduleModal = (props: { contractAddress: string }) => {
           wallet.address,
           targetAddress,
           data,
+          title,
           description,
           getExecutionTimeInNanosecs().toString(),
           executors
@@ -195,6 +212,37 @@ const ScheduleModal = (props: { contractAddress: string }) => {
         form-input, placeholder:text-white/50,"
       />
       <div className="basis-1/4 flex-col my-4">
+        <div className="flex">
+          <label
+            htmlFor="small-input"
+            className="block mr-1 mb-1 ml-3 font-bold text-white dark:text-gray-300"
+          >
+            Title
+          </label>
+          <Tooltip label="The title of the operation to be scheduled.">
+            <svg
+              className="mt-1 w-4 h-4"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                clipRule="evenodd"
+              ></path>
+            </svg>
+          </Tooltip>
+        </div>
+        <input
+          type="text"
+          onChange={handleTitle}
+          className="py-2 px-1 mx-3 mb-3 bg-white/10 rounded border-2 border-white/20 focus:ring
+          focus:ring-plumbus-20
+          form-input, placeholder:text-white/50,"
+          placeholder="Description"
+        />
+
         <div className="flex">
           <label
             htmlFor="small-input"

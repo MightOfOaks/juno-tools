@@ -128,6 +128,7 @@ const QueryTab: NextPage = () => {
                     .slice(0, 33),
                   operationList[i].target,
                   decode(operationList[i].data),
+                  operationList[i].title,
                   operationList[i].description
                 )
               )
