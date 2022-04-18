@@ -2,7 +2,7 @@ import Anchor from 'components/Anchor'
 import PageHeader from 'components/PageHeader'
 import { links } from 'utils/links'
 
-const PageHeaderCW3 = () => {
+const PageHeaderCW3Timelock = () => {
   return (
     <PageHeader title="CW3 Timelock">
       A smart contract that relays execute function calls on other smart
@@ -19,4 +19,4 @@ const PageHeaderCW3 = () => {
   )
 }
 
-export default PageHeaderCW3
+export default PageHeaderCW3Timelock

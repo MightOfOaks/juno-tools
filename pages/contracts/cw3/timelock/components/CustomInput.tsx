@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { isValidAddress } from 'utils/isValidAddress'
 
-import { copy } from '../../../../utils/clipboard'
-import Tooltip from '../../../../utils/OperationsTableHelpers/Tooltip'
+import { copy } from '../../../../../utils/clipboard'
+import Tooltip from '../../../../../utils/OperationsTableHelpers/Tooltip'
 
 const CustomInput = (props: {
   placeholder: string | undefined

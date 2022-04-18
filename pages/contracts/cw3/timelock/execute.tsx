@@ -1,21 +1,21 @@
 import LinkTabs from 'components/LinkTabs'
-import PageHeaderCW3 from 'components/timelock/PageHeaderCW3'
 import { NextPage } from 'next'
 import { NextSeo } from 'next-seo'
 import { useState } from 'react'
 import { withMetadata } from 'utils/layout'
 
-import { cw3LinkTabs } from '../../../components/timelock/LinkTabs.data'
-import { useInstantiateCW3Form } from '../../../hooks/useInstantiateCW3Form'
+import { useInstantiateCW3Form } from '../../../../hooks/useInstantiateCW3Form'
+import { cw3TimelockLinkTabs } from './components/LinkTabs.data'
 import ManageTimelock from './components/ManageTimelock'
+import PageHeaderCW3Timelock from './components/PageHeaderCW3Timelock'
 
 const ExecuteTab = () => {
   return (
     <div>
       <form className="py-6 px-12 space-y-4">
         <NextSeo title="Execute actions for Timelock Contract" />
-        <PageHeaderCW3 />
-        <LinkTabs data={cw3LinkTabs} activeIndex={2} />
+        <PageHeaderCW3Timelock />
+        <LinkTabs data={cw3TimelockLinkTabs} activeIndex={2} />
       </form>
       <div className="w-full">
         <ManageTimelock />

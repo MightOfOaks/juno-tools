@@ -3,10 +3,10 @@ import { useWallet } from 'contexts/wallet'
 import { DetailedHTMLProps, TableHTMLAttributes, useState } from 'react'
 import toast from 'react-hot-toast'
 
-import { copy } from '../../../../utils/clipboard'
-import { Operation } from '../../../../utils/models'
-import Tooltip from '../../../../utils/OperationsTableHelpers/Tooltip'
-import { truncateMiddle } from '../../../../utils/text'
+import { copy } from '../../../../../utils/clipboard'
+import { Operation } from '../../../../../utils/models'
+import Tooltip from '../../../../../utils/OperationsTableHelpers/Tooltip'
+import { truncateMiddle } from '../../../../../utils/text'
 
 type BaseProps<T = HTMLTableElement> = DetailedHTMLProps<
   TableHTMLAttributes<T>,

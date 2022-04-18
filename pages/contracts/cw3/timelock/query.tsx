@@ -1,6 +1,5 @@
 import Button from 'components/Button'
 import LinkTabs from 'components/LinkTabs'
-import PageHeaderCW3 from 'components/timelock/PageHeaderCW3'
 import { useContracts } from 'contexts/contracts'
 import { useTheme } from 'contexts/theme'
 import { useWallet } from 'contexts/wallet'
@@ -13,9 +12,10 @@ import { isValidAddress } from 'utils/isValidAddress'
 import { withMetadata } from 'utils/layout'
 import { Operation, Timelock } from 'utils/models'
 
-import { cw3LinkTabs } from '../../../components/timelock/LinkTabs.data'
-import { useInstantiateCW3Form } from '../../../hooks/useInstantiateCW3Form'
-import OperationsTable from './components/OperationsTable'
+import { useInstantiateCW3Form } from '../../../../hooks/useInstantiateCW3Form'
+import OperationsTable from './../timelock/components/OperationsTable'
+import { cw3TimelockLinkTabs } from './components/LinkTabs.data'
+import PageHeaderCW3Timelock from './components/PageHeaderCW3Timelock'
 
 const QueryTab: NextPage = () => {
   const theme = useTheme()
@@ -167,9 +167,9 @@ const QueryTab: NextPage = () => {
       <form className="py-6 px-12 space-y-4">
         <NextSeo title="Query Timelock Contract" />
 
-        <PageHeaderCW3 />
+        <PageHeaderCW3Timelock />
 
-        <LinkTabs data={cw3LinkTabs} activeIndex={1} />
+        <LinkTabs data={cw3TimelockLinkTabs} activeIndex={1} />
       </form>
       <div className="px-6">
         <div className="py-2 px-10">

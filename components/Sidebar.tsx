@@ -13,7 +13,7 @@ const routes = [
   { text: 'CW1', href: `/contracts/cw1`, disabled: true },
   { text: 'CW20', href: `/contracts/cw20` },
   { text: 'Sign and Verify', href: `/sign-verify` },
-  { text: 'CW3 - Timelock', href: `/contracts/cw3` },
+  { text: 'CW3 - Timelock', href: `/contracts/cw3/timelock` },
 ]
 
 const Sidebar = () => {

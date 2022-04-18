@@ -5,8 +5,8 @@ import { useWallet } from 'contexts/wallet'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 
-import { isValidAddress } from '../../../../utils/isValidAddress'
-import { Operation, Timelock } from '../../../../utils/models'
+import { isValidAddress } from '../../../../../utils/isValidAddress'
+import { Operation, Timelock } from '../../../../../utils/models'
 import OperationsTable from './OperationsTable'
 import Procedures from './Procedures'
 

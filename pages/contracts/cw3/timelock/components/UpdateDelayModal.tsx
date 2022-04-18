@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { FaAsterisk } from 'react-icons/fa'
 
-import Tooltip from '../../../../utils/OperationsTableHelpers/Tooltip'
+import Tooltip from '../../../../../utils/OperationsTableHelpers/Tooltip'
 
 const UpdateDelayModal = (props: { contractAddress: string }) => {
   const { contractAddress } = props

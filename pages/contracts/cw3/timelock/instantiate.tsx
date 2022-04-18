@@ -7,7 +7,6 @@ import FormGroup from 'components/FormGroup'
 import Input from 'components/Input'
 import JsonPreview from 'components/JsonPreview'
 import LinkTabs from 'components/LinkTabs'
-import PageHeaderCW3 from 'components/timelock/PageHeaderCW3'
 import { useContracts } from 'contexts/contracts'
 import { useWallet } from 'contexts/wallet'
 import { NextPage } from 'next'
@@ -17,9 +16,10 @@ import toast from 'react-hot-toast'
 import { FaAsterisk } from 'react-icons/fa'
 import { withMetadata } from 'utils/layout'
 
-import { cw3LinkTabs } from '../../../components/timelock/LinkTabs.data'
-import { useInstantiateCW3Form } from '../../../hooks/useInstantiateCW3Form'
-import InstantiateTimelock from './components/InstantiateTimelock'
+import { useInstantiateCW3Form } from '../../../../hooks/useInstantiateCW3Form'
+import InstantiateTimelock from './../timelock/components/InstantiateTimelock'
+import { cw3TimelockLinkTabs } from './components/LinkTabs.data'
+import PageHeaderCW3Timelock from './components/PageHeaderCW3Timelock'
 
 const TimeLockInstantiatePage: NextPage = () => {
   const form = useInstantiateCW3Form()
@@ -77,9 +77,9 @@ const TimeLockInstantiatePage: NextPage = () => {
       <form className="py-6 px-12 space-y-4">
         <NextSeo title="Instantiate Timelock Contract" />
 
-        <PageHeaderCW3 />
+        <PageHeaderCW3Timelock />
 
-        <LinkTabs data={cw3LinkTabs} activeIndex={0} />
+        <LinkTabs data={cw3TimelockLinkTabs} activeIndex={0} />
       </form>
       <InstantiateTimelock
         spinnerFlag={initSpinnerFlag}

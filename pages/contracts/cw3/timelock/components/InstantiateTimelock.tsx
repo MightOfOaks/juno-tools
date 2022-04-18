@@ -5,8 +5,8 @@ import React, { useEffect, useState } from 'react'
 import toast, { resolveValue } from 'react-hot-toast'
 import { FaAsterisk } from 'react-icons/fa'
 
-import { copy } from '../../../../utils/clipboard'
-import Tooltip from '../../../../utils/OperationsTableHelpers/Tooltip'
+import { copy } from '../../../../../utils/clipboard'
+import Tooltip from '../../../../../utils/OperationsTableHelpers/Tooltip'
 import CustomInput from './CustomInput'
 
 const InstantiateTimelock = (props: {
