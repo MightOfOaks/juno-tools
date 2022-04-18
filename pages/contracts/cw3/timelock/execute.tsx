@@ -4,8 +4,8 @@ import { NextSeo } from 'next-seo'
 import { useState } from 'react'
 import { withMetadata } from 'utils/layout'
 
+import { cw3TimelockLinkTabs } from '../../../../components/CW3TimelockLinkTabs.data'
 import { useInstantiateCW3Form } from '../../../../hooks/useInstantiateCW3Form'
-import { cw3TimelockLinkTabs } from './components/LinkTabs.data'
 import ManageTimelock from './components/ManageTimelock'
 import PageHeaderCW3Timelock from './components/PageHeaderCW3Timelock'
 

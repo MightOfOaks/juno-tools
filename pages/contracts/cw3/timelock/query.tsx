@@ -12,9 +12,9 @@ import { isValidAddress } from 'utils/isValidAddress'
 import { withMetadata } from 'utils/layout'
 import { Operation, Timelock } from 'utils/models'
 
+import { cw3TimelockLinkTabs } from '../../../../components/CW3TimelockLinkTabs.data'
 import { useInstantiateCW3Form } from '../../../../hooks/useInstantiateCW3Form'
 import OperationsTable from './../timelock/components/OperationsTable'
-import { cw3TimelockLinkTabs } from './components/LinkTabs.data'
 import PageHeaderCW3Timelock from './components/PageHeaderCW3Timelock'
 
 const QueryTab: NextPage = () => {

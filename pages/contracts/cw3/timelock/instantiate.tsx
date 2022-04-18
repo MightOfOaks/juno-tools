@@ -16,9 +16,9 @@ import toast from 'react-hot-toast'
 import { FaAsterisk } from 'react-icons/fa'
 import { withMetadata } from 'utils/layout'
 
+import { cw3TimelockLinkTabs } from '../../../../components/CW3TimelockLinkTabs.data'
 import { useInstantiateCW3Form } from '../../../../hooks/useInstantiateCW3Form'
 import InstantiateTimelock from './../timelock/components/InstantiateTimelock'
-import { cw3TimelockLinkTabs } from './components/LinkTabs.data'
 import PageHeaderCW3Timelock from './components/PageHeaderCW3Timelock'
 
 const TimeLockInstantiatePage: NextPage = () => {
