@@ -89,6 +89,9 @@ const ManageTimelock = () => {
               <option className="bg-[#3a3535]" value="min-delay">
                 Update Minimum Delay
               </option>
+              <option className="bg-[#3a3535]" value="freeze">
+                Freeze Contract
+              </option>
               ))
             </select>
           </div>

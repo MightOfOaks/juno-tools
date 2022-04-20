@@ -73,9 +73,17 @@ const UpdateDelayModal = (props: { contractAddress: string }) => {
         toast.error('You need administrator rights for this action.', {
           style: { maxWidth: 'none' },
         })
+      } else if (error.message.includes('frozen Timelock')) {
+        toast.error(
+          'The Timelock contract with the specified address is frozen. The requested change can not be made.',
+          {
+            style: { maxWidth: 'none' },
+          }
+        )
       } else if (
         error.message.includes('bech32') ||
-        error.message.includes('unknown variant')
+        error.message.includes('unknown variant') ||
+        error.message.includes('empty address string')
       ) {
         toast.error('You need to specify a valid Timelock contract address.', {
           style: { maxWidth: 'none' },

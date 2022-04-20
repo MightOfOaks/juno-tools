@@ -1,6 +1,7 @@
 import React from 'react'
 
 import CancelExecuteModal from './CancelExecuteModal'
+import Freeze from './Freeze'
 import RemoveAddProposerAdminModal from './RemoveAddProposerAdmin'
 import ScheduleModal from './ScheduleModal'
 import UpdateDelayModal from './UpdateDelayModal'
@@ -55,6 +56,9 @@ const Procedures = (props: {
         )
       case 'min-delay':
         return <UpdateDelayModal contractAddress={contractAddress} />
+
+      case 'freeze':
+        return <Freeze contractAddress={contractAddress} />
 
       default:
         return null

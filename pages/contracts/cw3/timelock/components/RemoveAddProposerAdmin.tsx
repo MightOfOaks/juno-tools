@@ -63,6 +63,13 @@ const RemoveAddProposerAdminModal = (props: {
           toast.error('You need administrator rights for this action.', {
             style: { maxWidth: 'none' },
           })
+        } else if (err.message.includes('frozen Timelock')) {
+          toast.error(
+            'The Timelock contract with the specified address is frozen. The requested change can not be made.',
+            {
+              style: { maxWidth: 'none' },
+            }
+          )
         } else if (err.message.includes('Address not found')) {
           toast.error(
             'The specified address is not an actor on this contract.',

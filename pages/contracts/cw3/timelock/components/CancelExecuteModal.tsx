@@ -62,6 +62,13 @@ const CancelExecuteModal = (props: {
                 style: { maxWidth: 'none' },
               }
             )
+          } else if (err.message.includes('frozen Timelock')) {
+            toast.error(
+              'The Timelock contract with the specified address is frozen. The requested change can not be made.',
+              {
+                style: { maxWidth: 'none' },
+              }
+            )
           } else if (err.message.includes('submessages')) {
             toast.error(
               'The contained message within the specified operation is not valid for the target contract.',
